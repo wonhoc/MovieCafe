@@ -1,5 +1,6 @@
 package model.dao.member;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -63,6 +64,7 @@ public class UserDao {
 		
 		
 	}
+	// 회원 정보를 조회한다.
 	
 	
 }

@@ -13,14 +13,14 @@ import javax.servlet.http.Part;
 import domain.member.UserInfoVo;
 import model.service.member.UserService;
 
-@MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "/temp")
-@WebServlet("/joinUser.do")
+@MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "")
+@WebServlet("/joinUser")
 public class JoinMemberServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("utf-8");
+		//request.setCharacterEncoding("utf-8");
 
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
@@ -33,10 +33,10 @@ public class JoinMemberServlet extends HttpServlet {
 		String gender = request.getParameter("pickGender");
 
 		Part part = request.getPart("profilePhoto");
-		BoardFileVo file = FileUploadUtils.upload(part);
+		//BoardFileVo file = FileUploadUtils.upload(part);
 		
-		String photoOrigin = file.getOriginalFileName;
-		String photoSys = file.getSystemFileFame;
+		//String photoOrigin = file.getOriginalFileName;
+		//String photoSys = file.getSystemFileFame;
 		
 		UserInfoVo userInfoVo = new UserInfoVo();
 		
@@ -48,12 +48,19 @@ public class JoinMemberServlet extends HttpServlet {
 		userInfoVo.setUserNick(userNick);
 		userInfoVo.setUserName(userName);
 		userInfoVo.setGender(gender);
-		userInfoVo.setPhotoOrigin(photoOrigin);
-		userInfoVo.setPhotoSys(photoSys);
+		//userInfoVo.setPhotoOrigin(photoOrigin);
+		//userInfoVo.setPhotoSys(photoSys);
 		
 		UserService service = UserService.getInstance();
-		service.registUser(userInfoVo);
+		try {
+			service.registUser(userInfoVo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
+	
+	
 
 }

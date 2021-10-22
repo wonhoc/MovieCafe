@@ -1,4 +1,4 @@
-package model.dao.member;
+package model;
 
 import java.sql.Connection;
 

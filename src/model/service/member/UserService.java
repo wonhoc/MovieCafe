@@ -2,7 +2,6 @@ package model.service.member;
 
 import java.sql.Connection;
 
-import domain.BoardFileVo;
 import domain.member.UserInfoVo;
 import model.dao.member.DBConn;
 import model.dao.member.UserDao;
