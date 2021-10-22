@@ -9,7 +9,7 @@
 		<title>회원 가입 폼</title>
 	</head>
 <body>
-	<form action="${pageContext.request.contextPath}/uploadFile" method="POST" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/joinUser.do" method="POST" enctype="multipart/form-data">
 		<div>
 			<label for ="userId">ID</label>
 			<input type="text" name="userId" id="userId">
@@ -23,6 +23,9 @@
 			<label for="userPwdCheck">Password 확인</label>
 			<input type="password" name="userPwdCheck" id="userPwdCheck">
 		</div>
+		
+
+		
 		<div>
 			<label for="userEmail">E-mail</label>
 			<input type="text" name="userEmail" id="userEmail">
@@ -54,13 +57,14 @@
 		</div>
 		
 		<div>
-			<label for="photoSys"> 프로필 사진 설정 </label>
-			<input type="file" name="photoSys" id="photoSys">
+			<label for="profilePhoto"> 프로필 사진 설정 </label>
+			<input type="file" name="profilePhoto" id="profilePhoto">
 		</div>
 		
 		<div>
 			<label for="userNick"> 닉네임 설정</label>
-			<button type="submit"> 확인</button>
+			<input type="text" name="userNick" id="userNick">
+			<button type="button"> 중복 </button>
 		</div>
 		
 		<div>
