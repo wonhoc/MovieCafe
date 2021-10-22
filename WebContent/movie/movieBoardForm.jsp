@@ -131,11 +131,17 @@
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">관람가</h3>
-               <input type="text" class="input_box" name="age"/>
+               <select name="age" class="input_box">
+                  <option value="0">관람가 지정</option>
+                  <option value="A">전체 관람가</option>
+                  <option value="B">12세 이상 관람가</option>
+                  <option value="C">15세 이상 관람가</option>
+                  <option value="D">청소년 관람불가</option>
+                </select>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">상영날짜</h3>
-               <input type="text" class="input_box" name="date"/>
+               <input type="text" class="input_box" name="date" placeholder="YYYY-MM-DD로 작성해주세요"/>
              </div>
            </div>
          </div>
