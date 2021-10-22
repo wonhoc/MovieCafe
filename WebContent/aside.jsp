@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>Aside</title>
 <style>
-
 .aside_login {
   padding: 1em;
   font-weight: 400;
@@ -32,6 +31,11 @@
 
 .login_box {
   padding: 1em;
+}
+
+.login_icon {
+  width: 2em;
+  height: 2em;
 }
 
 .login_title {
@@ -74,21 +78,31 @@
   border-radius: 30px;
 }
 
+.category_section {
+  display: flex;
+  align-items: center;
+}
+
 .categoty_title {
-  margin: 1.5em 0;
   cursor: pointer;
   color: #ed7c31;
 }
 .categoty_title:hover {
   color: #f9da78;
 }
+
+.category_icon {
+  width: 2em;
+  height: 2em;
+  margin-left: 0.5em;
+}
 </style>
 </head>
 <body>
-
-      <div class="aside_login">
+<div class="aside_login">
         <div class="login_orangeBox">
           <div class="login_whiteBox">
+            <img src="images/login.png" alt="login_icon" class="login_icon" />
             <span class="login_title">로그인</span>
             <div class="login_divide"></div>
             <div class="login_input">
@@ -109,15 +123,48 @@
       <div class="aside_category">
         <div class="category_orangeBox">
           <div class="category_whiteBox">
-            <h2 class="categoty_title">새싹 게시판</h2>
-            <h2 class="categoty_title">영화리뷰</h2>
-            <h2 class="categoty_title">시사회정보</h2>
-            <h2 class="categoty_title">영화관람 팁</h2>
-            <h2 class="categoty_title">티켓마켓</h2>
-            <h2 class="categoty_title">이벤트</h2>
+            <div class="category_section">
+              <h2 class="categoty_title">새싹 게시판</h2>
+              <img
+                src="images/sprout.png"
+                alt="category_icon"
+                class="category_icon"
+              />
+            </div>
+            <div class="category_section">
+              <h2 class="categoty_title">영화리뷰</h2>
+              <img
+                src="images/review.png"
+                alt="category_icon"
+                class="category_icon"
+              />
+            </div>
+            <div class="category_section">
+              <h2 class="categoty_title">시사회정보</h2>
+              <img
+                src="images/theater.png"
+                alt="category_icon"
+                class="category_icon"
+              />
+            </div>
+            <div class="category_section">
+              <h2 class="categoty_title">영화관람 팁</h2>
+              <img src="images/tip.png" alt="category_icon" class="category_icon" />
+            </div>
+            <div class="category_section">
+              <h2 class="categoty_title">티켓마켓</h2>
+              <img
+                src="images/ticket.png"
+                alt="category_icon"
+                class="category_icon"
+              />
+            </div>
+            <div class="category_section">
+              <h2 class="categoty_title">이벤트</h2>
+              <img src="images/party.png" alt="category_icon" class="category_icon" />
+            </div>
           </div>
         </div>
       </div>
-
 </body>
 </html>
