@@ -2,7 +2,7 @@
 <html lang='ko'>
     <head>
         <meta charset='UTF-8'>
-        <title>Document</title>
+        <title>쪽지함</title>
     </head>
     <body>
         <div id="navibox">
