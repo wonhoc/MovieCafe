@@ -36,6 +36,8 @@ public class UserDao {
 			sql.append("photo_origin, photo_sys)                                                        ");
 			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
 			
+			pstmt = conn.prepareStatement(sql.toString());
+			
 			pstmt.setString(1, userInfoVo.getUserId());
 			pstmt.setString(2, userInfoVo.getUserPwd());
 			pstmt.setString(3, userInfoVo.getUserNick());

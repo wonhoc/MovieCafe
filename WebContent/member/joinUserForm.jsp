@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<script type="text/javascript">
+		
 		<%--비밀 번호 양식 확인 (보류)--%>
 		function pwdformchk() {
 			var exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[-_])[a-z\d-_]{10,30}$/;
@@ -37,6 +38,7 @@
 					pwdcheck.style.color="blue";
 				}	
 			}
+			
 	
 		
 		</script>
@@ -81,9 +83,10 @@
 			<input type="text" name="userEmail" id="userEmail">
 		</div>
 		<div>
-			<label for="userBirth">생년월일</label>
+			<label for="userBirth" >생년월일</label>
 			<select id="birthYear" name="birthYear">
-				<option value="">1990</option>
+				<option value="1990">1990</option>
+				<option value="1991" selected>1991</option>
 			</select>
 			<select id="birthMonth" name="birthMonth">	
 				<option value="01">01</option>
