@@ -32,23 +32,33 @@ public class UserDao {
 			
 			sql.append("INSERT INTO user_info(user_id, user_pwd, user_nick, user_email,                 ");
 			sql.append("user_birth, user_contact, gender, exitdate, user_name,                          ");
-			sql.append("photo_origin, photo_sys, board_count, com_count, exit_type, joindate, rank_no)  ");
-			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )                        ");
+			sql.append("photo_origin, photo_sys)                                                        ");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
 			
 			pstmt.setString(1, userInfoVo.getUserId());
 			pstmt.setString(2, userInfoVo.getUserPwd());
 			pstmt.setString(3, userInfoVo.getUserNick());
-					
+			pstmt.setString(4, userInfoVo.getUserEmail());
+			pstmt.setString(5, userInfoVo.getUserBirth());
+			pstmt.setString(6, userInfoVo.getUserContact());
+			pstmt.setString(7, userInfoVo.getGender());
+			
+			pstmt.setString(9, userInfoVo.getUserName());
+			pstmt.setString(10, userInfoVo.getPhotoOrigin());
+			pstmt.setString(11, userInfoVo.getPhotoSys());
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2){
+				throw e2;
+			}
 				
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		}
 		
 		

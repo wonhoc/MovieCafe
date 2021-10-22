@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import domain.member.UserInfoVo;
+
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "/temp")
 @WebServlet("/joinUser.do")
 public class JoinMemberServlet extends HttpServlet {
@@ -32,10 +34,21 @@ public class JoinMemberServlet extends HttpServlet {
 		Part part = request.getPart("profilePhoto");
 		BoardFileVo file = FileUploadUtils.upload(part);
 		
-		String photoOrigin = file.get
-		String photoSys = fiel.getsystemfilename
+		String photoOrigin = file.getOriginalFileName;
+		String photoSys = file.getSystemFileFame;
 		
+		UserInfoVo userInfoVo = new UserInfoVo();
 		
+		userInfoVo.setUserId(userId);
+		userInfoVo.setUserPwd(userPwd);
+		userInfoVo.setUserEmail(userEmail);
+		userInfoVo.setUserBirth(userBirth);
+		userInfoVo.setUserContact(userContact);
+		userInfoVo.setUserNick(userNick);
+		userInfoVo.setUserName(userName);
+		userInfoVo.setGender(gender);
+		userInfoVo.setPhotoOrigin(photoOrigin);
+		userInfoVo.setPhotoSys(photoSys);
 
 	}
 
