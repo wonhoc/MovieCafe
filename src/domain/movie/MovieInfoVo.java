@@ -8,8 +8,9 @@ public class MovieInfoVo {
 	private String movieDir;
 	private String movieActor;
 	private String movieGenre;
+	private int movieRuntime;
 	private String movieLink;
-	private char movieAge;
+	private String movieAge;
 	private String movieRelease;
 	private String posterOrigin;
 	private String posterSys;
@@ -19,15 +20,36 @@ public class MovieInfoVo {
 	public MovieInfoVo() {
 		super();
 	}
+	
+	
+	
+	public MovieInfoVo(String movieTitle, String movieDir, String movieActor, String movieGenre, int movieRuntime,
+			String movieLink, String movieAge, String movieRelease, String posterOrigin, String posterSys) {
+		super();
+		this.movieTitle = movieTitle;
+		this.movieDir = movieDir;
+		this.movieActor = movieActor;
+		this.movieGenre = movieGenre;
+		this.movieRuntime = movieRuntime;
+		this.movieLink = movieLink;
+		this.movieAge = movieAge;
+		this.movieRelease = movieRelease;
+		this.posterOrigin = posterOrigin;
+		this.posterSys = posterSys;
+	}
+
+
 
 	public MovieInfoVo(int movieNo, String movieTitle, String movieDir, String movieActor, String movieGenre,
-			String movieLink, char movieAge, String movieRelease, String posterOrigin, String posterSys, int movieAvg) {
+			int movieRuntime, String movieLink, String movieAge, String movieRelease, String posterOrigin,
+			String posterSys, int movieAvg) {
 		super();
 		this.movieNo = movieNo;
 		this.movieTitle = movieTitle;
 		this.movieDir = movieDir;
 		this.movieActor = movieActor;
 		this.movieGenre = movieGenre;
+		this.movieRuntime = movieRuntime;
 		this.movieLink = movieLink;
 		this.movieAge = movieAge;
 		this.movieRelease = movieRelease;
@@ -36,7 +58,6 @@ public class MovieInfoVo {
 		this.movieAvg = movieAvg;
 	}
 
-	
 	// getter & setter
 	public int getMovieNo() {
 		return movieNo;
@@ -78,6 +99,14 @@ public class MovieInfoVo {
 		this.movieGenre = movieGenre;
 	}
 
+	public int getMovieRuntime() {
+		return movieRuntime;
+	}
+
+	public void setMovieRuntime(int movieRuntime) {
+		this.movieRuntime = movieRuntime;
+	}
+
 	public String getMovieLink() {
 		return movieLink;
 	}
@@ -86,11 +115,11 @@ public class MovieInfoVo {
 		this.movieLink = movieLink;
 	}
 
-	public char getMovieAge() {
+	public String getMovieAge() {
 		return movieAge;
 	}
 
-	public void setMovieAge(char movieAge) {
+	public void setMovieAge(String movieAge) {
 		this.movieAge = movieAge;
 	}
 
@@ -125,5 +154,7 @@ public class MovieInfoVo {
 	public void setMovieAvg(int movieAvg) {
 		this.movieAvg = movieAvg;
 	}
+	
+
 	
 }

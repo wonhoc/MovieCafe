@@ -93,7 +93,7 @@
 </head>
 <body>
 <h1 class="content_title">영화 정보 등록</h1>
-       <form action="${pageContext.request.contextPath }/uploadMovieFile">
+       <form  action="${pageContext.request.contextPath }/uploadMovieFile" method="POST" enctype="multipart/form-data">
          <div class="movie_input">
            <div class="form_left">
              <div class="form_imgBox">
@@ -101,41 +101,41 @@
              </div>
              <div class="form_imgBtn">
                <label for="imgInput">이미지 등록</label>
-               <input type="file" class="form_imgInput" id="imgInput" />
+               <input type="file" class="form_imgInput" id="imgInput" name="imgInput"/>
              </div>
            </div>
            <div class="form_right">
              <div class="form_inputSection">
                <h3 class="input_title">제목</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="title"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">감독</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="director"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">배우</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="actor"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">장르</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="genre"/>
             </div>
              <div class="form_inputSection">
                <h3 class="input_title">러닝타임</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="runtime"/>
             </div>
              <div class="form_inputSection">
                <h3 class="input_title">예매처 링크</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="link"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">관람가</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="age"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">상영날짜</h3>
-               <input type="text" class="input_box" />
+               <input type="text" class="input_box" name="date"/>
              </div>
            </div>
          </div>
