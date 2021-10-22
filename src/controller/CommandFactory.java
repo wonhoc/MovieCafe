@@ -10,7 +10,11 @@ public class CommandFactory {
 	private Map<String, String> map = new HashMap<String, String>();
 	
 	// constructor
-	private CommandFactory() {}
+	private CommandFactory() {
+		//쪽지 쓰기요청
+		map.put("/sendMsgList.do", "controller.SendMsgController");
+		
+	}
 	
 	public static CommandFactory getInstance() {
 		if(factory == null) {

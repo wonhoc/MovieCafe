@@ -11,7 +11,7 @@
             <button type="button" id="recieveMsglistBtn">받은쪽지함</button>
         </div>
         <div id="content">
-            <form id="sendMsgForm" action="SendMsg" method="POST">
+            <form id="sendMsgForm" action="${pageContext.request.contextPath }/sendMsgList.do " method="GET">
 		        <table border="1">
 		                <tr id="recieveId">
 		                    <td>받는사람 : <input type="text" name="recieveId" id="recieveId" placeholder="받는사람">
