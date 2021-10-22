@@ -49,6 +49,8 @@ public class JoinMemberServlet extends HttpServlet {
 		userInfoVo.setGender(gender);
 		userInfoVo.setPhotoOrigin(photoOrigin);
 		userInfoVo.setPhotoSys(photoSys);
+		
+		
 
 	}
 

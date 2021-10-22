@@ -31,9 +31,9 @@ public class UserDao {
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append("INSERT INTO user_info(user_id, user_pwd, user_nick, user_email,                 ");
-			sql.append("user_birth, user_contact, gender, exitdate, user_name,                          ");
+			sql.append("user_birth, user_contact, gender, user_name,                          ");
 			sql.append("photo_origin, photo_sys)                                                        ");
-			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
 			
 			pstmt.setString(1, userInfoVo.getUserId());
 			pstmt.setString(2, userInfoVo.getUserPwd());
@@ -43,9 +43,9 @@ public class UserDao {
 			pstmt.setString(6, userInfoVo.getUserContact());
 			pstmt.setString(7, userInfoVo.getGender());
 			
-			pstmt.setString(9, userInfoVo.getUserName());
-			pstmt.setString(10, userInfoVo.getPhotoOrigin());
-			pstmt.setString(11, userInfoVo.getPhotoSys());
+			pstmt.setString(8, userInfoVo.getUserName());
+			pstmt.setString(9, userInfoVo.getPhotoOrigin());
+			pstmt.setString(10, userInfoVo.getPhotoSys());
 			
 			pstmt.executeUpdate();
 			
