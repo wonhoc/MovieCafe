@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import domain.member.UserInfoVo;
+import model.service.member.UserService;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "/temp")
 @WebServlet("/joinUser.do")
@@ -50,7 +51,8 @@ public class JoinMemberServlet extends HttpServlet {
 		userInfoVo.setPhotoOrigin(photoOrigin);
 		userInfoVo.setPhotoSys(photoSys);
 		
-		
+		UserService service = UserService.getInstance();
+		service.registUser(userInfoVo);
 
 	}
 
