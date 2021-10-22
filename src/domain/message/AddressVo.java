@@ -1,11 +1,9 @@
 package domain.message;
 
-import java.util.ArrayList;
-
 public class AddressVo {
 
 	private int sendMsgno;
-	private ArrayList<String> receieveId;
+	private String receiveId;
 	
 	
 	public AddressVo() {
@@ -13,12 +11,13 @@ public class AddressVo {
 	}
 
 
-	public AddressVo(int sendMsgno, ArrayList<String> receieveid) {
+	public AddressVo(int sendMsgno, String receiveId) {
 		super();
 		this.sendMsgno = sendMsgno;
-		this.receieveId = receieveid;
+		this.receiveId = receiveId;
 	}
-
+	
+	//get set
 
 	public int getSendMsgno() {
 		return sendMsgno;
@@ -30,14 +29,16 @@ public class AddressVo {
 	}
 
 
-	public ArrayList<String> getReceieveId() {
-		return receieveId;
+	public String getReceiveId() {
+		return receiveId;
 	}
 
 
-	public void setReceieveId(ArrayList<String> receieveid) {
-		this.receieveId = receieveid;
+	public void setReceiveId(String receiveId) {
+		this.receiveId = receiveId;
 	}
+
+
 	
 	
 	

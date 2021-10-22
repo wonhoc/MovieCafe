@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
 	}
 
 	public void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,6 +27,8 @@ public class ControllerServlet extends HttpServlet {
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
 			String commandURI = requestURI.substring(contextPath.length());
+			
+			System.out.println("commandURI :  " + commandURI);
 			
 			CommandFactory factory = CommandFactory.getInstance();
 			Command command = factory.createCommand(commandURI);

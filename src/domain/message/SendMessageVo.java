@@ -6,7 +6,7 @@ public class SendMessageVo {
 	private String sendMsgContent;
 	private String msgWdate;
 	private String writerId;
-	private ArrayList<AddressVo> Address;
+	private ArrayList<String> Address;
 	
 	
 	public SendMessageVo() {
@@ -14,6 +14,17 @@ public class SendMessageVo {
 	}
 
 	
+	
+	public SendMessageVo(String sendMsgContent, String msgWdate, String writerId, ArrayList<String> address) {
+		super();
+		this.sendMsgContent = sendMsgContent;
+		this.msgWdate = msgWdate;
+		this.writerId = writerId;
+		Address = address;
+	}
+
+
+
 	//get set
 	public String getSendMsgContent() {
 		return sendMsgContent;
@@ -43,6 +54,19 @@ public class SendMessageVo {
 	public void setWriterId(String writerId) {
 		this.writerId = writerId;
 	}
+
+
+
+	public ArrayList<String> getAddress() {
+		return Address;
+	}
+
+
+
+	public void setAddress(ArrayList<String> address) {
+		Address = address;
+	}
+	
 	
 	
 	

@@ -11,8 +11,14 @@ public class CommandFactory {
 	
 	// constructor
 	private CommandFactory() {
+		//쪽지쓰기 폼 요청
+		map.put("/sendMsgForm.do", "controller.message.SendMsgFormController");
+		//쪽지쓰기 요청
+		map.put("/sendMsg.do", "controller.message.SendMsgController");
+		//보낸 메시지 목록 요청
+		map.put("/sendMsgList.do", "controller.message.SendMsgListController");
 		//쪽지 쓰기요청
-		map.put("/sendMsgList.do", "controller.SendMsgController");
+		
 		
 	}
 	

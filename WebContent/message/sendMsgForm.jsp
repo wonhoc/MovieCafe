@@ -1,6 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
-<html lang='ko'>
-    <head>
+<html>
+ <head>
         <meta charset='UTF-8'>
         <title>쪽지함</title>
     </head>
@@ -11,10 +15,11 @@
             <button type="button" id="recieveMsglistBtn">받은쪽지함</button>
         </div>
         <div id="content">
-            <form id="sendMsgForm" action="${pageContext.request.contextPath }/sendMsgList.do " method="GET">
+            <form id="sendMsgForm" action="${pageContext.request.contextPath }/sendMsg.do" method="POST">
+            <input type="hidden" name="userid" id="userid" value="test_user01" >
 		        <table border="1">
 		                <tr id="recieveId">
-		                    <td>받는사람 : <input type="text" name="recieveId" id="recieveId" placeholder="받는사람">
+		                    <td>받는사람 : <input type="text" name="reciveId" id="reciveId" placeholder="받는사람">
 		                        <button type="button" id="plusFromForm">+</button></td>
 		                </tr>
 		                <tr>
