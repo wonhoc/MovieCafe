@@ -31,28 +31,28 @@
 			<input type="text" name="userEmail" id="userEmail">
 		</div>
 		<div>
-			<label>생년월일</label>
+			<label for="userBirth">생년월일</label>
 			<select id="birthYear" name="birthYear">
-				<option value="">1990</option>
+				<option value="1990">1990</option>
 			</select>
 			<select id="birthMonth" name="birthMonth">	
-				<option value="">01</option>
+				<option value="01">01</option>
 			</select>
 			<select id="birthDate" name="birthDate">
-				<option value="">13</option>
+				<option value="13">13</option>
 			</select>
 		</div>
 
 		<div>
 			<label>연락처</label>
 			<select id="contact1" name="contact1">
-				<option value="">010</option>
+				<option value="010">010</option>
 			</select>
 			<select id="contact2" name="contact2">	
-				<option value="">0101</option>
+				<option value="0101">0101</option>
 			</select>
 			<select id="contact3" name="contact3">
-				<option value="">1111</option>
+				<option value="1111">1111</option>
 			</select>
 		</div>
 		

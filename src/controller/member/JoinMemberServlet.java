@@ -25,7 +25,7 @@ public class JoinMemberServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userEmail = request.getParameter("userEmail");
-		String userBirth = request.getParameter("birthYear" + "birthMonth" + "birthDate");
+		String userBirth = request.getParameter("birthYear" +"-"+"birthMonth" +"-"+ "birthDate");
 		String userContact = request.getParameter("contact1" + "contact2" + "contact3");
 
 		String userNick = request.getParameter("userNick");
