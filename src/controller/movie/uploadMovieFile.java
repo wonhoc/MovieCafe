@@ -2,7 +2,6 @@ package controller.movie;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -60,9 +59,19 @@ public class uploadMovieFile extends HttpServlet {
 
 
 			MovieService movieService = MovieService.getInstace();
-			movieService.registerMovie(movieInfo);
+			
+			int exists = movieService.compaerMovie(movieInfo.getMovieTitle());
+			
+			if(exists == 1) {
+				request.setAttribute("exists", 1);
+			} else {
+				movieService.registerMovie(movieInfo);	
+			}
 
-			response.sendRedirect(request.getContextPath() + "/index.do");			
+			response.sendRedirect(request.getContextPath() + "/index.do");	
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
