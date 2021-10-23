@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <%--joinUserForm.jsp --%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,15 @@
 			}
 
 		}
-		
+		<%-- 아이디 중복 검사--%>
+			function idValueChk() {
+				var inputId = document.userId.value();
+				
+			}
+		<%-- 새롭게 아이디를 입력했을 경우 중복검사를 거치지 않은 것으로 변경되도록 함--%>
+			function inputIdCheck() {
+				document.idDuplication.value = "idUncheck";
+			}
 		
 		
 		<%--입력한 비밀번호 재확인 --%>
@@ -38,9 +47,18 @@
 					pwdcheck.style.color="blue";
 				}	
 			}
-			
-	
-		
+		<%--업로드 프로필 사진 미리보기 (보류) --%>
+			function setPreview(event) {
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					document.querySelector("div#previewContainer").appendChild(img);
+				};
+				reader.readAsDataURL(event.target.files[0]);
+				
+			}
+
 		</script>
 		
 		
@@ -51,9 +69,15 @@
 	<form action="${pageContext.request.contextPath}/joinUser" method="POST" enctype="multipart/form-data">
 		<div>
 			<label for ="userId">ID</label>
-			<input type="text" name="userId" id="userId">
-			<button type="button" id="idCheck" name="checkId">중복확인</button>
+			<input type="text" name="userId" id="userId" onkeydown="idDuplicate()">
+			<button type="button" value="중복확인" id="idCheck" name="checkId" onclick="idValueChk()">중복확인</button>
+			<input type="hidden" name="idDuplication" value="idUncheck">
 		</div>
+		<div>
+			<span class="alertIdChk"></span>
+		</div>
+		
+		
 		<div>
 			<label for="userPwd">Password</label>
 			<input type="password" name="userPwd" id="userPwd">	
@@ -98,27 +122,20 @@
 
 		<div>
 			<label for="userContact">연락처</label>
-			<select id="contact1" name="userContact">
+			<select id="contact1" name="contact1">
 				<option value="010">010</option>
 			</select>
-			<input type="text" id="contact2" name="userContact">
-			<input type="text" id="contact3" name="userContact">
+			<input type="text" id="contact2" name="contact2">
+			<input type="text" id="contact3" name="contact3">
 			
-			<%--
-			<select id="contact2" name="contact2">	
-				<option value="0101">0101</option>
-			</select>
-			<select id="contact3" name="contact3">
-				<option value="1111">1111</option>
-			</select>
-			 --%>
 		</div>
 		
 		<div>
-			<label for="profilePhoto"> 프로필 사진 설정 </label>
-			<input type="file" name="profilePhoto" id="profilePhoto">
-		</div>
-		
+			<h3> 프로필 사진 설정</h3>
+			<div id ="previewContainer"></div>
+			<input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="setPreview(event);"/>
+			
+		</div>	
 		<div>
 			<label for="userNick"> 닉네임 설정</label>
 			<input type="text" name="userNick" id="userNick">

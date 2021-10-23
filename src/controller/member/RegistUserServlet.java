@@ -1,6 +1,8 @@
 package controller.member;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,12 +17,18 @@ import model.service.member.UserService;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "")
 @WebServlet("/joinUser")
-public class JoinMemberServlet extends HttpServlet {
+public class RegistUserServlet extends HttpServlet {
+	
+	// 프로필 사진 업로드 경로. 실제 적용 시 변경할 것.
+	public static final String UPLOAD_PATH = "C:/upload";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
 
-		//request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		try {
 
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
@@ -35,11 +43,26 @@ public class JoinMemberServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String gender = request.getParameter("pickGender");
 
-		Part part = request.getPart("profilePhoto");
-		//BoardFileVo file = FileUploadUtils.upload(part);
 		
-		//String photoOrigin = file.getOriginalFileName;
-		//String photoSys = file.getSystemFileFame;
+		// 프로필 사진 업로드
+		Part part = request.getPart("profilePhoto");
+		String photoOrigin = part.getSubmittedFileName();
+		
+		File file = new File(UPLOAD_PATH + "/" + photoOrigin);
+		String photoSys = "";
+		
+		if(file.exists()) {
+			photoSys =  
+					photoOrigin.substring(0,photoOrigin.lastIndexOf(".")) + "_" + 
+					UUID.randomUUID() + photoOrigin.substring(photoOrigin.lastIndexOf(".")); 
+					
+		} else {
+			photoSys = photoOrigin;
+		}
+		
+		part.write(UPLOAD_PATH + "/" + photoSys);
+		part.delete();
+		
 		
 		UserInfoVo userInfoVo = new UserInfoVo();
 		
@@ -51,14 +74,17 @@ public class JoinMemberServlet extends HttpServlet {
 		userInfoVo.setUserNick(userNick);
 		userInfoVo.setUserName(userName);
 		userInfoVo.setGender(gender);
-		//userInfoVo.setPhotoOrigin(photoOrigin);
-		//userInfoVo.setPhotoSys(photoSys);
+		userInfoVo.setPhotoOrigin(photoOrigin);
+		userInfoVo.setPhotoSys(photoSys);
 		
 		UserService service = UserService.getInstance();
-		try {
-			service.registUser(userInfoVo);
+		service.registUser(userInfoVo);
+		
+		// 이동할 페이지 주소. 추후 수정할 것
+		response.sendRedirect(request.getContextPath() + "");
+		
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

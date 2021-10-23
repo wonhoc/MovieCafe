@@ -1,8 +1,8 @@
 package model.dao.member;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import domain.member.UserInfoVo;
 
@@ -66,7 +66,39 @@ public class UserDao {
 		
 		
 	}
-	// 회원 정보를 조회한다.
+	// 회원 아이디를 조회한다.
+	public int existId(String userId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int exist = 0; 
+		
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT user_id FROM movie WHERE user_id = ?   ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+		if(rs.next()) exist = 1;
+		return exist;
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+				if (rs != null) rs.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+			
+		}
+	}
 	
 	
 }

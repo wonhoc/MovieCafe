@@ -20,19 +20,24 @@ public class UserService {
 		}
 		return service;
 	}
-	//유저 정보를 등록하다.
+		//회원 정보 등록 서비스
 		public void registUser(UserInfoVo user) throws Exception {
-			Connection conn = null;
-			boolean isSuccess = false;
-	
-				//1. 회원 정보 등록
-				UserDao userDao = UserDao.getInstance();
-				userDao.insertUser(user);
-
-			}
+			
+			UserDao userDao = UserDao.getInstance();
+			userDao.insertUser(user);
+		}
+		
+		// 회원 아이디 조회 서비스
+		public void checkId(String userId) throws Exception {
+				
+			
+			UserDao userDao = UserDao.getInstance();
+			
+			
+		}
 			
 		
-		}
+	}
 	
 	
 	
