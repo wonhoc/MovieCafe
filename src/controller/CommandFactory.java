@@ -10,7 +10,14 @@ public class CommandFactory {
 	private Map<String, String> map = new HashMap<String, String>();
 	
 	// constructor
-	private CommandFactory() {}
+	private CommandFactory() {
+	// 게시글 목록 보기 조회 요청
+		map.put("/board/listBoard.do", "controller.board.ListBoardCommand");
+		
+		//게시글 검색 요청
+		map.put("/board/searchBoard.do", "controller.board.SearchBoardCommand");
+		
+	}
 	
 	public static CommandFactory getInstance() {
 		if(factory == null) {
