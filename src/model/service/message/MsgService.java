@@ -25,7 +25,7 @@ public class MsgService {
 	}//getInstance() end
 	
 	//쪽지 정보 등록하기
-	public void retrieveMsg(SendMessageVo msgVo) throws Exception {
+	public void registerMsg(SendMessageVo msgVo) throws Exception {
 		ArrayList<String> addrs = new ArrayList<String>();	//받을사람들을 저장할 ArrayList
 		Connection conn = null;
 		boolean isSucess = false;	//트랜잭션 처리를 위한 값
@@ -75,8 +75,26 @@ public class MsgService {
 		}// end
 		
 		
-	}//retriveMsg() end
+	}//registerMsg() end
 	
+	//내가 쓴 쪽지 조회하기
+	public ArrayList<SendMessageVo> retrieveSendMsgList(String userId) throws Exception {
+		ArrayList<SendMessageVo> sendMsgList = new ArrayList<SendMessageVo>(); //반환할 메세지 정보가 들은 ArrayList
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao 객체생성
+			//메세지 조회 method
+			sendMsgList = sendmsgDao.selectSendmsg(conn, userId);
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			if(conn != null) conn.close();
+		}// end
+		
+		return sendMsgList;
+	}//retrieveSendMsgList() end
 	
 	
 	

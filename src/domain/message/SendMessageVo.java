@@ -3,29 +3,49 @@ package domain.message;
 import java.util.ArrayList;
 
 public class SendMessageVo {
+	private int sendMsgNo;
 	private String sendMsgContent;
 	private String msgWdate;
+	public ArrayList<String> getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(ArrayList<String> address) {
+		this.address = address;
+	}
+
+
 	private String writerId;
-	private ArrayList<String> Address;
+	private ArrayList<String> address;
 	
 	
 	public SendMessageVo() {
 		super();
 	}
 
-	
-	
-	public SendMessageVo(String sendMsgContent, String msgWdate, String writerId, ArrayList<String> address) {
+
+	public SendMessageVo(int sendMsgNo, String sendMsgContent, String msgWdate, String writerId,
+			ArrayList<String> address) {
 		super();
+		this.sendMsgNo = sendMsgNo;
 		this.sendMsgContent = sendMsgContent;
 		this.msgWdate = msgWdate;
 		this.writerId = writerId;
-		Address = address;
+		this.address = address;
+	}
+	
+
+	public int getSendMsgNo() {
+		return sendMsgNo;
 	}
 
 
+	public void setSendMsgNo(int sendMsgNo) {
+		this.sendMsgNo = sendMsgNo;
+	}
 
-	//get set
+
 	public String getSendMsgContent() {
 		return sendMsgContent;
 	}
@@ -57,15 +77,7 @@ public class SendMessageVo {
 
 
 
-	public ArrayList<String> getAddress() {
-		return Address;
-	}
-
-
-
-	public void setAddress(ArrayList<String> address) {
-		Address = address;
-	}
+	
 	
 	
 	

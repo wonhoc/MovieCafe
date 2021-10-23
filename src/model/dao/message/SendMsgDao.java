@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import domain.message.SendMessageVo;
 
@@ -71,20 +72,50 @@ public class SendMsgDao {
 	}//insertMessage() end
 	
 	//내가 쓴 쪽지 조회하는 method
-	public SendMessageVo selectSendmsg(Connection conn, String userId) {
+	public ArrayList<SendMessageVo> selectSendmsg(Connection conn, String userId) throws Exception{
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ArrayList<SendMessageVo> sendMsgs = new ArrayList<SendMessageVo>();
 		try {
+			
 			StringBuffer sql = new StringBuffer();
-			sql.append(" SELECT  ");
+			sql.append(" SELECT send_msg_no, send_msg_content, msg_wdate ");
+			sql.append(" FROM send_msg ");
+			sql.append(" WHERE writer_id = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			//rs에서 값 가져오기
+			while(rs.next()) {
+				SendMessageVo sendMsg = new SendMessageVo();
+				int sendMsgNo = rs.getInt(1);
+				sendMsg.setSendMsgNo(sendMsgNo);
+				
+				//주소록 추가하기
+				AddressDao addrDao = AddressDao.getInstance();
+				sendMsg.setAddress( addrDao.selectAddr(conn, sendMsgNo));
+				sendMsg.setSendMsgContent(rs.getString(2));
+				sendMsg.setMsgWdate(rs.getString(3));
+				
+				//반환할 ArrayList에 add
+				sendMsgs.add(sendMsg);
+			}//while end
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw e;
 		}finally {
-			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
 		}// end
 		
+		return sendMsgs;
 		
 	}//selectMsg() end
 	

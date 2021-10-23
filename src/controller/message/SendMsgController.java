@@ -40,7 +40,7 @@ public class SendMsgController implements Command {
 		
 		MsgService service = MsgService.getInstance();
 		
-		service.retrieveMsg(msgVo);
+		service.registerMsg(msgVo);
 		
 		
 		
