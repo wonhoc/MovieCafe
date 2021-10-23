@@ -21,8 +21,13 @@ public class MovieInfoVo {
 		super();
 	}
 	
-	
-	
+	public MovieInfoVo(int movieNo, String movieTitle, String posterSys) {
+		super();
+		this.movieNo = movieNo;
+		this.movieTitle = movieTitle;
+		this.posterSys = posterSys;
+	}
+
 	public MovieInfoVo(String movieTitle, String movieDir, String movieActor, String movieGenre, int movieRuntime,
 			String movieLink, String movieAge, String movieRelease, String posterOrigin, String posterSys) {
 		super();
@@ -154,7 +159,5 @@ public class MovieInfoVo {
 	public void setMovieAvg(int movieAvg) {
 		this.movieAvg = movieAvg;
 	}
-	
 
-	
 }

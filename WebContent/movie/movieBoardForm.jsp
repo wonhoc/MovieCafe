@@ -9,7 +9,6 @@
 .content_title {
   padding: 2em 0 0 2em;
 }
-
 .movie_input {
   display: flex;
   width: 100%;
@@ -17,7 +16,6 @@
   justify-content: space-evenly;
   align-items: center;
 }
-
 .form_imgBtn label {
   margin-top: 1em;
   display: inline-block;
@@ -32,7 +30,6 @@
   border-bottom-color: #e2e2e2;
   border-radius: 0.25em;
 }
-
 .form_imgBtn input[type="file"] {
   /* 파일 필드 숨기기 */
   position: absolute;
@@ -44,31 +41,24 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-
-
 #img {
 	width : 20rem;
 	height: 25rem;
 }
-
-
 .form_inputSection {
   display: flex;
   align-items: center;
   width: 20rem;
 }
-
 .input_title {
   flex: 2;
 }
-
 .input_box {
   flex: 3;
   height: 2em;
   border: 3px solid black;
   border-radius: 0.25em;
 }
-
 .form_btn {
   margin-left: 25em;
   padding: 0.5em 0.75em;
@@ -103,7 +93,6 @@ $(document).ready(function () {
         const age = $('#age > option:selected').val();
         const date = $('#date').val();
         const image =  $("#imgInput").val()
-
         if (title == "" || director == "" || actor == "" || genre == "" || 
         		runtime == "" || link == "" || age == 0 || date == "") {
             alert("정보를 모두 입력해주세요");
@@ -115,17 +104,14 @@ $(document).ready(function () {
         return flag;
     });
   });
-
   function handleImgFileSelect(e) {
     let files = e.target.files;
     let filesArr = Array.prototype.slice.call(files);
-
     filesArr.forEach(function (f) {
       if (!f.type.match("image.*")) {
         alert("확장자는 이미지 확장자만 가능합니다.");
         return;
       }
-
       let reader = new FileReader();
       reader.onload = function (e) {
         $("#img").attr("src", e.target.result);

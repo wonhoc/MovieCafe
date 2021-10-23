@@ -1,6 +1,6 @@
 package model.service.movie;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 import domain.movie.MovieInfoVo;
 import model.dao.movie.MovieInfoDao;
@@ -29,5 +29,16 @@ public class MovieService {
 		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
 		int exists = movieInfoDao.compareMovie(movieTitle);
 		return exists;
+	}
+	
+	// 영화 목록 조회
+	public ArrayList<MovieInfoVo> retrieveMovieList(int startRow, int postSize) throws Exception {
+		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
+		return movieInfoDao.selectMovieList(startRow, postSize);
+	}
+	
+	// 영화 게시글 수를 구한다.
+	public int retrieveTotalMovieCount() throws Exception {
+		return MovieInfoDao.getInstance().selectTotlaMovieCount();
 	}
 }

@@ -27,7 +27,7 @@ public class uploadMovieFile extends HttpServlet {
 			System.out.println("path : " + path);
 
 			request.setCharacterEncoding("utf-8");
-
+			
 			String title = request.getParameter("title");
 			String director = request.getParameter("director");
 			String actor = request.getParameter("actor");
@@ -68,7 +68,7 @@ public class uploadMovieFile extends HttpServlet {
 				movieService.registerMovie(movieInfo);	
 			}
 
-			response.sendRedirect(request.getContextPath() + "/index.do");	
+			response.sendRedirect(request.getContextPath() + "/main.do");	
 			
 			
 			
