@@ -24,7 +24,7 @@
 }
 
 .login_whiteBox {
-  padding: 2em;
+  padding: 1em;
   background-color: white;
   border-radius: 30px;
 }

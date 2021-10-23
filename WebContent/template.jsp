@@ -5,7 +5,7 @@
 <c:set var="asideTemplate" value="${param.asideTemplate }.jsp" />
 <c:set var="footerTemplate" value="${param.footerTemplate }.jsp" />
 
-<c:set var="movieInsert" value="${param.movieInsert }.jsp" />
+<c:set var="contentTemplate" value="${param.contentTemplate }.jsp" />
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@ aside {
   height: 100%;
   background-color: #eab48a;
 }
-content {
+section {
 	widrh : 100%
 }
 footer {
@@ -45,9 +45,9 @@ footer {
 	<aside>
 		<jsp:include page="${asideTemplate }" flush="false"></jsp:include>
 	</aside>
-	<content>
-		<jsp:include page="${movieInsert }" flush="false"></jsp:include>
-	</content>
+	<section>
+		<jsp:include page="${contentTemplate }" ></jsp:include>
+	</section>
 </main>
 <footer>
 	<jsp:include page="${footerTemplate }" flush="false"></jsp:include>

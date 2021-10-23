@@ -3,6 +3,7 @@ package model.dao.movie;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.movie.MovieInfoVo;
@@ -97,5 +98,86 @@ public class MovieInfoDao {
 		System.out.println(exists);
 		return exists;
 	}
+	
+	// 영화 목록 조회
+		public ArrayList<MovieInfoVo> selectMovieList(int startRow, int postSize) throws Exception {
+			
+			ArrayList<MovieInfoVo> movieList = new ArrayList<MovieInfoVo>();
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				conn = DBConn.getConnection();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append("SELECT movie_no, movie_title, poster_sys FROM movie_info  ");
+				sql.append("LIMIT ? OFFSET ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setInt(1, postSize);
+				pstmt.setInt(2, startRow);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					int no = rs.getInt(1);
+					String title = rs.getString(2);
+					String posterSys = rs.getString(3);
+					
+					movieList.add(new MovieInfoVo(no, title, posterSys));
+				}
+				
+				
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				try {
+					if( rs != null) rs.close();
+					if( pstmt != null) pstmt.close();
+					if( conn != null) conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}
+			return movieList;
+		}
+		
+		// 영화 게시글 총 수를 구한다.
+		public int selectTotlaMovieCount() throws Exception {
+			int count = 0;
+			
+			Connection conn = null;
+			Statement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				conn = DBConn.getConnection();
+				
+				stmt = conn.createStatement();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append("SELECT COUNT(*) FROM movie_info ");
+				
+				rs = stmt.executeQuery(sql.toString());
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				try {
+					if(rs != null) rs.close();
+					if(stmt != null) stmt.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}
+			return count;
+		}
 
 }

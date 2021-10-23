@@ -1,0 +1,97 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+section {
+  width : 90%;
+}
+.content_title {
+  padding: 2em 0 0 2em;
+}
+.movieList {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.list_icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+.content_text {
+  text-align : center;
+  line-height : 20rem;
+}
+.paging {
+  text-align: center;
+}
+.paging_icon{
+  transition: transform 200ms linear;
+}
+.paging_icon:hover {
+   transform: scale(1.2);
+}
+</style>
+<script
+      src="https://kit.fontawesome.com/69749f5203.js"
+      crossorigin="anonymous"></script>
+</head>
+<body>
+
+<c:set var="pageBlock" value="${requestScope.pageBlock }" scope="page" />
+<c:set var="startPage" value="${requestScope.startPage }" scope="page" />
+<c:set var="endPage" value="${requestScope.endPage }" scope="page" />
+<c:set var="totalPage" value="${requestScope.totalPage }" scope="page" />
+<c:set var="currentPage" value="${param.currentPage }" scope="page" />
+
+<section>
+	<h1 class="content_title">이 달의 영화</h1>
+	<c:if test="${empty requestScope.movieList }">
+		<p class="content_text"> 등록된 영화가 없습니다. </p>
+	</c:if>
+	<c:if test="${not empty requestScope.movieList }">
+	<div class="movieList">
+		<c:if test="${startPage > pageBlock }">
+			<c:url var="prevUrl" value="/main.do">
+				<c:param name="currentPage" value="${startPage - pageBlock }" />
+			</c:url>
+			<a href="${prevUrl}"><i class="fas fa-angle-double-left list_icon"></i></a>
+		</c:if>
+		
+		<c:forEach var="movie" items="${requestScope.movieList }" varStatus="loop">
+          <div class="listSection">
+            <img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
+            <h3 class="movie_title">${pageScope.movie.movieTitle }</h3>
+          </div>
+        </c:forEach>
+        
+        <c:if test="${endPage < totalPage }">
+        	<c:url var="nextUrl" value="/main.do">
+        		<c:param name="currentPage" value="${endPage + 1 }" />
+        	</c:url>
+        	<a href="${nextUrl}"><i class="fas fa-angle-double-right list_icon"></i></a>
+    	</c:if>    
+    </div>
+	</c:if>
+	<div class="paging">
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+		<c:if test="${i == currentPage}">
+			<i class="fas fa-circle"></i>
+		</c:if>
+		<c:if test="${i != currentPage}">
+			<c:url var="url" value="/main.do">
+				<c:param name="currentPage" value="${i}"/>
+			</c:url>
+			<a href="${url}"><i class="far fa-circle paging_icon"></i></a>
+		</c:if>	
+	</c:forEach>
+	</div>
+</section>
+</body>
+</html>
