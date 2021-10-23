@@ -22,7 +22,7 @@ public class ReceiveMSgDao {
 	}//getInstance() end
 	
 	//보내온 쪽지 저장
-	public void insertMessage(Connection conn,String sendMsg ,String receiveId) throws Exception {
+	public void insertMessage(Connection conn,String sendMsg ,String receiveId, int sendMsgNo) throws Exception {
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -30,13 +30,14 @@ public class ReceiveMSgDao {
 		StringBuffer sql = new StringBuffer();
 		
 		//쪽지 정보 저장
-		sql.append(" INSERT INTO receive_msg(receive_msg_content, receive_id) ");
-		sql.append(" VALUES (?, ?) ");
+		sql.append(" INSERT INTO receive_msg(receive_msg_content, receive_id, receive_msg_no) ");
+		sql.append(" VALUES (?, ?, ?) ");
 		
 		pstmt = conn.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, sendMsg);
 		pstmt.setString(2, receiveId);
+		pstmt.setInt(3, sendMsgNo);
 		
 		pstmt.executeUpdate();
 		

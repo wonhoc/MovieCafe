@@ -17,7 +17,6 @@ public class CommandFactory {
 		map.put("/sendMsg.do", "controller.message.SendMsgController");
 		//보낸 메시지 목록 요청
 		map.put("/sendMsgList.do", "controller.message.SendMsgListController");
-		//쪽지 쓰기요청
 		
 		
 	}

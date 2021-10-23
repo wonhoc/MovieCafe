@@ -50,7 +50,7 @@ public class MsgService {
 			//받는사람 편지함에 쪽지 등록하기
 			ReceiveMSgDao rmsdao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao 객체생성
 			for(String addr : addrs) {
-				rmsdao.insertMessage(conn, msgVo.getSendMsgContent(), addr);
+				rmsdao.insertMessage(conn, msgVo.getSendMsgContent(), addr, sendMsgNo);
 			}//for end
 			
 			isSucess = true;

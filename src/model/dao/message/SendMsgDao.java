@@ -70,4 +70,22 @@ public class SendMsgDao {
 		
 	}//insertMessage() end
 	
+	//내가 쓴 쪽지 조회하는 method
+	public SendMessageVo selectSendmsg(Connection conn, String userId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT  ");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			
+		}// end
+		
+		
+	}//selectMsg() end
+	
 }// class end
