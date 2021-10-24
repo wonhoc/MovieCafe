@@ -77,16 +77,16 @@ public class UserDao {
 			conn = DBConn.getConnection();
 			
 			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT user_id FROM movie WHERE user_id = ?   ");
+			sql.append(" SELECT COUNT(user_id) FROM user_info WHERE user_id = ?   ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery();
-			
-		if(rs.next()) {
+		// 중복이면 1, 중복이 아니면 0
+		while(rs.next()) {
 			exist = rs.getInt(1);
 			
-		}
+		}//while end
 		return exist;
 		
 			
@@ -94,9 +94,10 @@ public class UserDao {
 			throw e;
 		} finally {
 			try {
+				if (rs != null) rs.close();
 				if (pstmt != null) pstmt.close();
 				if (conn != null) conn.close();
-				if (rs != null) rs.close();
+			
 			} catch (Exception e2) {
 				throw e2;
 			}

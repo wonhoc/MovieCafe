@@ -30,6 +30,7 @@ public class ControllerServlet extends HttpServlet {
 			
 			CommandFactory factory = CommandFactory.getInstance();
 			Command command = factory.createCommand(commandURI);
+			System.out.println("commandUR I: " + commandURI);
 			ActionForward forward = command.execute(request, response);
 			
 			if(forward.isRedirect()) {

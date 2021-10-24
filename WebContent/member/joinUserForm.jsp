@@ -87,24 +87,24 @@
 			<label for ="userId">ID</label>
 			<input type="text" name="userId" id="userId">
 			<input type="button" id="requestChkId" name="requestChkId" value="중복확인">
+			<div id="resultOk"></div>
 		</div>
+		
 		<script>
 		
 		 const getAjax = function(url,inputId) {
-	            // resolve, reject는 자바스크립트에서 지원하는 콜백 함수이다.
-	            // 비동기 작업이 정상적으로 수행 = reslolve, 문제가 있을 때 = reject
 	            return new Promise( (resolve, reject) => {
-	            	// 비동기 작업의  상태 3가지 / panding, fullfilled, 
 	                $.ajax({                        
 	                    url: url,
 	                    method: 'POST',
 	                    dataType: 'json',
-	                    data: { // 서버에 전송되는 데이터
+	                    data: {
 	                    	inputId: inputId           
 	                    },
 	                    // 콜백함수
-	                    success: function(data) {                    	
-	                        resolve(data);
+	                    success: function(data) { 
+	                    	resolve(data);
+	                   
 	                    }, 
 	                    error: function(e) {                    	
 	                        reject(e);
@@ -116,9 +116,12 @@
 		
 		async function requestProcess(url, inputId) {
             try {
-                const inputId = await getAjax(url, inputId);
+                const inputIds = await getAjax(url, inputId);
                  
+                var htmlStr = '<p>'+ ${inputIds.chkOk} + '</p>' ;
                 
+                
+                $('body > #resultOk').html(htmlStr);
                 
                   
             } catch (error) {
@@ -126,11 +129,8 @@
             }
         }
 		
-		
-		
 		$('#requestChkId').on('click',function(){
 			const inputId = $('#userId').val();
-			//console.log(${'inputId'});
 			requestProcess('${pageContext.request.contextPath}/checkId.do', inputId);
 			
 			
@@ -150,7 +150,7 @@
 		<div>
 		<span class="pwdformchk"></span>
 		</div>
-		--%>
+		
 		
 		
 		<div>

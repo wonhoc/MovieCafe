@@ -17,6 +17,8 @@ public class CommandFactory {
 		// 영화 삭제 요청
 		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
 		
+		//아이디 중복확인 요청
+		map.put("/checkId.do", "controller.member.CheckIdCommand");
 	}
 	
 	public static CommandFactory getInstance() {

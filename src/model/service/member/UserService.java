@@ -30,14 +30,21 @@ public class UserService {
 		// 회원 아이디 조회 서비스
 		public boolean checkId(String userId) throws Exception {
 				
-			
-			UserDao userDao = UserDao.getInstance();
-			int checkid = userDao.existId(userId);
-			if (checkid != 0) {
-				return true;
-			} else {
-				return false;
+			try {
+				UserDao userDao = UserDao.getInstance();
+				int checkid = userDao.existId(userId);
+				System.out.println(checkid);
+				// Dao = 중복이 아니면 0, 중복이면 1
+				if (checkid == 0) {
+					return true;
+				} else {
+					return false;
+				}
+				
+			} catch (Exception e) {
+				throw e;
 			}
+			
 			
 			
 		}
