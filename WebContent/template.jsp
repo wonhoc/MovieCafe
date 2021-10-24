@@ -5,6 +5,7 @@
 <c:set var="asideTemplate" value="${param.asideTemplate }.jsp" />
 <c:set var="footerTemplate" value="${param.footerTemplate }.jsp" />
 
+<c:set var="contentTemplate" value="${param.contentTemplate }.jsp" />
 
 <!DOCTYPE html>
 <html>
@@ -15,10 +16,16 @@
 header {
   padding-top: 1em;
 }
+main {
+	display : flex;
+}
 aside {
   width: 20%;
   height: 100%;
   background-color: #eab48a;
+}
+section {
+	widrh : 100%
 }
 footer {
   display: flex;
@@ -34,9 +41,14 @@ footer {
 <header>
 	<jsp:include page="${headerTemplate }" flush="false"></jsp:include>
 </header>
-<aside>
-	<jsp:include page="${asideTemplate }" flush="false"></jsp:include>
-</aside>
+<main>
+	<aside>
+		<jsp:include page="${asideTemplate }" flush="false"></jsp:include>
+	</aside>
+	<section>
+		<jsp:include page="${contentTemplate }" ></jsp:include>
+	</section>
+</main>
 <footer>
 	<jsp:include page="${footerTemplate }" flush="false"></jsp:include>
 </footer>
