@@ -20,21 +20,19 @@
          		<thead>
          			<tr>
          				<td>수신자</td>
-         				<td>
+         				<td>        		       			        	
+         			
+						<c:forEach var="addr" items="${requestScope.sendMsg.address }" varStatus="i">	          				
          				<%--수신자 --%>
-         				<c:forEach var="addr" items="${requestScope.sendMsg.address }" varStatus="i">
-         				<%--메일 조회여부 --%>
-         				<c:forEach var="isRead" items="${requestScope.sendMsg.isRead }" varStatus="i">
          				${addr }
-         				<%--메일 조회여부 --%>
-         				<c:if test="${isRead == 0}">
-         					 안읽음 <br>
+         				<%-- 메일 조회여부 --%>
+         				<c:if test="${sendMsg.isRead[i.index] == 0}">
+         					[안읽음] <br>
          				</c:if>
-         				<c:if test="${isRead != 0}">
-         					 읽음 <br>
-         				</c:if>
-         				</c:forEach>
-         				</c:forEach>
+         				<c:if test="${sendMsg.isRead[i.index] != 0}">
+         					[읽음] <br>
+         				</c:if>        				  			
+         					</c:forEach>
          				</td>
          				<td>작성시간</td>
          				<td>${requestScope.sendMsg.msgWdate }</td>
