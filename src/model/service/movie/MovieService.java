@@ -57,4 +57,8 @@ public class MovieService {
 		return movieDetail;	
 	}
 	
+	// 영화 정보 수정
+	public void modifyMovie(MovieInfoVo movie) throws Exception {
+		MovieInfoDao.getInstance().updateMovie(movie);
+	}
 }

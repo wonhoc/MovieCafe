@@ -13,12 +13,18 @@
 </script>
 <style>
 section {
-  width : 100%;
+  width : 90%;
+  margin: auto;
 }
 .detail_top {
   display: flex;
   align-items: center;
-  padding: 2em 4em;
+  justify-content: space-between;
+}
+
+.top_left {
+  display: flex;
+  align-items: center;
 }
 
 .detail_img {
@@ -39,7 +45,21 @@ section {
   font-size: 20px;
   margin: 0.3em;
 }
-
+.modify_btn {
+  padding: 0.5em 0.5em;
+  color: #b1b1b1;
+  font-size: 18px;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-bottom-color: #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  margin-bottom: 15em;
+  cursor : pointer;
+}
+.modify_btn:hover {
+  background-color: #e2e2e2;
+}
 .detail_divide {
   margin-left: 5%;
   width: 90%;
@@ -90,6 +110,7 @@ section {
 
 <section>
 <div class="detail_top">
+	<div class="top_left">
           <img src="/movie.png" alt="image" class="detail_img" />
           <div class="detail_content">
             <h1 class="detail_title">${movieDetail.movieTitle }</h1>
@@ -98,21 +119,34 @@ section {
             <p class="detail_text">장르 : ${movieDetail.movieGenre }</p>
             <p class="detail_text">러닝타임 : ${movieDetail.movieRuntime }</p>
             <p class="detail_text">예매처 링크 : <a href="${movieDetail.movieLink }" >${movieDetail.movieLink }</a></p>
-            <c:if test="${movieDetail.movieAge eq A } ">
+
+            <c:if test="${movieDetail.movieAge eq 'A' } ">
             	<p class="detail_text">관람가 : 전체 관람가</p>
             </c:if>
-            <c:if test="${movieDetail.movieAge eq B } ">
+            <c:if test="${movieDetail.movieAge eq 'B' } ">
             	<p class="detail_text">관람가 : 12세 이상 관람가</p>
             </c:if>
-            <c:if test="${movieDetail.movieAge eq C } ">
+            <c:if test="${movieDetail.movieAge eq 'C' } ">
             	<p class="detail_text">관람가 : 15세 이상 관람가</p>
             </c:if>
-            <c:if test="${movieDetail.movieAge eq D } ">
+            <c:if test="${movieDetail.movieAge eq 'D' } ">
             	<p class="detail_text">관람가 : 청소년 관람 불가</p>
             </c:if>
             <p class="detail_text">상영 날짜 : ${movieDetail.movieRelease }</p>
             <p class="detail_text">평점 : ${movieDetail.movieAvg } / 5</p>
           </div>
+         </div>
+        
+         <c:if test="${userLank.equals('A') }" >
+            <c:url var="modifyUrl" value="/modifyMovieForm.do">
+            	<c:param name="movieNo" value="${param.movieNo }" />
+            	<c:param name="userId" value="${param.userId }" />
+            </c:url> 
+            <a href="${modifyUrl }">
+            	<button class="modify_btn">수정</button>
+            </a>         	
+          </c:if>
+
         </div>
         <div class="detail_divide"></div>
         <div class="detail_bottom">
