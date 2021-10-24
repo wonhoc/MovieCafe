@@ -179,5 +179,32 @@ public class MovieInfoDao {
 			}
 			return count;
 		}
+		
+		// 영화 정보 삭제
+		public void deleteMovie(int movieNo) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			try {
+				conn = DBConn.getConnection();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append("DELETE FROM movie_info  WHERE movie_no = ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setInt(1, movieNo);
+				
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				try {
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}
+		}
 
 }

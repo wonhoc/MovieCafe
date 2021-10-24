@@ -41,4 +41,9 @@ public class MovieService {
 	public int retrieveTotalMovieCount() throws Exception {
 		return MovieInfoDao.getInstance().selectTotlaMovieCount();
 	}
+	
+	// 영화 정보 삭제
+	public void removeMovie(int movieNo) throws Exception {
+		MovieInfoDao.getInstance().deleteMovie(movieNo);
+	}
 }

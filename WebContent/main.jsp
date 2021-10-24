@@ -19,7 +19,9 @@ section {
   justify-content: space-around;
   align-items: center;
 }
-
+.listSection{
+  display : flex;
+}
 .list_icon {
   font-size: 2rem;
   cursor: pointer;
@@ -37,6 +39,21 @@ section {
 .paging_icon:hover {
    transform: scale(1.2);
 }
+
+.deleteBtn{
+  height: 1.5rem;
+  margin-left : 1em;
+  color: #b1b1b1;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-bottom-color: #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+.deleteBtn:hover{
+  background-color: #e2e2e2;
+}
 </style>
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
@@ -49,6 +66,9 @@ section {
 <c:set var="endPage" value="${requestScope.endPage }" scope="page" />
 <c:set var="totalPage" value="${requestScope.totalPage }" scope="page" />
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
+
+<!-- 임의로 관리자 정보를 세션에 바인딩 -->
+<c:set var="userLank" value="admin" scope="session" />
 
 <section>
 	<h1 class="content_title">이 달의 영화</h1>
@@ -63,11 +83,22 @@ section {
 			</c:url>
 			<a href="${prevUrl}"><i class="fas fa-angle-double-left list_icon"></i></a>
 		</c:if>
-		
 		<c:forEach var="movie" items="${requestScope.movieList }" varStatus="loop">
           <div class="listSection">
-            <img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
-            <h3 class="movie_title">${pageScope.movie.movieTitle }</h3>
+          	<div class="sectionMovie">
+	          	<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
+    	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3>
+    	        
+          	</div>
+            <c:if test="${userLank.equals('admin') }" >
+            	<c:url var="deleteUrl" value="/removeMovie.do">
+            		<c:param name="movieNo" value="${pageScope.movie.movieNo }" />
+            	</c:url> 
+            	<a href="${deleteUrl }">
+            		<button id="deleteBtn" class="deleteBtn"><i class="fas fa-minus"></i></button>
+            	</a>
+            	
+          	</c:if>
           </div>
         </c:forEach>
         
