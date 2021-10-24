@@ -1,5 +1,7 @@
 package domain.movie;
 
+import java.util.ArrayList;
+
 public class MovieInfoVo {
 
 	// field
@@ -15,6 +17,7 @@ public class MovieInfoVo {
 	private String posterOrigin;
 	private String posterSys;
 	private int movieAvg;
+	private ArrayList<GuanramListVo> guanramList = new ArrayList<GuanramListVo>();
 	
 	// constructor
 	public MovieInfoVo() {
@@ -43,8 +46,6 @@ public class MovieInfoVo {
 		this.posterSys = posterSys;
 	}
 
-
-
 	public MovieInfoVo(int movieNo, String movieTitle, String movieDir, String movieActor, String movieGenre,
 			int movieRuntime, String movieLink, String movieAge, String movieRelease, String posterOrigin,
 			String posterSys, int movieAvg) {
@@ -61,6 +62,25 @@ public class MovieInfoVo {
 		this.posterOrigin = posterOrigin;
 		this.posterSys = posterSys;
 		this.movieAvg = movieAvg;
+	}
+
+	public MovieInfoVo(int movieNo, String movieTitle, String movieDir, String movieActor, String movieGenre,
+			int movieRuntime, String movieLink, String movieAge, String movieRelease, String posterOrigin,
+			String posterSys, int movieAvg, ArrayList<GuanramListVo> guanramList) {
+		super();
+		this.movieNo = movieNo;
+		this.movieTitle = movieTitle;
+		this.movieDir = movieDir;
+		this.movieActor = movieActor;
+		this.movieGenre = movieGenre;
+		this.movieRuntime = movieRuntime;
+		this.movieLink = movieLink;
+		this.movieAge = movieAge;
+		this.movieRelease = movieRelease;
+		this.posterOrigin = posterOrigin;
+		this.posterSys = posterSys;
+		this.movieAvg = movieAvg;
+		this.guanramList = guanramList;
 	}
 
 	// getter & setter
@@ -158,6 +178,18 @@ public class MovieInfoVo {
 
 	public void setMovieAvg(int movieAvg) {
 		this.movieAvg = movieAvg;
+	}
+	
+	public void addGuanramList(GuanramListVo guanramList) {
+		this.guanramList.add(guanramList);
+	}
+
+	public ArrayList<GuanramListVo> getGuanramList() {
+		return guanramList;
+	}
+
+	public void setGuanramList(ArrayList<GuanramListVo> guanramList) {
+		this.guanramList = guanramList;
 	}
 
 }

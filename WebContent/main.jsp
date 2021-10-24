@@ -58,6 +58,7 @@ section {
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
       crossorigin="anonymous"></script>
+</script>
 </head>
 <body>
 
@@ -68,7 +69,10 @@ section {
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
 
 <!-- 임의로 관리자 정보를 세션에 바인딩 -->
-<c:set var="userLank" value="admin" scope="session" />
+<c:set var="userLank" value="A" scope="session" />
+
+<!-- 임의로 사용자 아이디를 세션에 바인딩 -->
+<c:set var="userId" value="test_user01" scope="session"/>
 
 <section>
 	<h1 class="content_title">이 달의 영화</h1>
@@ -85,12 +89,18 @@ section {
 		</c:if>
 		<c:forEach var="movie" items="${requestScope.movieList }" varStatus="loop">
           <div class="listSection">
-          	<div class="sectionMovie">
-	          	<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
-    	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3>
-    	        
-          	</div>
-            <c:if test="${userLank.equals('admin') }" >
+          <c:url var="detailUrl" value="/detailMovie.do">
+          	<c:param name="movieNo" value="${pageScope.movie.movieNo }"/>
+          	<c:param name="userId" value="${userId }"/>
+          </c:url>
+       
+          	<div class="sectionMovie" id="movie">
+          		<a href="${detailUrl }">
+	          		<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
+	          	</a>
+    	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3> 	   
+         	 </div>
+            <c:if test="${userLank.equals('A') }" >
             	<c:url var="deleteUrl" value="/removeMovie.do">
             		<c:param name="movieNo" value="${pageScope.movie.movieNo }" />
             	</c:url> 

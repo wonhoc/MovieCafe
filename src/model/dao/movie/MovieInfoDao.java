@@ -100,111 +100,165 @@ public class MovieInfoDao {
 	}
 	
 	// 영화 목록 조회
-		public ArrayList<MovieInfoVo> selectMovieList(int startRow, int postSize) throws Exception {
+	public ArrayList<MovieInfoVo> selectMovieList(int startRow, int postSize) throws Exception {
 			
-			ArrayList<MovieInfoVo> movieList = new ArrayList<MovieInfoVo>();
+		ArrayList<MovieInfoVo> movieList = new ArrayList<MovieInfoVo>();
 			
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 			
-			try {
-				conn = DBConn.getConnection();
+		try {
+			conn = DBConn.getConnection();
 				
-				StringBuffer sql = new StringBuffer();
-				sql.append("SELECT movie_no, movie_title, poster_sys FROM movie_info  ");
-				sql.append("LIMIT ? OFFSET ? ");
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT movie_no, movie_title, poster_sys FROM movie_info  ");
+			sql.append("LIMIT ? OFFSET ? ");
 				
-				pstmt = conn.prepareStatement(sql.toString());
+			pstmt = conn.prepareStatement(sql.toString());
 				
-				pstmt.setInt(1, postSize);
-				pstmt.setInt(2, startRow);
+			pstmt.setInt(1, postSize);
+			pstmt.setInt(2, startRow);
 				
-				rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 				
-				while(rs.next()) {
-					int no = rs.getInt(1);
-					String title = rs.getString(2);
-					String posterSys = rs.getString(3);
+			while(rs.next()) {
+				int no = rs.getInt(1);
+				String title = rs.getString(2);
+				String posterSys = rs.getString(3);
 					
-					movieList.add(new MovieInfoVo(no, title, posterSys));
-				}
-				
-				
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				try {
-					if( rs != null) rs.close();
-					if( pstmt != null) pstmt.close();
-					if( conn != null) conn.close();
-				} catch (Exception e2) {
-					throw e2;
-				}
+				movieList.add(new MovieInfoVo(no, title, posterSys));
 			}
-			return movieList;
-		}
-		
-		// 영화 게시글 총 수를 구한다.
-		public int selectTotlaMovieCount() throws Exception {
-			int count = 0;
-			
-			Connection conn = null;
-			Statement stmt = null;
-			ResultSet rs = null;
-			
+				
+				
+		} catch (Exception e) {
+			throw e;
+		} finally {
 			try {
-				conn = DBConn.getConnection();
-				
-				stmt = conn.createStatement();
-				
-				StringBuffer sql = new StringBuffer();
-				sql.append("SELECT COUNT(*) FROM movie_info ");
-				
-				rs = stmt.executeQuery(sql.toString());
-				
-				if(rs.next()) {
-					count = rs.getInt(1);
-				}
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				try {
-					if(rs != null) rs.close();
-					if(stmt != null) stmt.close();
-					if(conn != null) conn.close();
-				} catch (Exception e2) {
-					throw e2;
-				}
+				if( rs != null) rs.close();
+				if( pstmt != null) pstmt.close();
+				if( conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
 			}
-			return count;
 		}
+		return movieList;
+	}
 		
-		// 영화 정보 삭제
-		public void deleteMovie(int movieNo) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
+	// 영화 게시글 총 수를 구한다.
+	public int selectTotlaMovieCount() throws Exception {
+		int count = 0;
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+			
+		try {
+			conn = DBConn.getConnection();
+				
+			stmt = conn.createStatement();
+				
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT COUNT(*) FROM movie_info ");
+				
+			rs = stmt.executeQuery(sql.toString());
+				
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
 			try {
-				conn = DBConn.getConnection();
-				
-				StringBuffer sql = new StringBuffer();
-				sql.append("DELETE FROM movie_info  WHERE movie_no = ? ");
-				
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setInt(1, movieNo);
-				
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				try {
-					if(pstmt != null) pstmt.close();
-					if(conn != null) conn.close();
-				} catch (Exception e2) {
-					throw e2;
-				}
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
 			}
 		}
-
+		return count;
+	}
+		
+	// 영화 정보 삭제
+	public void deleteMovie(int movieNo) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE FROM movie_info  WHERE movie_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, movieNo);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+	}
+		
+	// 영화 상세 정보 조회
+	 public MovieInfoVo selectMovie(String userId, int movieNo) throws Exception {
+		 Connection conn = null; 
+		 PreparedStatement pstmt = null; 
+		 ResultSet rs = null;
+	 
+		 MovieInfoVo movieInfo = new MovieInfoVo();
+		 
+		 try { 
+			 conn = DBConn.getConnection();
+			 
+			 StringBuffer sql = new StringBuffer();
+			 sql.append("SELECT movie_info.movie_no, movie_title, movie_dir, movie_actor, movie_genre, ");
+			 sql.append(" movie_runtime, movie_link, movie_age, movie_release, poster_origin, poster_sys, ");
+			 sql.append("truncate(avg(guanram_rating), 1) as movie_avg ");
+			 sql.append("from movie_info join movie_guanram using(movie_no) ");
+			 sql.append("where movie_info.movie_no = ? ");
+			 
+			 pstmt = conn.prepareStatement(sql.toString());
+			 
+			 pstmt.setInt(1, movieNo);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 while(rs.next()) {
+				 movieInfo.setMovieNo(rs.getInt(1));
+				 movieInfo.setMovieTitle(rs.getString(2));
+				 movieInfo.setMovieDir(rs.getString(3));
+				 movieInfo.setMovieActor(rs.getString(4));
+				 movieInfo.setMovieGenre(rs.getString(5));
+				 movieInfo.setMovieRuntime(rs.getInt(6));
+				 movieInfo.setMovieLink(rs.getString(7));
+				 movieInfo.setMovieAge(rs.getString(8));
+				 movieInfo.setMovieRelease(rs.getString(9));
+				 movieInfo.setPosterOrigin(rs.getString(10));
+				 movieInfo.setPosterSys(rs.getString(11));
+				 movieInfo.setMovieAvg(rs.getInt(12));
+			 }
+			 		
+		 }
+		 catch (Exception e) {
+			 throw e;
+		 } finally {
+			 try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		 }
+		 return movieInfo;
+	 }
+	
 }

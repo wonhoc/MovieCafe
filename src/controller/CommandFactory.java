@@ -17,6 +17,9 @@ public class CommandFactory {
 		// 영화 삭제 요청
 		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
 		
+		// 영화 상세 조회 요청
+		map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
+		
 	}
 	
 	public static CommandFactory getInstance() {
