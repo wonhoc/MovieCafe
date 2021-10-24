@@ -1,8 +1,7 @@
 package controller.movie;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,6 +13,7 @@ import javax.servlet.http.Part;
 
 import domain.movie.MovieInfoVo;
 import model.service.movie.MovieService;
+import util.file.FileUploadUtils;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = -1L, maxRequestSize = -1L, location = "/temp")
 @WebServlet("/uploadMovieFile")
@@ -39,20 +39,10 @@ public class uploadMovieFile extends HttpServlet {
 
 			Part part = request.getPart("imgInput");
 
-			String originalFileName = part.getSubmittedFileName();
-
-			File file = new File(UPLOAD_PATH + "/" + originalFileName);
-			String systemFileName = "";
-
-			if (file.exists()) {
-				systemFileName = originalFileName.substring(0, originalFileName.lastIndexOf(".")) + "_" + UUID.randomUUID()
-						+ originalFileName.substring(originalFileName.lastIndexOf("."));
-			} else {
-				systemFileName = originalFileName;
-			}
-
-			part.write(UPLOAD_PATH + "/" + systemFileName);
-			part.delete();
+			ArrayList<String> fileName = FileUploadUtils.upload(part, UPLOAD_PATH);
+			
+			String originalFileName = fileName.get(0);
+			String systemFileName = fileName.get(1);
 			
 			MovieInfoVo movieInfo = new MovieInfoVo(title, director, actor, genre, runtime, link, age, date,
 					originalFileName, systemFileName);
