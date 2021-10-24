@@ -3,6 +3,7 @@ package model.service.movie;
 import java.util.ArrayList;
 
 import domain.movie.MovieInfoVo;
+import model.dao.movie.GuanramDao;
 import model.dao.movie.MovieInfoDao;
 
 public class MovieService {
@@ -46,4 +47,14 @@ public class MovieService {
 	public void removeMovie(int movieNo) throws Exception {
 		MovieInfoDao.getInstance().deleteMovie(movieNo);
 	}
+	
+	// 영화 정보 상세 조회
+	public MovieInfoVo retrieveMovieDetail(String userId, int movieNo) throws Exception {
+		MovieInfoVo movieDetail = new MovieInfoVo();
+		movieDetail = MovieInfoDao.getInstance().selectMovie(userId, movieNo);
+		movieDetail.setGuanramList(GuanramDao.getInstance().selectGuanramList(movieNo));
+		System.out.println(movieDetail);
+		return movieDetail;	
+	}
+	
 }
