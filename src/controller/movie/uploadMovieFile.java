@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import domain.movie.MovieInfoVo;
@@ -43,25 +44,39 @@ public class uploadMovieFile extends HttpServlet {
 			
 			String originalFileName = fileName.get(0);
 			String systemFileName = fileName.get(1);
-			
-			MovieInfoVo movieInfo = new MovieInfoVo(title, director, actor, genre, runtime, link, age, date,
-					originalFileName, systemFileName);
-
-
+					
 			MovieService movieService = MovieService.getInstace();
 			
-			int exists = movieService.compaerMovie(movieInfo.getMovieTitle());
-			
-			if(exists == 1) {
-				request.setAttribute("exists", 1);
+			if(request.getParameter("type").equals("modify")) {				
+				HttpSession session = request.getSession();
+				MovieInfoVo movieInfo = (MovieInfoVo)session.getAttribute("movieInfo");
+				
+				movieInfo.setMovieTitle(title);
+				movieInfo.setMovieDir(director);
+				movieInfo.setMovieActor(actor);
+				movieInfo.setMovieGenre(genre);
+				movieInfo.setMovieRuntime(runtime);
+				movieInfo.setMovieLink(link);
+				movieInfo.setMovieAge(age);
+				movieInfo.setMovieRelease(date);
+				
+				movieService.modifyMovie(movieInfo);
 			} else {
-				movieService.registerMovie(movieInfo);	
+				
+				MovieInfoVo movieInfo = new MovieInfoVo(title, director, actor, genre, runtime, link, age, date,
+						originalFileName, systemFileName);
+				
+				int exists = movieService.compaerMovie(movieInfo.getMovieTitle());
+				
+				if(exists == 1) {
+					request.setAttribute("exists", 1);
+				} else {
+						movieService.registerMovie(movieInfo);	
+				}
 			}
 
 			response.sendRedirect(request.getContextPath() + "/main.do");	
-			
-			
-			
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

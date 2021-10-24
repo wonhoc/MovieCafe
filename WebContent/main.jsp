@@ -92,8 +92,9 @@ section {
           <c:url var="detailUrl" value="/detailMovie.do">
           	<c:param name="movieNo" value="${pageScope.movie.movieNo }"/>
           	<c:param name="userId" value="${userId }"/>
+          	<c:param name="userLank" value="${userLank }"/>
           </c:url>
-       
+     
           	<div class="sectionMovie" id="movie">
           		<a href="${detailUrl }">
 	          		<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />

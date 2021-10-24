@@ -20,6 +20,9 @@ public class CommandFactory {
 		// 영화 상세 조회 요청
 		map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
 		
+		// 영화 정보 수정 폼 요청
+		map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
+		
 	}
 	
 	public static CommandFactory getInstance() {
