@@ -83,8 +83,12 @@ public class UserDao {
 			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery();
 			
-		if(rs.next()) exist = 1;
+		if(rs.next()) {
+			exist = rs.getInt(1);
+			
+		}
 		return exist;
+		
 			
 		} catch (Exception e) {
 			throw e;
@@ -98,7 +102,8 @@ public class UserDao {
 			}
 			
 		}
-	}
-	
+		
+		
+	}	
 	
 }

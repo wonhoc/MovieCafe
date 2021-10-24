@@ -28,10 +28,16 @@ public class UserService {
 		}
 		
 		// 회원 아이디 조회 서비스
-		public void checkId(String userId) throws Exception {
+		public boolean checkId(String userId) throws Exception {
 				
 			
 			UserDao userDao = UserDao.getInstance();
+			int checkid = userDao.existId(userId);
+			if (checkid != 0) {
+				return true;
+			} else {
+				return false;
+			}
 			
 			
 		}

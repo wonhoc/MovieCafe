@@ -7,7 +7,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<script type="text/javascript">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
+		<script>
 		
 		<%--비밀 번호 양식 확인 (보류)--%>
 		function pwdformchk() {
@@ -24,6 +27,9 @@
 
 		}
 		<%-- 아이디 중복 검사--%>
+
+		
+		
 			function idValueChk() {
 				var inputId = document.userId.value();
 				
@@ -49,7 +55,9 @@
 			}
 		<%--업로드 프로필 사진 미리보기 (보류) --%>
 			function setPreview(event) {
+				
 				var reader = new FileReader();
+
 				reader.onload = function(event) {
 					var img = document.createElement("img");
 					img.setAttribute("src", event.target.result);
@@ -60,7 +68,15 @@
 			}
 
 		</script>
-		
+		<style>
+			.preViewContainer {
+				width: 100px;
+				height: 100px;
+				object-fit : cover;
+				background-color: gray;
+			}
+
+		</style>
 		
 		
 		<title>회원 가입 폼</title>
@@ -69,14 +85,60 @@
 	<form action="${pageContext.request.contextPath}/joinUser" method="POST" enctype="multipart/form-data">
 		<div>
 			<label for ="userId">ID</label>
-			<input type="text" name="userId" id="userId" onkeydown="idDuplicate()">
-			<button type="button" value="중복확인" id="idCheck" name="checkId" onclick="idValueChk()">중복확인</button>
-			<input type="hidden" name="idDuplication" value="idUncheck">
+			<input type="text" name="userId" id="userId">
+			<input type="button" id="requestChkId" name="requestChkId" value="중복확인">
 		</div>
-		<div>
-			<span class="alertIdChk"></span>
-		</div>
+		<script>
 		
+		 const getAjax = function(url,inputId) {
+	            // resolve, reject는 자바스크립트에서 지원하는 콜백 함수이다.
+	            // 비동기 작업이 정상적으로 수행 = reslolve, 문제가 있을 때 = reject
+	            return new Promise( (resolve, reject) => {
+	            	// 비동기 작업의  상태 3가지 / panding, fullfilled, 
+	                $.ajax({                        
+	                    url: url,
+	                    method: 'POST',
+	                    dataType: 'json',
+	                    data: { // 서버에 전송되는 데이터
+	                    	inputId: inputId           
+	                    },
+	                    // 콜백함수
+	                    success: function(data) {                    	
+	                        resolve(data);
+	                    }, 
+	                    error: function(e) {                    	
+	                        reject(e);
+	                    }
+	                });
+	            });
+	        };   
+		
+		
+		async function requestProcess(url, inputId) {
+            try {
+                const inputId = await getAjax(url, inputId);
+                 
+                
+                
+                  
+            } catch (error) {
+                console.log("error : ", error);   
+            }
+        }
+		
+		
+		
+		$('#requestChkId').on('click',function(){
+			const inputId = $('#userId').val();
+			//console.log(${'inputId'});
+			requestProcess('${pageContext.request.contextPath}/checkId.do', inputId);
+			
+			
+		});
+		
+		
+		
+		</script>
 		
 		<div>
 			<label for="userPwd">Password</label>
@@ -132,10 +194,10 @@
 		
 		<div>
 			<h3> 프로필 사진 설정</h3>
-			<div id ="previewContainer"></div>
+			<div class = "preViewContainer" id ="previewContainer"></div>
 			<input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="setPreview(event);"/>
-			
 		</div>	
+		
 		<div>
 			<label for="userNick"> 닉네임 설정</label>
 			<input type="text" name="userNick" id="userNick">

@@ -80,7 +80,7 @@ public class RegistUserServlet extends HttpServlet {
 		UserService service = UserService.getInstance();
 		service.registUser(userInfoVo);
 		
-		// 이동할 페이지 주소. 추후 수정할 것
+		// 회원 가입 후 이동할 페이지 주소. 추후 수정할 것
 		response.sendRedirect(request.getContextPath() + "");
 		
 			
@@ -89,6 +89,8 @@ public class RegistUserServlet extends HttpServlet {
 		}
 
 	}
+	
+	
 	
 	
 
