@@ -95,4 +95,70 @@ public class AddressDao {
 		
 	}//selectMsg() end
 	
+	//쪽지 주소록 삭제
+	public void deleteAddress(Connection conn, int SendMsgNo)throws Exception {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" DELETE FROM Address ");
+			sql.append(" WHERE send_msg_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());	
+			pstmt.setInt(1, SendMsgNo);
+			
+			pstmt.executeUpdate();
+	
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		}// end
+
+	}//deleteSendMsg()
+	
+	//메세지를 조회 유무 조회
+		public ArrayList<Integer> selectIsread(Connection conn, int sendMsgNo) throws Exception{
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<Integer> isReads = new ArrayList<Integer>();
+			try {
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append(" SELECT is_read ");
+				sql.append(" FROM address ");
+				sql.append(" WHERE send_msg_no = ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, sendMsgNo);
+				
+				rs = pstmt.executeQuery();
+				//rs에서 값 가져오기
+				while(rs.next()) {
+				int isRead = rs.getInt(1);
+				isReads.add(Integer.valueOf(isRead));
+				}//if end
+				
+			} catch (Exception e) {
+				throw e;
+			}finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+				} catch (Exception e2) {
+					throw e2;
+				}// end
+			}// end
+			
+			return isReads;
+			
+		}//selectMsg() end
+	
+	
 }// class end

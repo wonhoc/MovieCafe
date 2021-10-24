@@ -96,6 +96,68 @@ public class MsgService {
 		return sendMsgList;
 	}//retrieveSendMsgList() end
 	
+	//쪽지정보 삭제하고 보낸 주소록 삭제
+	public void removeMsg(int sendMsgNo) throws Exception {
+		Connection conn = null;
+		boolean isSucess = false;	//트랜잭션 처리를 위한 값
+		try {
+			conn = DBConn.getConnection();
+			
+			conn.setAutoCommit(false); //트랜잭션 시작
+			
+			//주소록에서 삭제
+			AddressDao addrDao = AddressDao.getInstance(); //AddressDao 객체생성
+			addrDao.deleteAddress(conn, sendMsgNo);
+			
+			
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao 객체생성
+			//내가쓴 쪽지 정보 삭제
+			sendmsgDao.deleteSendMsg(conn, sendMsgNo);
+			
+			
+			
+			isSucess = true;
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(conn != null) {
+					if(isSucess) {
+						conn.commit();
+						System.out.println("됨");
+					}else{
+						conn.rollback();
+						System.out.println("안됨");
+					}//if end
+					conn.close();
+				}//if end
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		
+		}// end
+		
+	}//removeMsg() end
+	
+	//내가 쓴 쪽지, 수신여부 조회하기
+	public SendMessageVo retrieveSendMsg(int sendMsgNo) throws Exception {
+		SendMessageVo sendMs = new SendMessageVo(); //반환할 메세지 정보가 들은 객체
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao 객체생성
+			//메세지 조회 method
+			sendMs = sendmsgDao.selectSendMsg(conn, sendMsgNo);
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			if(conn != null) conn.close();
+		}// end
+		
+		return sendMs;
+	}//retrieveSendMsg() end
+	
 	
 	
 }// class end

@@ -18,6 +18,8 @@ public class SendMsgController implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//게시글 쓰기 요청 커맨드
+		try {
+			
 		
 		//HttpSession session = request.getSession();
 		//String writer = session.getAttribute("userId"); //로그인 구현시 실행될 구문
@@ -41,17 +43,13 @@ public class SendMsgController implements Command {
 		MsgService service = MsgService.getInstance();
 		
 		service.registerMsg(msgVo);
+		} catch (Exception e) {
+			throw e;
+		}
 		
+
+		return new ActionForward("/sendMsgList.do", true);
 		
-		
-		
-		
-		
-		
-		return new ActionForward("/message/sendMsgList.jsp", true);
-		
-		
-		
-		
+
 	}//execute() end
 }// class end

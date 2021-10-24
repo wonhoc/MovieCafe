@@ -119,4 +119,76 @@ public class SendMsgDao {
 		
 	}//selectMsg() end
 	
+	//받은 쪽지 삭제하기
+	public void deleteSendMsg(Connection conn, int SendMsgNo)throws Exception {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" DELETE FROM send_msg ");
+			sql.append(" WHERE send_msg_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());	
+			pstmt.setInt(1, SendMsgNo);
+			
+			pstmt.executeUpdate();
+	
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		}// end
+
+	}//deleteSendMsg()
+	
+	
+	//쪽지 상세조회
+	public SendMessageVo selectSendMsg(Connection conn, int sendMsgNo) throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			SendMessageVo sendMsg = new SendMessageVo();
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT send_msg_content, msg_wdate, writer_id ");
+			sql.append(" FROM send_msg ");
+			sql.append(" WHERE send_msg_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, sendMsgNo);
+			
+			rs = pstmt.executeQuery();
+			//rs에서 값 가져오기
+			while(rs.next()) {		
+				//주소록 추가하기
+				AddressDao addrDao = AddressDao.getInstance();
+				sendMsg.setAddress(addrDao.selectAddr(conn, sendMsgNo));
+				//조회여부 추가하기
+				sendMsg.setIsRead(addrDao.selectIsread(conn, sendMsgNo));
+				sendMsg.setSendMsgContent(rs.getString(1));
+				sendMsg.setMsgWdate(rs.getString(2));
+				sendMsg.setWriterId(rs.getString(3));
+			}//while end
+			return sendMsg;
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		}// end
+		
+		
+
+		
+	}//selectSendMsg() end
+	
 }// class end

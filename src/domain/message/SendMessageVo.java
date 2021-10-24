@@ -6,18 +6,9 @@ public class SendMessageVo {
 	private int sendMsgNo;
 	private String sendMsgContent;
 	private String msgWdate;
-	public ArrayList<String> getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(ArrayList<String> address) {
-		this.address = address;
-	}
-
-
 	private String writerId;
 	private ArrayList<String> address;
+	private ArrayList<Integer>isRead;
 	
 	
 	public SendMessageVo() {
@@ -32,6 +23,24 @@ public class SendMessageVo {
 		this.sendMsgContent = sendMsgContent;
 		this.msgWdate = msgWdate;
 		this.writerId = writerId;
+		this.address = address;
+	}
+	
+	public ArrayList<Integer> getIsRead() {
+		return isRead;
+	}
+
+
+	public void setIsRead(ArrayList<Integer> isRead) {
+		this.isRead = isRead;
+	}
+	
+	public ArrayList<String> getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(ArrayList<String> address) {
 		this.address = address;
 	}
 	
@@ -73,6 +82,13 @@ public class SendMessageVo {
 
 	public void setWriterId(String writerId) {
 		this.writerId = writerId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "SendMessageVo [sendMsgNo=" + sendMsgNo + ", sendMsgContent=" + sendMsgContent + ", msgWdate=" + msgWdate
+				+ ", writerId=" + writerId + ", address=" + address + "]";
 	}
 
 
