@@ -67,4 +67,9 @@ public class MovieService {
 		GuanramDao.getInstance().insertGuanram(guanram);
 	}
 	
+	// 관람평 삭제
+	public void removeGuanram(int movieNo, String userId) throws Exception {
+		GuanramDao.getInstance().deleteGuanram(movieNo, userId);
+	}
+	
 }

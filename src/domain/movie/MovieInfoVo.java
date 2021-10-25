@@ -153,7 +153,7 @@ public class MovieInfoVo {
 	}
 
 	public void setMovieRelease(String movieRelease) {
-		this.movieRelease = movieRelease;
+		this.movieRelease = movieRelease.substring(0, 11);
 	}
 
 	public String getPosterOrigin() {
