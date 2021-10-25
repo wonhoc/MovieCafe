@@ -98,7 +98,7 @@ public class MsgService {
 	}//retrieveSendMsgList() end
 	
 	//쪽지정보 삭제하고 보낸 주소록 삭제
-	public void removeMsg(int sendMsgNo) throws Exception {
+	public void removeSendMsg(int sendMsgNo) throws Exception {
 		Connection conn = null;
 		boolean isSucess = false;	//트랜잭션 처리를 위한 값
 		try {
@@ -184,6 +184,7 @@ public class MsgService {
 		Connection conn = null;
 		
 		try {
+			conn = DBConn.getConnection();
 			//ReceiveMSgDao 객체 생성
 			ReceiveMSgDao rmd = ReceiveMSgDao.getInstance();
 			//내게온 메세지를 삭제

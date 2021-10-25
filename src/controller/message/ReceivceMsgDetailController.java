@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.message.ReceiveMsgVo;
 import model.dao.message.AddressDao;
 import model.service.message.MsgService;
 
@@ -33,7 +34,9 @@ public class ReceivceMsgDetailController implements Command {
 		}//if end
 		
 		//글의 상세정보 가져오고 request영역에 바인딩
-		request.setAttribute("receiveMsg", service.retrieveReceiveMsg(receiveMsgNo));
+		ReceiveMsgVo rmv = service.retrieveReceiveMsg(receiveMsgNo);
+		rmv.setReceiveMsgNo(receiveMsgNo); //받은 쪽지 번호
+		request.setAttribute("receiveMsg", rmv);
 		
 		} catch (Exception e) {
 			throw e;

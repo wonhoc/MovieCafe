@@ -29,8 +29,10 @@
 		              <tr>		              	
 		              	<td style="text-align: center;">보낸사람</td>
 		              	<td style="text-align: center; width: 100px">내용</td> 
-		              	<td>작성시간</td>   
+		              	<td>작성시간</td>  
+		              	<c:if test="${not empty requestScope.receiveMsgList }"> 
 		              	<td><input type="checkbox" id="allChecked">삭제</td>
+		              	</c:if>
 		              </tr>
 		             </thead>
 		             <tbody>
@@ -66,9 +68,11 @@
 				</c:if>
 			</tbody>
 		        </table>
+		        <c:if test="${not empty requestScope.receiveMsgList }"> 
 		     <div id="etc">
        	 		<button type="submit" id="removeSendMsgBtn" style="margin-left: 300px">삭제</button>
        	 	</div>
+       	 		</c:if>
        		</div>
 		</div>
 		</form>

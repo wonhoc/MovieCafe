@@ -18,6 +18,7 @@ public class SendMsgDetailController implements Command {
 		 MsgService service = MsgService.getInstance();
 		 //상세보기 정보가 담겨있는 객체
 		 SendMessageVo smv = service.retrieveSendMsg(sendMsgNo);
+		 smv.setSendMsgNo(sendMsgNo); //글번호
 		 request.setAttribute("sendMsg", smv);
 		 
 	

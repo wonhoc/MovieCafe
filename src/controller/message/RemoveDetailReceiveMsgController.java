@@ -7,24 +7,24 @@ import controller.ActionForward;
 import controller.Command;
 import model.service.message.MsgService;
 
-public class SendMsgRemoveController implements Command {
+public class RemoveDetailReceiveMsgController implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//메세지 삭제 요청
+		//받은 쪽지 상세보기 페이지에서 삭제 요청
 		try {
-		MsgService service = MsgService.getInstance();
-		//삭제 요청한 쪽지 번호
-		String[] removeNos = request.getParameterValues("removeCheckBox");
-		for(String no : removeNos) {
-		int sendMsgNo = Integer.parseInt(no);
-		service.removeSendMsg(sendMsgNo);
-		}//for end
-		
+			 int receiveMsgNo = Integer.parseInt(request.getParameter("receiveMsgNo"));
+			 System.out.println(receiveMsgNo);
+			 //삭제
+			 MsgService service = MsgService.getInstance();
+			 service.removeReceiveMsg(receiveMsgNo);
+			 
 		} catch (Exception e) {
 			throw e;
-		}//end
+		}// end
 		
-		return new ActionForward("/sendMsgList.do", true);
+		 
+		
+		return new ActionForward("/receiveMsgList.do", false);
 		
 	}//execute() end
 }// class end
