@@ -11,32 +11,45 @@ public class CommandFactory {
 	
 	// constructor
 	private CommandFactory() {
-		// ¿µÈ­ ¸ñ·Ï Á¶È¸ ¿äÃ»
+		// ì˜í™” ëª©ë¡ ì¡°íšŒ ìš”ì²­
 		map.put("/main.do", "controller.movie.MovieListCommand");
 		
-		// ¿µÈ­ »èÁ¦ ¿äÃ»
+		// ì˜í™” ì‚­ì œ ìš”ì²­
 		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
 		
-		// ¿µÈ­ »ó¼¼ Á¶È¸ ¿äÃ»
+		// ì˜í™” ìƒì„¸ ì¡°íšŒ ìš”ì²­
 		map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
 		
-		// ¿µÈ­ Á¤º¸ ¼öÁ¤ Æû ¿äÃ»
+		// ì˜í™” ì •ë³´ ìˆ˜ì • í¼ ìš”ì²­
 		map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
 		
-		// °ü¶÷Æò ÀÛ¼º Æû ¿äÃ»
+		// ê´€ëŒí‰ ì‘ì„± í¼ ìš”ì²­
 		map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
 		
-		// °ü¶÷Æò ÀÛ¼º ¿äÃ»
+		// ê´€ëŒí‰ ì‘ì„± ìš”ì²­
 		map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
 		
-		// °ü¶÷Æò »èÁ¦ ¿äÃ»
+		// ê´€ëŒí‰ ì‚­ì œ ìš”ì²­
 		map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
 		
-		//È¸¿ø °ü¸®
-		//¾ÆÀÌµğ Áßº¹È®ÀÎ ¿äÃ»
+		//íšŒì› ê´€ë¦¬
+		//ì•„ì´ë”” ì¤‘ë³µí™•ì¸ ìš”ì²­
 		map.put("/checkId.do", "controller.member.CheckIdCommand");
-		//·Î±×ÀÎ ¿äÃ» Ã³¸®
+		//ë¡œê·¸ì¸ ìš”ì²­ ì²˜ë¦¬
 		map.put("/login.do", "controller.member.LoginCommand");
+		
+		//íšŒì› ìƒì„¸ì¡°íšŒìš”ì²­
+		map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");	
+		
+		//íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ ìš”ÂŠ
+		map.put("/pwdCheck.do", "controller.member.PwdCheckCommand");
+		
+		//ë‹‰ë„¤ì„ì¤‘ë³µì²´í¬
+		map.put("/checkNick.do", "controller.member.CheckNickNameCommand");
+		
+		//íšŒì› ìì§„íƒˆí‡´ìš”ì²­
+		map.put("/userDelete.do", "controller.member.DeleteUserCommand");
+		
 		
 	}
 		

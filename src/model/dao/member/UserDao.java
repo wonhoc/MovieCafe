@@ -70,32 +70,35 @@ public class UserDao {
 
 	}
 
-	// 회원 아이디를 조회한다.
-	public int existId(String userId) throws Exception {
+	// 회원 아이디 중복 검사
+	public boolean existId(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int exist = 0;
-
+		boolean isId = false;
 		try {
+			
 			conn = DBConn.getConnection();
-
 			StringBuffer sql = new StringBuffer();
-			sql.append(" SELECT COUNT(user_id) FROM user_info WHERE user_id = ?        ");
-
+			sql.append("SELECT  *           ");
+			sql.append("FROM user_info     ");
+			sql.append("WHERE user_id = ?   ");
+			
 			pstmt = conn.prepareStatement(sql.toString());
+			
 			pstmt.setString(1, userId);
+			
 			rs = pstmt.executeQuery();
-			// 중복이면 1, 중복이 아니면 0
-			while (rs.next()) {
-				exist = rs.getInt(1);
-
-			} // while end
-			return exist;
-
+			if(rs.next()) {
+				isId = true;
+				
+			}
+			
+			System.out.println("UserDao = " + isId);
+			
 		} catch (Exception e) {
 			throw e;
-		} finally {
+		}finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -103,13 +106,11 @@ public class UserDao {
 					pstmt.close();
 				if (conn != null)
 					conn.close();
-
 			} catch (Exception e2) {
 				throw e2;
 			}
-
 		}
-
+		return isId;
 	}
 
 	
@@ -333,43 +334,46 @@ public class UserDao {
 		}
 	}
 
-	// 닉네임중복검사
-	public boolean confirmNickName(String userNick) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		boolean isNick = false;
-		try {
-
-			conn = DBConn.getConnection();
-			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT * ");
-			sql.append("FROM user_info  ");
-			sql.append("WHERE user_nick = ?");
-			pstmt = conn.prepareStatement(sql.toString());
-
-			pstmt.setString(1, userNick);
-
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				isNick = true;
-			}
-
-		} catch (Exception e) {
-			throw e;
-		} finally {
+	//닉네임중복검사
+		public boolean confirmNickName(String userNick) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			boolean isNick = false;
 			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (Exception e2) {
-				throw e2;
+				
+				conn = DBConn.getConnection();
+				StringBuffer sql = new StringBuffer();
+				sql.append("SELECT * ");
+				sql.append("FROM user_info  ");
+				sql.append("WHERE user_nick = ?");
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, userNick);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					isNick = true;
+				}
+				
+				System.out.println("UserDao = " + isNick);
+				
+				
+			} catch (Exception e) {
+				throw e;
+			}finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
 			}
+			return isNick;
 		}
-		return false;
-	}
 
 }

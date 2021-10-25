@@ -27,26 +27,11 @@ public class UserService {
 			userDao.insertUser(user);
 		}
 		
-		// 회원 아이디 조회 서비스
+		// 아이디 중복검사를 하다.
 		public boolean checkId(String userId) throws Exception {
-				
-			try {
 				UserDao userDao = UserDao.getInstance();
-				int checkid = userDao.existId(userId);
-				System.out.println(checkid);
-				// 중복이 아니면 0, 중복이면 1
-				if (checkid == 0) {
-					return true;
-				} else {
-					return false;
-				}
-				
-			} catch (Exception e) {
-				throw e;
-			}
-			
-			
-			
+				return userDao.existId(userId);
+
 		}//checkId end
 		
 		
@@ -145,13 +130,12 @@ public class UserService {
 				}
 			}
 		}
-//		//닉네임중복검사를 하다.
-//		public boolean checkNickName(String userNick) throws Exception {
-//			boolean isNick = false;
-//			
-//	}
-		
-		
-		
+		//닉네임중복검사를 하다.
+		public boolean checkNickName(String userNick) throws Exception {
+				UserDao userDao = UserDao.getInstance();
+				return userDao.confirmNickName(userNick);
+			
+		}
+
 		
 	}
