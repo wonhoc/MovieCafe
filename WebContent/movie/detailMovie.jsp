@@ -126,6 +126,26 @@ section {
 .review_btn:hover {
   background-color: #e2e2e2;
 }
+
+.delete_btn {
+  width: 3rem;
+  height: 2rem;
+  margin: 0 0.5em;
+  color: #a7a6a6;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-bottom-color: #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor : pointer;
+}
+.delete_btn:hover {
+  background-color: #e2e2e2;
+}
+.hidden {
+  width : 3rem;
+  margin: 0 0.5em;
+}
 </style>
 </head>
 <body>
@@ -208,6 +228,20 @@ section {
               <i class="fas fa-star review_text"></i>
 			</c:forEach>
             </div>
+            
+            <c:url var="removeGuanramUrl" value="/removeGuanram.do">
+              	<c:param name="userId" value="${param.userId }" />
+              	<c:param name="movieNo" value="${param.movieNo }" />
+             </c:url>
+            
+            <c:if test="${review.userId == sessionScope.userId }" >
+            	<a href="${removeGuanramUrl}" >
+            		<button class="delete_btn">삭제</button>
+            	</a>
+            </c:if>
+            <c:if test="${review.userId != sessionScope.userId }" >
+            	<div class="hidden"></div>
+            </c:if>
           </div>
           </c:forEach>
           

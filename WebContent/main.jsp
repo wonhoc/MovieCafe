@@ -78,7 +78,7 @@ section {
 <c:set var="userLank" value="A" scope="session" /> --%>
 
 <!-- 임의로 사용자 아이디를 세션에 바인딩 -->
-<c:set var="userId" value="test_user04" scope="session" />
+<c:set var="userId" value="test_user01" scope="session" />
 
 <section>
 	<h1 class="content_title">이 달의 영화</h1>

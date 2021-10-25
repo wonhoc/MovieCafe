@@ -149,4 +149,32 @@ public class GuanramDao {
 		System.out.println(exists);
 		return exists;
 	}
+	
+	// 관람평 삭제
+	public void deleteGuanram(int movieNo, String userId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE FROM movie_guanram  WHERE movie_no = ? AND user_id = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, movieNo);
+			pstmt.setString(2, userId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+	}
 }
