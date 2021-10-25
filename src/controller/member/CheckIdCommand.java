@@ -26,7 +26,7 @@ public class CheckIdCommand implements Command {
 			}//if end
 			System.out.println(ok);
 			req.setAttribute("ok", ok);
-			return new ActionForward("/member/resultOk.jsp",false);
+			return new ActionForward("/member/resultOk.jsp",false)
 			
 		}catch (Exception e) {
 			req.setAttribute("exception", e);

@@ -19,6 +19,10 @@ public class CommandFactory {
 		
 		//아이디 중복확인 요청
 		map.put("/checkId.do", "controller.member.CheckIdCommand");
+		//로그인 요청 처리
+		map.put("/login.do", "controller.member.LoginCommand");
+		
+		
 	}
 	
 	public static CommandFactory getInstance() {

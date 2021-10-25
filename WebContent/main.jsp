@@ -70,6 +70,13 @@ section {
 <!-- 임의로 관리자 정보를 세션에 바인딩 -->
 <c:set var="userLank" value="admin" scope="session" />
 
+
+<%-- 세션의 유저 정보 확인
+${sessionScope.userInfo.userId} <br>
+${sessionScope.userInfo.userNick} <br>
+${sessionScope.userInfo.rankType} <br>
+--%>
+
 <section>
 	<h1 class="content_title">이 달의 영화</h1>
 	<c:if test="${empty requestScope.movieList }">

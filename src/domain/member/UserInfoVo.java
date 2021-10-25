@@ -18,16 +18,29 @@ public class UserInfoVo {
 	private String exitType;
 	private String joindate;
 	private int rankNo;
+	private String rankType;
 
 	public UserInfoVo() {
 		super();
 
+	}	
+
+	
+	// 로그인에서 필요한 이이디, 패스워드  Vo
+	public UserInfoVo(String userId, String userPwd) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
 	}
 	
-	
-	
-	
-	
+	// 아이디, 회원등급, 회원 닉네임을 담은 Vo
+	public UserInfoVo(String userId, String userNick, String rankType) {
+		super();
+		this.userId = userId;
+		this.userNick = userNick;
+		this.rankType = rankType;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -157,7 +170,13 @@ public class UserInfoVo {
  	public void setRankNo(int rankNo) {
 		this.rankNo = rankNo;
 	}
-
+ 	
+	public String getRankType() {
+		return rankType;
+	}
+	public void setRankType(String rankType) {
+		this.rankType = rankType;
+	}
  
 
 	@Override

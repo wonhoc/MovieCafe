@@ -1,8 +1,7 @@
 package controller.member;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,17 +13,16 @@ import javax.servlet.http.Part;
 
 import domain.member.UserInfoVo;
 import model.service.member.UserService;
+import util.file.FileUploadUtils;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "")
 @WebServlet("/joinUser")
 public class RegistUserServlet extends HttpServlet {
 	
 	// 프로필 사진 업로드 경로. 실제 적용 시 변경할 것.
-	public static final String UPLOAD_PATH = "C:/upload";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		
 
 		request.setCharacterEncoding("utf-8");
@@ -53,23 +51,12 @@ public class RegistUserServlet extends HttpServlet {
 
 		
 		// 프로필 사진 업로드
-		Part part = request.getPart("profilePhoto");
-		String photoOrigin = part.getSubmittedFileName();
+		Part part = request.getPart("photoSys");
 		
-		File file = new File(UPLOAD_PATH + "/" + photoOrigin);
-		String photoSys = "";
+		ArrayList<String> filName = FileUploadUtils.upload(part, request, "user");
 		
-		if(file.exists()) {
-			photoSys =  
-					photoOrigin.substring(0,photoOrigin.lastIndexOf(".")) + "_" + 
-					UUID.randomUUID() + photoOrigin.substring(photoOrigin.lastIndexOf(".")); 
-					
-		} else {
-			photoSys = photoOrigin;
-		}
-		
-		part.write(UPLOAD_PATH + "/" + photoSys);
-		part.delete();
+		String photoOrigin = filName.get(0);
+		String photoSys = filName.get(1);
 		
 		
 		UserInfoVo userInfoVo = new UserInfoVo();
@@ -89,7 +76,7 @@ public class RegistUserServlet extends HttpServlet {
 		service.registUser(userInfoVo);
 		
 		// 회원 가입 후 이동할 페이지 주소. 추후 수정할 것
-		response.sendRedirect(request.getContextPath() + "");
+		response.sendRedirect(request.getContextPath() + "/main.do");
 		
 			
 		} catch (Exception e) {
