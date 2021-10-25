@@ -18,12 +18,13 @@ import util.file.FileUploadUtils;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = -1L, maxRequestSize = -1L, location = "/temp")
 @WebServlet("/uploadMovieFile")
-public class uploadMovieFile extends HttpServlet {
-	public static final String UPLOAD_PATH = "C:/upload";
-
+public class uploadMovieFile extends HttpServlet {	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		try {
+			
 			String path = request.getServletContext().getRealPath("/");
 			System.out.println("path : " + path);
 
@@ -40,7 +41,7 @@ public class uploadMovieFile extends HttpServlet {
 
 			Part part = request.getPart("imgInput");
 
-			ArrayList<String> fileName = FileUploadUtils.upload(part, UPLOAD_PATH);
+			ArrayList<String> fileName = FileUploadUtils.upload(part, request, "movie");
 			
 			String originalFileName = fileName.get(0);
 			String systemFileName = fileName.get(1);

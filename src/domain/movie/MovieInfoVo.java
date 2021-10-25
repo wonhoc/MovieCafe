@@ -192,4 +192,15 @@ public class MovieInfoVo {
 		this.guanramList = guanramList;
 	}
 
+	@Override
+	public String toString() {
+		return "MovieInfoVo [movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDir=" + movieDir
+				+ ", movieActor=" + movieActor + ", movieGenre=" + movieGenre + ", movieRuntime=" + movieRuntime
+				+ ", movieLink=" + movieLink + ", movieAge=" + movieAge + ", movieRelease=" + movieRelease
+				+ ", posterOrigin=" + posterOrigin + ", posterSys=" + posterSys + ", movieAvg=" + movieAvg
+				+ ", guanramList=" + guanramList + "]";
+	}
+	
+	
+
 }

@@ -12,6 +12,7 @@ public class DetailMovieCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		int movieNo = Integer.parseInt(request.getParameter("movieNo"));
 		String userId = request.getParameter("userId");
 		

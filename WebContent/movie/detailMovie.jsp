@@ -14,7 +14,7 @@
 <style>
 section {
   width : 90%;
-  margin: auto;
+  margin: 2em;
 }
 .detail_top {
   display: flex;
@@ -69,7 +69,6 @@ section {
 
 .review_title {
   font-size: 26px;
-  padding: 1em 2em;
 }
 
 .review_line {
@@ -104,6 +103,29 @@ section {
   display: flex;
   align-items: center;
 }
+.review_lett {
+  display: flex;
+}
+.bottom_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4em;
+}
+.review_btn {
+  height: 2rem;
+  margin: 0 0.5em;
+  color: #b1b1b1;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-bottom-color: #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor : pointer;
+}
+.review_btn:hover {
+  background-color: #e2e2e2;
+}
 </style>
 </head>
 <body>
@@ -111,7 +133,8 @@ section {
 <section>
 <div class="detail_top">
 	<div class="top_left">
-          <img src="/movie.png" alt="image" class="detail_img" />
+	
+          <img src="upload/movie/${movieDetail.posterSys }" alt="image" class="detail_img" />
           <div class="detail_content">
             <h1 class="detail_title">${movieDetail.movieTitle }</h1>
             <p class="detail_text">감독 : ${movieDetail.movieDir }</p>
@@ -150,8 +173,25 @@ section {
         </div>
         <div class="detail_divide"></div>
         <div class="detail_bottom">
-          <h1 class="review_title">관람평</h1>
-          
+          <div class="bottom_top">
+            <h1 class="review_title">관람평</h1>
+            <div class="review_lett">
+            
+            <c:if test="${userLank.equals('R') }" >
+              <button class="review_btn">내가 쓴 글</button>
+              
+              <c:url var="reviewRegisterUrl" value="/registerGuanramForm.do">
+              	<c:param name="userId" value="${param.userId }" />
+              	<c:param name="movieNo" value="${param.movieNo }" />
+              </c:url>
+              <c:set var="movieImg" value="${movieDetail.posterSys }" scope="session" />
+              <a href="${reviewRegisterUrl }">
+              	<button class="review_btn">평점 작성</button>
+              </a>
+     
+             </c:if>
+            </div>
+          </div>
           <c:forEach var="review" items="${movieDetail.guanramList }">
           <div class="review_line">
             <img src="/party.png" alt="profile" class="review_profile" />
@@ -172,6 +212,7 @@ section {
           </c:forEach>
           
         </div>
+        
 </section>
 </body>
 </html>

@@ -2,6 +2,6 @@
 
 
 <jsp:forward page="/indexControl.jsp">	
-	<jsp:param name="contentTemplate" value="/movie/movieBoardForm" />
+	<jsp:param name="contentTemplate" value="/main" />
 	
 </jsp:forward>

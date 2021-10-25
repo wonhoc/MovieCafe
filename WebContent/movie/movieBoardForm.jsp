@@ -123,7 +123,7 @@ $(document).ready(function () {
 </head>
 <body>
 <h1 class="content_title">영화 정보 등록</h1>
-       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile" method="POST" enctype="multipart/form-data">
+       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile?type=insert" method="POST" enctype="multipart/form-data">
          <div class="movie_input">
            <div class="form_left">
              <img id="img">
