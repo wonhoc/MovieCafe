@@ -17,14 +17,29 @@ public class CommandFactory {
 		// 영화 삭제 요청
 		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
 		
+		// 영화 상세 조회 요청
+		map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
+		
+		// 영화 정보 수정 폼 요청
+		map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
+		
+		// 관람평 작성 폼 요청
+		map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
+		
+		// 관람평 작성 요청
+		map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
+		
+		// 관람평 삭제 요청
+		map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
+		
+		//회원 관리
 		//아이디 중복확인 요청
 		map.put("/checkId.do", "controller.member.CheckIdCommand");
 		//로그인 요청 처리
 		map.put("/login.do", "controller.member.LoginCommand");
 		
-		
 	}
-	
+		
 	public static CommandFactory getInstance() {
 		if(factory == null) {
 			factory = new CommandFactory();
