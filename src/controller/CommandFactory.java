@@ -32,6 +32,9 @@ public class CommandFactory {
 		// 관람평 삭제 요청
 		map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
 		
+		// 관람평 추천 요청
+		map.put("/upLikeGuanram.do", "controller.movie.ModifyGuanramLikeCommand");
+		
 	}
 	
 	public static CommandFactory getInstance() {
