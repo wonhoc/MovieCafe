@@ -159,6 +159,36 @@ public class AddressDao {
 			return isReads;
 			
 		}//selectMsg() end
+		
+	//수신상태를 읽음으로 변경
+	public void Readed(Connection conn, int sendMsgNo, String receiveId) throws Exception {
+		PreparedStatement pstmt = null;
+		
+		try {
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" UPDATE address ");
+		sql.append(" SET is_read = true ");
+		sql.append(" WHERE send_msg_no = ? AND receive_id = ?");
+		
+		pstmt = conn.prepareStatement(sql.toString());
+		
+		pstmt.setInt(1, sendMsgNo);
+		pstmt.setString(2, receiveId);
+		
+		pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		}//end
+
+	}//Readed() end
 	
 	
 }// class end

@@ -18,8 +18,8 @@
     
         <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
             <button type="button" id="sendFormBtn" onclick="location='${pageContext.request.contextPath }/sendMsgForm.do'">쪽지쓰기</button>
-            <button type="button" id="recieveMsglistBtn">보낸쪽지함</button>
-            <button type="button" id="recieveMsglistBtn">받은쪽지함</button>
+            <button type="button" id=sendMsglistBtn onclick="location='${pageContext.request.contextPath }/sendMsgList.do'">보낸쪽지함</button>
+            <button type="button" id="recieveMsglistBtn" onclick="location='${pageContext.request.contextPath }/receiveMsgList.do'">받은쪽지함</button>
         </div>
         <form action="${pageContext.request.contextPath }/removeSendMsg.do" method="GET" id="removeSendMsgForm">
         <div id="content">
