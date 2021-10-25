@@ -54,6 +54,12 @@ section {
 .deleteBtn:hover{
   background-color: #e2e2e2;
 }
+
+.movieImg {
+	width : 10rem;
+	height : 15rem;
+}
+
 </style>
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
@@ -68,11 +74,11 @@ section {
 <c:set var="totalPage" value="${requestScope.totalPage }" scope="page" />
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
 
-<!-- 임의로 관리자 정보를 세션에 바인딩 -->
-<c:set var="userLank" value="A" scope="session" />
+<%-- <!-- 임의로 관리자 정보를 세션에 바인딩 -->
+<c:set var="userLank" value="A" scope="session" /> --%>
 
 <!-- 임의로 사용자 아이디를 세션에 바인딩 -->
-<c:set var="userId" value="test_user01" scope="session"/>
+<c:set var="userId" value="test_user04" scope="session" />
 
 <section>
 	<h1 class="content_title">이 달의 영화</h1>
@@ -89,6 +95,7 @@ section {
 		</c:if>
 		<c:forEach var="movie" items="${requestScope.movieList }" varStatus="loop">
           <div class="listSection">
+          
           <c:url var="detailUrl" value="/detailMovie.do">
           	<c:param name="movieNo" value="${pageScope.movie.movieNo }"/>
           	<c:param name="userId" value="${userId }"/>
@@ -97,7 +104,7 @@ section {
      
           	<div class="sectionMovie" id="movie">
           		<a href="${detailUrl }">
-	          		<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
+	          		<img src="upload/movie/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
 	          	</a>
     	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3> 	   
          	 </div>

@@ -2,6 +2,7 @@ package model.service.movie;
 
 import java.util.ArrayList;
 
+import domain.movie.MovieGuanramVo;
 import domain.movie.MovieInfoVo;
 import model.dao.movie.GuanramDao;
 import model.dao.movie.MovieInfoDao;
@@ -53,7 +54,6 @@ public class MovieService {
 		MovieInfoVo movieDetail = new MovieInfoVo();
 		movieDetail = MovieInfoDao.getInstance().selectMovie(userId, movieNo);
 		movieDetail.setGuanramList(GuanramDao.getInstance().selectGuanramList(movieNo));
-		System.out.println(movieDetail);
 		return movieDetail;	
 	}
 	
@@ -61,4 +61,10 @@ public class MovieService {
 	public void modifyMovie(MovieInfoVo movie) throws Exception {
 		MovieInfoDao.getInstance().updateMovie(movie);
 	}
+	
+	// 관람평 등록
+	public void registerGuanram(MovieGuanramVo guanram) throws Exception {
+		GuanramDao.getInstance().insertGuanram(guanram);
+	}
+	
 }

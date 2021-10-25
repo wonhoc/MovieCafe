@@ -222,7 +222,7 @@ public class MovieInfoDao {
 			 sql.append("SELECT movie_info.movie_no, movie_title, movie_dir, movie_actor, movie_genre, ");
 			 sql.append(" movie_runtime, movie_link, movie_age, movie_release, poster_origin, poster_sys, ");
 			 sql.append("truncate(avg(guanram_rating), 1) as movie_avg ");
-			 sql.append("from movie_info join movie_guanram using(movie_no) ");
+			 sql.append("from movie_info left join movie_guanram using(movie_no) ");
 			 sql.append("where movie_info.movie_no = ? ");
 			 
 			 pstmt = conn.prepareStatement(sql.toString());

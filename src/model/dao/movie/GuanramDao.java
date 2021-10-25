@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import domain.movie.GuanramListVo;
-import domain.movie.MovieInfoVo;
+import domain.movie.MovieGuanramVo;
 import model.DBConn;
 
 public class GuanramDao {
@@ -72,5 +72,81 @@ public class GuanramDao {
 			}
 		}
 		return guanramList;
+	}
+	
+	// 관람평 작성
+	public void insertGuanram(MovieGuanramVo guanram) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("INSERT INTO movie_guanram(user_id, movie_no, guanram_review, guanram_rating) ");
+			sql.append("VALUES ( ?, ?, ?, ? ) ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			System.out.println(guanram.getUserId());
+			System.out.println(guanram.getMovieNo());
+			System.out.println(guanram.getGuanramReview());
+			System.out.println(guanram.getGuanramRating());
+			
+			pstmt.setString(1, guanram.getUserId());
+			pstmt.setInt(2, guanram.getMovieNo());
+			pstmt.setString(3, guanram.getGuanramReview());
+			pstmt.setInt(4, guanram.getGuanramRating());
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		
+	}
+		
+	// 사용자 아이디 비교
+	public int compareUserId(String userId) throws Exception {
+		int exists = 0;
+				
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			conn = DBConn.getConnection();
+					
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT EXISTS(SELECT user_id FROM movie_guanram WHERE user_id = ? ) ");
+					
+			pstmt = conn.prepareStatement(sql.toString());
+					
+			pstmt.setString(1, userId);
+					
+			rs = pstmt.executeQuery();
+					
+			while(rs.next()) {
+				exists = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		System.out.println(exists);
+		return exists;
 	}
 }

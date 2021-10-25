@@ -23,6 +23,12 @@ public class CommandFactory {
 		// 영화 정보 수정 폼 요청
 		map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
 		
+		// 관람평 작성 폼 요청
+		map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
+		
+		// 관람평 작성 요청
+		map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
+		
 	}
 	
 	public static CommandFactory getInstance() {
