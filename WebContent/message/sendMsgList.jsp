@@ -79,7 +79,7 @@
        	 	</div>
        	 		</c:if>
    	 		<%-- 페이징처리 --%>
-   	 		<div id="paging"  style="text-align:  center; width: 300px">
+   	 	<div id="paging"  style="text-align:  center; width: 300px">
        	<c:set var="pageBlock" value="${requestScope.pageBlock }" scope="page"/>
 		<c:set var="startPage" value="${requestScope.startPage }" scope="page"/>
 		<c:set var="endPage" value="${requestScope.endPage }" scope="page"/>

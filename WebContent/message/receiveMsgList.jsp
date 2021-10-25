@@ -1,4 +1,4 @@
-<%--sendMsgList.jsp --%>
+<%--receiveMsgList.jsp --%>
 <%@page import="domain.message.SendMessageVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
