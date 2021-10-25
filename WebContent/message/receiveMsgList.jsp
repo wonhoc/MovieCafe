@@ -73,6 +73,39 @@
        	 		<button type="submit" id="removeSendMsgBtn" style="margin-left: 300px">삭제</button>
        	 	</div>
        	 		</c:if>
+       	 		<%-- 페이징 처리 --%>
+       	 		<div id="paging"  style="text-align:  center; width: 300px">
+       	<c:set var="pageBlock" value="${requestScope.pageBlock }" scope="page"/>
+		<c:set var="startPage" value="${requestScope.startPage }" scope="page"/>
+		<c:set var="endPage" value="${requestScope.endPage }" scope="page"/>
+		<c:set var="totalPage" value="${requestScope.totalPage }" scope="page"/>
+		<c:set var="currentPage" value="${param.currentPage }" scope="page"/>
+		
+		<c:if test="${startPage > pageBlock }">
+			<c:url var="PrevUrl" value="/receiveMsgList.do">
+				<c:param name="currentPage" value="${startPage - pageBlock}"/>
+			</c:url>
+			<a href="${PrevUrl }">◁</a>
+		</c:if>
+		
+		<c:forEach var="i" begin="${startPage }" end="${endPage }">
+			<c:if test="${i == currentPage }">
+				&nbsp;${i }&nbsp;
+			</c:if>
+			<c:if test="${i != currentPage }">
+				<c:url var="url" value="/receiveMsgList.do">
+					<c:param name="currentPage" value="${i }"/>
+				</c:url>
+				<a href="${url }">&nbsp;${i}&nbsp;</a>
+			</c:if>
+		</c:forEach>
+		<c:if test="${endPage < totalPage }">
+			<c:url var="nextUrl" value="/receiveMsgList.do">
+				<c:param name="currentPage" value="${endPage + 1}"/>
+			</c:url>
+			<a href="${nextUrl }">▷</a>
+		</c:if>
+       	 		</div>
        		</div>
 		</div>
 		</form>

@@ -72,7 +72,7 @@ public class SendMsgDao {
 	}//insertMessage() end
 	
 	//내가 쓴 쪽지 조회하는 method
-	public ArrayList<SendMessageVo> selectSendmsg(Connection conn, String userId) throws Exception{
+	public ArrayList<SendMessageVo> selectSendmsg(Connection conn, String userId, int startRow, int postSize) throws Exception{
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -83,9 +83,13 @@ public class SendMsgDao {
 			sql.append(" SELECT send_msg_no, send_msg_content, msg_wdate ");
 			sql.append(" FROM send_msg ");
 			sql.append(" WHERE writer_id = ? ");
+			sql.append(" ORDER BY msg_wdate DESC ");
+			sql.append(" LIMIT ? OFFSET ? ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, userId);
+			pstmt.setInt(2, postSize);
+			pstmt.setInt(3, startRow);
 			
 			rs = pstmt.executeQuery();
 			//rs에서 값 가져오기
@@ -185,10 +189,49 @@ public class SendMsgDao {
 				throw e2;
 			}// end
 		}// end
-		
-		
 
-		
 	}//selectSendMsg() end
+	
+	//보낸 모든 쪽지 수를구하기
+	public int selectTotalSendMsg(Connection conn ,String userId) throws Exception {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		try {
+
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT COUNT(*) ");
+			sql.append(" FROM send_msg ");
+			sql.append(" WHERE writer_id = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}//if end
+			
+			
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+		}// end
+		return count;
+	}//selectTotalReceiveMsg() end
+	
+	
+	
+	
 	
 }// class end

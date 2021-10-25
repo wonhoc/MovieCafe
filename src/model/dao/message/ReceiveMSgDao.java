@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import domain.message.ReceiveMsgVo;
 import domain.message.SendMessageVo;
+import model.DBConn;
+
 
 public class ReceiveMSgDao {
 	
@@ -57,7 +59,7 @@ public class ReceiveMSgDao {
 	}//insertMessage() end
 	
 	//받은 쪽지 목록 조회
-	public ArrayList<ReceiveMsgVo> selectReceiveMsgList(Connection conn, String userId) throws Exception{
+	public ArrayList<ReceiveMsgVo> selectReceiveMsgList(Connection conn, String userId, int startRow, int postSize) throws Exception{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //반환할 ArrayList객체	
@@ -68,10 +70,14 @@ public class ReceiveMSgDao {
 			sql.append(" SELECT receive_msg_no, writer, receive_msg_content, msg_wdate, is_read ");
 			sql.append(" FROM receive_msg ");
 			sql.append(" WHERE receive_id = ? ");
+			sql.append(" ORDER BY msg_wdate DESC ");
+			sql.append(" LIMIT ? OFFSET ? ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
 			pstmt.setString(1, userId);
+			pstmt.setInt(2, postSize);
+			pstmt.setInt(3, startRow);
 			
 			rs = pstmt.executeQuery();
 			
@@ -98,9 +104,9 @@ public class ReceiveMSgDao {
 				if(pstmt != null) pstmt.close();
 			} catch (Exception e2) {
 				throw e2;
+				
 			}// end
 		}// end
-		
 		return receiveMsgList;
 			
 	}//selectReceiveMsgList() end
@@ -112,7 +118,7 @@ public class ReceiveMSgDao {
 		try {
 			StringBuffer sql = new StringBuffer();
 			sql.append(" DELETE FROM receive_msg ");
-			sql.append(" WHERE receive_msg_no = ?");
+			sql.append(" WHERE receive_msg_no = ? ");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -172,5 +178,43 @@ public class ReceiveMSgDao {
 			return receiveMsgVo;
 			
 		}//selectReceiveMsg() end
+		
+		//받은 모든 쪽지 수를구하기
+		public int selectTotalReceiveMsg(Connection conn ,String userId) throws Exception {
+			int count = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;		
+			try {
+
+				StringBuffer sql = new StringBuffer();
+				sql.append(" SELECT COUNT( * ) ");
+				sql.append(" FROM receive_msg ");
+				sql.append(" WHERE receive_id = ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, userId);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}//if end
+				
+				
+				
+			} catch (Exception e) {
+				throw e;
+			}finally {
+				
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+				} catch (Exception e2) {
+					throw e2;
+				}// end
+			}// end
+			return count;
+		}//selectTotalReceiveMsg() end
 	
 }// class end

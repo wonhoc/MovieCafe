@@ -79,14 +79,14 @@ public class MsgService {
 	}//registerMsg() end
 	
 	//내가 쓴 쪽지 조회하기
-	public ArrayList<SendMessageVo> retrieveSendMsgList(String userId) throws Exception {
+	public ArrayList<SendMessageVo> retrieveSendMsgList(String userId, int startRow, int postSize) throws Exception {
 		ArrayList<SendMessageVo> sendMsgList = new ArrayList<SendMessageVo>(); //반환할 메세지 정보가 들은 ArrayList
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
 			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao 객체생성
 			//메세지 조회 method
-			sendMsgList = sendmsgDao.selectSendmsg(conn, userId);
+			sendMsgList = sendmsgDao.selectSendmsg(conn, userId, startRow, postSize);
 			
 		} catch (Exception e) {
 			throw e;
@@ -161,14 +161,14 @@ public class MsgService {
 	
 	
 	//내게 온 메세지 목록 조회
-	public ArrayList<ReceiveMsgVo> retrieveReceiveMsgList(String userId) throws Exception {
+	public ArrayList<ReceiveMsgVo> retrieveReceiveMsgList(String userId, int startRow, int postSize) throws Exception {
 		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //반환할 메세지 정보가 들은 ArrayList
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
 			ReceiveMSgDao receiveMsgDao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao 객체생성
 			//내게 온 메세지 조회 method
-			receiveMsgList = receiveMsgDao.selectReceiveMsgList(conn, userId);
+			receiveMsgList = receiveMsgDao.selectReceiveMsgList(conn, userId, startRow, postSize);
 			
 		} catch (Exception e) {
 			throw e;
@@ -280,6 +280,34 @@ public class MsgService {
 			}// end
 		} //end
 	}//updateRead() end
+	
+//총 게시글 수를 구한다
+	public int rerieveTotalReceiveMsg(String userId) throws Exception{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();
+			count = ReceiveMSgDao.getInstance().selectTotalReceiveMsg(conn ,userId);
+		} catch (Exception e) {
+			throw e;
+		}// end
+		
+		return count;
+	}//rerieveTotalReceiveMsg() end
+	
+	//총 게시글 수를 구한다
+	public int rerieveTotalSendMsg(String userId) throws Exception{
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();
+			count = SendMsgDao.getInstance().selectTotalSendMsg(conn ,userId);
+		} catch (Exception e) {
+			throw e;
+		}// end
+		
+		return count;
+	}//rerieveTotalSendMsg() end
 	
 	
 	
