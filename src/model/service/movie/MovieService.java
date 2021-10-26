@@ -72,4 +72,12 @@ public class MovieService {
 		GuanramDao.getInstance().deleteGuanram(movieNo, userId);
 	}
 	
+	// 관람평 추천 증가
+	public int upLikeGuanram(int movieNo, String userId) throws Exception {
+		GuanramDao guanramDao = GuanramDao.getInstance();
+		guanramDao.upLikecount(movieNo, userId);
+		
+		return guanramDao.selectGuanramLike(movieNo, userId);	
+	}
+	
 }

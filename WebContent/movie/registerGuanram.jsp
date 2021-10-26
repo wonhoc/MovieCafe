@@ -91,7 +91,7 @@ padding : 10em 10em 0 0;
           </div>
         <form class="review_right" id="form" action="${pageContext.request.contextPath }/registerGuanram.do" method="POST" >   
         <input type="hidden" name="movieNo" value="${param.movieNo }" />  
-        <input type="hidden" name="userId" value="${userId }" />    
+        <input type="hidden" name="userId" value="${userInfo.userId }" />    
             <h1 class="review_title">영화 제목</h1>
             <div class="review_input">
               <h3 class="input_title">평가 한 줄</h3>

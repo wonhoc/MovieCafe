@@ -19,7 +19,7 @@ section {
 .detail_top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .top_left {
@@ -146,7 +146,54 @@ section {
   width : 3rem;
   margin: 0 0.5em;
 }
+.fa-heart {
+  margin-right : 0.5em;
+  cursor : pointer;
+  transition: transform 200ms linear;
+}
+.fa-heart:hover {
+  transform: scale(1.1);
+}
+
 </style>
+<script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".like").on("click", function() {
+    	console.log("wow");
+    	$(this).removeClass('far');
+    	$(this).addClass('fas');
+    	
+    	const obj = $(this);
+    	
+    	console.log(obj);
+     	
+    	 $.ajax({
+             url:'${pageContext.request.contextPath}/upLikeGuanram.do',
+             method: 'GET',
+             dataType: 'json',
+             data: {
+                movieNo: ${param.movieNo} 
+             },
+             success:function(data){   
+            	 obj.find('p').hide(); 
+            	 obj.find('.review_text').html(data.upLikeCount);
+                	
+             },
+             error:function(error){
+                 console.log(error);
+             }
+         }); 
+    	
+    });
+    
+  });
+</script>
+
 </head>
 <body>
 
@@ -180,10 +227,10 @@ section {
           </div>
          </div>
         
-         <c:if test="${userLank.equals('A') }" >
+         <c:if test="${userInfo.rankType.equals('A')}" >
             <c:url var="modifyUrl" value="/modifyMovieForm.do">
             	<c:param name="movieNo" value="${param.movieNo }" />
-            	<c:param name="userId" value="${param.userId }" />
+            	
             </c:url> 
             <a href="${modifyUrl }">
             	<button class="modify_btn">수정</button>
@@ -197,11 +244,11 @@ section {
             <h1 class="review_title">관람평</h1>
             <div class="review_lett">
             
-            <c:if test="${userLank.equals('R') }" >
+            <c:if test="${userInfo.rankType.equals('R') }" >
               <button class="review_btn">내가 쓴 글</button>
               
               <c:url var="reviewRegisterUrl" value="/registerGuanramForm.do">
-              	<c:param name="userId" value="${param.userId }" />
+              	
               	<c:param name="movieNo" value="${param.movieNo }" />
               </c:url>
               <c:set var="movieImg" value="${movieDetail.posterSys }" scope="session" />
@@ -210,6 +257,7 @@ section {
               </a>
      
              </c:if>
+             
             </div>
           </div>
           <c:forEach var="review" items="${movieDetail.guanramList }">
@@ -218,11 +266,12 @@ section {
             <p class="review_text id">${review.userId }</p>
             <p class="review_text content">${review.guanramReview }</p>
             <p class="review_text date">${review.guanramWdate }</p>
+            
             <div class="like">
-              <i class="fas fa-heart review_text"></i>
-              <!-- <i class="far fa-heart review_text"></i> -->
+              <i class="far fa-heart review_text heart" ></i>
               <p class="review_text">${review.guanramLike }</p>
             </div>
+            
             <div class="rank">
             <c:forEach var="i" begin="1" end="${review.guanramRating }">
               <i class="fas fa-star review_text"></i>
@@ -230,16 +279,16 @@ section {
             </div>
             
             <c:url var="removeGuanramUrl" value="/removeGuanram.do">
-              	<c:param name="userId" value="${param.userId }" />
+              	
               	<c:param name="movieNo" value="${param.movieNo }" />
              </c:url>
             
-            <c:if test="${review.userId == sessionScope.userId }" >
+            <c:if test="${review.userId == userInfo.userId }" >
             	<a href="${removeGuanramUrl}" >
             		<button class="delete_btn">삭제</button>
             	</a>
             </c:if>
-            <c:if test="${review.userId != sessionScope.userId }" >
+            <c:if test="${review.userId != userInfo.userId }" >
             	<div class="hidden"></div>
             </c:if>
           </div>

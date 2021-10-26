@@ -3,6 +3,7 @@ package model.dao.movie;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.movie.GuanramListVo;
@@ -177,4 +178,75 @@ public class GuanramDao {
 			}
 		}
 	}
+	
+	// 추천 수 증가
+	public void upLikecount(int movieNo, String userId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("UPDATE movie_guanram  ");
+			sql.append("SET guanram_like = guanram_like + 1  ");
+			sql.append("WHERE movie_no = ? AND user_id = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, movieNo);
+			pstmt.setString(2, userId);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
+	
+	// 추천 수 조회
+	public int selectGuanramLike(int movieNo, String userId) throws Exception {
+		int no = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConn.getConnection();
+					
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT guanram_like FROM movie_guanram ");
+			sql.append("WHERE movie_no = ? AND user_id = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, movieNo);
+			pstmt.setString(2, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				no = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		return no;
+	}
+	
 }

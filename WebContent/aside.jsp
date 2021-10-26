@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Aside</title>
 <style>
+button {
+  cursor : pointer;
+}
 .aside_login {
   padding: 1em;
   font-weight: 400;
@@ -27,6 +32,7 @@
   padding: 1em;
   background-color: white;
   border-radius: 30px;
+  text-align : center;
 }
 
 .login_box {
@@ -76,6 +82,7 @@
   padding: 2em;
   background-color: white;
   border-radius: 30px;
+  test-align : center;
 }
 
 .category_section {
@@ -96,29 +103,89 @@
   height: 2em;
   margin-left: 0.5em;
 }
+
+.login_profile {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.user_info_text {
+  text-align: center;
+  margin: 0.25em;
+}
+.user_icon {
+  font-size :24px;
+  margin : 0 0.25em;
+  cursor : pointer;
+  transition: transform 200ms linear;
+}
+.user_icon:hover {
+  transform: scale(1.1);
+}
+
+
 </style>
+<script
+      src="https://kit.fontawesome.com/69749f5203.js"
+      crossorigin="anonymous"></script>
+</script>
 </head>
 <body>
 <div class="aside_login">
         <div class="login_orangeBox">
           <div class="login_whiteBox">
+          <c:if test="${empty userInfo.userId }">
+          
             <img src="images/login.png" alt="login_icon" class="login_icon" />
             <span class="login_title">로그인</span>
             <div class="login_divide"></div>
+            
+            <form action="${pageContext.request.contextPath}/login.do" method="POST">	
             <div class="login_input">
               <span>아이디</span>
-              <input class="login_inputBox" type="text" />
+              <input class="login_inputBox" type="text" name="userId" id="userId"/>
             </div>
             <div class="login_input">
               <span>비밀번호</span>
-              <input class="login_inputBox" type="password" />
+              <input class="login_inputBox" type="password" name="userPwd" id="userPwd"/>
             </div>
             <div class="login_btnBox">
-              <button class="login_btn">로그인</button>
-              <button class="login_btn">회원가입</button>
+            <button type="submit" class="login_btn" value="submit">로그인</button>
+            <c:url var="joinUrl" value="/joinUserForm.do"></c:url>            
+              <a href="${joinUrl }" >
+              	<button type="button" class="login_btn">회원가입</button>
+              </a>
             </div>
+            
+             </form>
+     
+            </c:if>
+            
+            <c:if test="${not empty userInfo.userId }">
+            
+
+	            <c:if test="${empty userInfo.photoSys }">
+    	        	<img src="upload/user/profile.png" alt="profile" class="login_profile" />
+    	        </c:if>
+        	    <c:if test="${not empty userInfo.photoSys }">
+            		<img src="upload/user/${userInfo.photoSys }" alt="profile" class="login_profile" />
+           	 	</c:if>
+        
+              <p class="user_info_text">${userInfo.userId }</p>
+              <p class="user_info_text">${userInfo.userNick }</p>
+              <p class="user_info_text">${userInfo.joindate }</p>
+              
+              <div>
+           	 	<i class="fas fa-user user_icon"></i>
+           	 	<i class="fas fa-envelope user_icon"></i>
+ 			  </div>
+            </c:if>
+            
+            
           </div>
         </div>
+        
       </div>
       <div class="aside_category">
         <div class="category_orangeBox">
