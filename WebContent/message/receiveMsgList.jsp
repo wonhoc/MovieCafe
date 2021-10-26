@@ -13,10 +13,68 @@
         <meta charset='UTF-8'>
         <title>받은 쪽지</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <style>
+        #sendFormBtn,
+#sendMsglistBtn,
+#recieveMsglistBtn,
+#sendMsgBtn,
+#removeSendMsgBtn {
+  height: 2rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #5b5b5b;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+#sendFormBtn:hover,
+#sendMsglistBtn:hover,
+#recieveMsglistBtn:hover,
+#sendMsgBtn:hover,
+#removeSendMsgBtn:hover {
+  background-color: #e2e2e2;
+}
+
+#sendMsgList {
+  border: #eab48a 4px solid;
+  border-radius: 0.5em;
+  margin : 0.5em;
+}
+
+.reciveId {
+  width: 60%;
+  height: 1.7rem;
+  line-height: 1.7rem;
+}
+#plusFrom {
+  cursor: pointer;
+}
+
+#recieveId,
+.content {
+  font-size: 20px;
+  padding: 0.5em;
+  border: 1px solid #b1b1b1;
+}
+#sendMsgContent {
+  width: 300px;
+  height: 200px;
+}
+
+.bottom {
+  text-align: end;
+}
+
+#navibox {
+  margin: 1em;
+}
+        </style>
     </head>
     <body>
-    
-        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
+    <section>
+        <div id="navibox">
             <button type="button" id="sendFormBtn" onclick="location='${pageContext.request.contextPath }/sendMsgForm.do'">쪽지쓰기</button>
             <button type="button" id="sendMsglistBtn" onclick="location='${pageContext.request.contextPath }/sendMsgList.do'">보낸쪽지함</button>
             <button type="button" id="recieveMsglistBtn" onclick="location='${pageContext.request.contextPath }/receiveMsgList.do'">받은쪽지함</button>
@@ -125,5 +183,6 @@
 		});
 		
 		</script>
+		</section>
     </body>
 </html>

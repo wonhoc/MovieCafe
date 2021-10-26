@@ -24,9 +24,9 @@
         </div>
         <div id="content">
             <form id="sendMsgForm" action="${pageContext.request.contextPath }/sendMsg.do" method="POST">
-            <input type="hidden" name="userid" id="userid" value="test_user01" >
+            <input type="hidden" value="${sessionScope.UserInfo.userId }"> 
 		        <table border="1" id="sendMsgListTb">
-		                <tr >
+		                <tr>
 		                    <td id="recieveId">받는사람 : <input type="text" name="reciveId" class="reciveId" placeholder="받는사람">
 		                        <button type="button" id="plusFrom" >+</button></td>
 		                </tr>

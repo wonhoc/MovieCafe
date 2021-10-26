@@ -178,7 +178,11 @@ button {
               
               <div>
            	 	<i class="fas fa-user user_icon"></i>
-           	 	<i class="fas fa-envelope user_icon"></i>
+           	 	
+           	 	<c:url var="msgUrl" value="/receiveMsgList.do"></c:url>
+           	 	<a href="${msgUrl }" >
+           	 		<i class="fas fa-envelope user_icon"></i>
+           	 	</a>         	 	
  			  </div>
             </c:if>
             
