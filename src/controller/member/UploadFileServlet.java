@@ -67,8 +67,7 @@ public class UploadFileServlet extends HttpServlet {
 
 			UserService service = UserService.getInstance();
 			service.modifyUser(user);
-
-			response.sendRedirect(request.getContextPath() + "/indexControl.jsp?contentTemplate=modifyUserForm.do?userId=" + userId);
+			response.sendRedirect(request.getContextPath() + "/main.do");
 
 		} catch (Exception ex) {
 			

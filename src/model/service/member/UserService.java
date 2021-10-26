@@ -1,3 +1,4 @@
+
 package model.service.member;
 
 import java.sql.Connection;
@@ -20,6 +21,19 @@ public class UserService {
 			}
 			return service;
 		}
+  
+  //관리자가 회원 정보 조회를 한다.
+	public ArrayList<UserInfoVo> retrieveUserList(int startRow, int postSize) throws Exception {
+		UserDao userDao = UserDao.getInstance();
+		return userDao.selectUserList(startRow, postSize);
+	}
+
+	
+
+	// 총 회원의 수를 구한다.
+	public int retrieveUserTotalCount() throws Exception {
+		return UserDao.getInstance().selectUserTotalCount();
+	}
 
 		//회원 정보 등록 서비스
 		public void registUser(UserInfoVo user) throws Exception {
@@ -125,3 +139,4 @@ public class UserService {
 		
 }
 }
+

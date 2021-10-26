@@ -1,4 +1,4 @@
-<%--sendMsgList.jsp --%>
+<%--receiveMsgList.jsp --%>
 <%@page import="domain.message.SendMessageVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,12 +13,14 @@
         <meta charset='UTF-8'>
         <title>받은 쪽지</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <style>
-        #sendFormBtn,
+
+          <style>
+ #removeSendMsgBtn,
+ #sendFormBtn,
 #sendMsglistBtn,
 #recieveMsglistBtn,
-#sendMsgBtn,
-#removeSendMsgBtn {
+#sendMsgBtn {
+
   height: 2rem;
   margin: 0 0.3em;
   font-size: 18px;
@@ -29,18 +31,20 @@
   transition: all 150ms ease-in;
   cursor: pointer;
 }
+
+#removeSendMsgBtn:hover,
 #sendFormBtn:hover,
 #sendMsglistBtn:hover,
 #recieveMsglistBtn:hover,
-#sendMsgBtn:hover,
-#removeSendMsgBtn:hover {
+#sendMsgBtn:hover {
+
   background-color: #e2e2e2;
 }
 
 #sendMsgList {
   border: #eab48a 4px solid;
   border-radius: 0.5em;
-  margin : 0.5em;
+
 }
 
 .reciveId {
@@ -54,7 +58,9 @@
 
 #recieveId,
 .content {
-  font-size: 20px;
+
+  font-size: 16px;
+
   padding: 0.5em;
   border: 1px solid #b1b1b1;
 }
@@ -63,14 +69,21 @@
   height: 200px;
 }
 
+#removeSendMsgBtn{
+	margin-left: 350px;
+	color: red;
+	
+}
+
+
+
 .bottom {
   text-align: end;
 }
+</style>
+    
+    
 
-#navibox {
-  margin: 1em;
-}
-        </style>
     </head>
     <body>
     <section>
