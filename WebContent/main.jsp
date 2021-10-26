@@ -58,6 +58,7 @@ section {
 .movieImg {
 	width : 10rem;
 	height : 15rem;
+	border-radius : 0.25em;
 }
 .main_top {
   display: flex;
@@ -94,9 +95,6 @@ section {
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
 
 <section>
-	<c:if test="${empty requestScope.movieList }">
-		<p class="content_text"> 등록된 영화가 없습니다. </p>
-	</c:if>
 		<div class="main_top">
           <h1 class="content_title">이 달의 영화</h1>
  
@@ -108,6 +106,10 @@ section {
           	</c:if>
           
         </div>
+     <c:if test="${empty requestScope.movieList }">
+		<p class="content_text"> 등록된 영화가 없습니다. </p>
+	</c:if>
+
 	<c:if test="${not empty requestScope.movieList }">
 	<div class="movieList">
 		<c:if test="${startPage > pageBlock }">

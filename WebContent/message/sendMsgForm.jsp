@@ -101,6 +101,7 @@
 		</form>
 	</div>
 	 <script>
+
 		<%-- 받는사람 숫자 --%>
 		var temp = 0;
 		<%-- 받는사람, 내용 없을시 false return --%>

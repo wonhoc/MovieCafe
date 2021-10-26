@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.member.UserInfoVo;
 import domain.message.ReceiveMsgVo;
 import model.service.message.MsgService;
 
@@ -16,15 +17,15 @@ public class ReceivceMsgListController implements Command {
 	public static final int PAGE_BLOCK = 3;
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//¹ÞÀº ÂÊÁö ¸ñ·Ï ¿äÃ»
-		//·Î±×ÀÎ ±â´É ±¸ÇöµÇ¸é 
-		//HttpSession session = request.getSession();
-		//String userId = (String)session.getAttribute("userId");
-		//·ÎÄÃ¿¡¼­ Å×½ºÆ®
-		String userId = "test_user02";
+		
+		HttpSession session = request.getSession();
+		UserInfoVo userInfo =  (UserInfoVo)session.getAttribute("userInfo");
+		String userId = userInfo.getUserId();
+		System.out.println(userId);
+	
 
-		//ÆäÀÌÂ¡ Ã³¸® ±¸Çö
-		//1. ÇöÀç ÆäÀÌÁö ¹øÈ£ °¡Á®¿À±â
+		//ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int currentPage = 0;
 		try {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -32,38 +33,38 @@ public class ReceivceMsgListController implements Command {
 			currentPage = 1;
 		}// end
 		
-		//2. ÇöÀç ÆäÀÌÁö¿¡ º¸¿©ÁÙ °Ô½Ã±ÛÀÇ ½ÃÀÛ Çà ¹øÈ£¸¦ ±¸ÇÑ´Ù.
+		//2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int startRow = (currentPage -1) * POST_PER_PAGE;
 		
-		//MsgService °´Ã¼ »ý¼º
+		//MsgService ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		MsgService service = MsgService.getInstance();
-		//³»°Ô ¿Â ¸Þ¼¼Áö ¸ñ·Ï Á¶È¸ method È£Ãâ
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ method È£ï¿½ï¿½
 		ArrayList<ReceiveMsgVo>	receiveMsgList =  service.retrieveReceiveMsgList(userId, startRow, POST_PER_PAGE);
 		
-		//request¿µ¿ª¿¡ receiveMsgListÀÌ¸§À¸·Î ³»°Ô¿Â ÂÊÁö Á¤º¸ ¹ÙÀÎµù
+		//requestï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ receiveMsgListï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 		request.setAttribute("userId", userId);
 		request.setAttribute("receiveMsgList", receiveMsgList);
 		
-		//3. BlockÀ» ±¸ÇÑ´Ù.
+		//3. Blockï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int currentBlock = currentPage % PAGE_BLOCK == 0 ? currentPage / PAGE_BLOCK : currentPage / PAGE_BLOCK + 1 ;
 		
-		//4. ÇöÀç ÆäÀÌÁö°¡ ¼ÓÇÑ ÆäÀÌÁö ºí·ÏÀÇ ½ÃÀÛ ¹øÈ£¿Í ÆäÀÌÁö ¹øÈ£¸¦ ±¸ÇÑ´Ù.
+		//4. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int startPage = 1 + (currentBlock -1) * PAGE_BLOCK;
 		int endPage = startPage + (PAGE_BLOCK -1);
 		System.out.println("startPage : " + startPage);
 		System.out.println("endPage : " + endPage);
-		//5. ÃÑ °Ô½Ã±Û ¼ö¸¦ ±¸ÇÑ´Ù.
+		//5. ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int totalPostCount = service.rerieveTotalReceiveMsg(userId);
 		System.out.println("totalPostCount : " + totalPostCount);
 		
-		//6.ÃÑ ÆäÀÌÁö¼ö¸¦ ±¸ÇÑ´Ù.
+		//6.ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		int totalPage = totalPostCount % POST_PER_PAGE == 0 ? totalPostCount / POST_PER_PAGE : totalPostCount / POST_PER_PAGE + 1;
 		
 		if (endPage > totalPage) {
 			endPage = totalPage;
 		} //if end
 		
-		//7. request ¿µ¿ª¿¡ ÆäÀÌÁö Á¤º¸¸¦ ¹ÙÀÎµù
+		//7. request ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 		request.setAttribute("pageBlock", PAGE_BLOCK);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);

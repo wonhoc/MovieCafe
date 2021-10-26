@@ -208,7 +208,7 @@ public class UserDao {
 			
 			sql.append("SELECT user_info.user_id, user_info.user_nick, rank.rank_type     ");
 			sql.append("FROM user_info INNER JOIN rank                           		");
-			sql.append("ON (user_info.rank_no = rank.rank_no) AND user_info.user_id = ?                  	");
+			sql.append("ON (user_info.user_id = rank.user_id) AND user_info.user_id = ?                  	");
 			
 			pstmt= conn.prepareStatement(sql.toString());
 			pstmt.setString(1, userId);

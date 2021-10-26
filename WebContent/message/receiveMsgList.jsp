@@ -13,12 +13,14 @@
         <meta charset='UTF-8'>
         <title>받은 쪽지</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
           <style>
  #removeSendMsgBtn,
  #sendFormBtn,
 #sendMsglistBtn,
 #recieveMsglistBtn,
 #sendMsgBtn {
+
   height: 2rem;
   margin: 0 0.3em;
   font-size: 18px;
@@ -29,17 +31,20 @@
   transition: all 150ms ease-in;
   cursor: pointer;
 }
+
 #removeSendMsgBtn:hover,
 #sendFormBtn:hover,
 #sendMsglistBtn:hover,
 #recieveMsglistBtn:hover,
 #sendMsgBtn:hover {
+
   background-color: #e2e2e2;
 }
 
 #sendMsgList {
   border: #eab48a 4px solid;
   border-radius: 0.5em;
+
 }
 
 .reciveId {
@@ -53,7 +58,9 @@
 
 #recieveId,
 .content {
+
   font-size: 16px;
+
   padding: 0.5em;
   border: 1px solid #b1b1b1;
 }
@@ -76,10 +83,11 @@
 </style>
     
     
+
     </head>
     <body>
-    
-        <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
+    <section>
+        <div id="navibox">
             <button type="button" id="sendFormBtn" onclick="location='${pageContext.request.contextPath }/sendMsgForm.do'">쪽지쓰기</button>
             <button type="button" id="sendMsglistBtn" onclick="location='${pageContext.request.contextPath }/sendMsgList.do'">보낸쪽지함</button>
             <button type="button" id="recieveMsglistBtn" onclick="location='${pageContext.request.contextPath }/receiveMsgList.do'">받은쪽지함</button>
@@ -188,5 +196,6 @@
 		});
 		
 		</script>
+		</section>
     </body>
 </html>
