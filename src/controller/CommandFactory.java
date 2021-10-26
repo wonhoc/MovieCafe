@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.lang.reflect.Constructor;
@@ -13,7 +14,7 @@ public class CommandFactory {
 			//회원 상세조회요청
 			map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");	
 			
-			//패스워드 확인 요
+			//패스워드 확인 요청
 			map.put("/pwdCheck.do", "controller.member.PwdCheckCommand");
 			
 			//닉네임중복체크
@@ -45,6 +46,36 @@ public class CommandFactory {
 		
 		  // 관람평 삭제 요청
 		  map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
+      
+      //쪽지쓰기 폼 요청
+		  map.put("/sendMsgForm.do", "controller.message.SendMsgFormController");
+      
+		  //쪽지쓰기 요청
+		  map.put("/sendMsg.do", "controller.message.SendMsgController");
+      
+	  	//보낸 메시지 목록 요청
+	  	map.put("/sendMsgList.do", "controller.message.SendMsgListController");
+      
+		  //보낸 메시지 삭제 요청
+  		map.put("/removeSendMsg.do", "controller.message.SendMsgRemoveController");
+      
+  		//보낸 메시지 상세보기 요청
+	  	map.put("/detailSendMsg.do", "controller.message.SendMsgDetailController");
+      
+	  	//받은 메시지 목록 요청
+  		map.put("/receiveMsgList.do", "controller.message.ReceivceMsgListController");
+      
+  		//받은 메시지 상세보기 요청
+		  map.put("/detailReceiveMsg.do", "controller.message.ReceivceMsgDetailController");
+      
+   		//받은 메시지 삭제 요청
+		  map.put("/removeReceiveMsg.do", "controller.message.ReceiveMsgRemoveController");
+      
+  		//보낸 메시지 상세보기 페이지에서 삭제 요청
+   		map.put("/removeDetailSendMsg.do", "controller.message.RemoveDetailSendMsgController");
+      
+	  	//받은 메시지 상세보기 페이지에서 삭제 요청
+	  	map.put("/removeDetailReceiveMsg.do", "controller.message.RemoveDetailReceiveMsgController");
 		}
 		
 		
