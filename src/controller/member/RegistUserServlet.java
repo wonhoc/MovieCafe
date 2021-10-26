@@ -51,7 +51,9 @@ public class RegistUserServlet extends HttpServlet {
 
 		
 		// 프로필 사진 업로드
-		Part part = request.getPart("photoSys");
+		
+		
+		Part part = request.getPart("profilePhoto");
 		
 		ArrayList<String> filName = FileUploadUtils.upload(part, request, "user");
 		

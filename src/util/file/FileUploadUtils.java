@@ -17,6 +17,7 @@ public class FileUploadUtils {
 		
 		ArrayList<String> fileName = new ArrayList<String>();
 		
+		System.out.println(part.getSubmittedFileName());
 		String originalFileName = part.getSubmittedFileName();
 
 		File file = new File(uploadPath + "/" + originalFileName);

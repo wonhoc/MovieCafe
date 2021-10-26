@@ -10,12 +10,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 
-<script>
+<script type="text/javascript">
 		$(document).ready(function() {
+			
+			
+			<%--프로필 사진 미리보기--%>
+		    $("#profilePhoto").on("change", function handleImgFileSelect(e) {
+		    	console.log("wow");
+		        let files = e.target.files;
+		        let filesArr = Array.prototype.slice.call(files);
+		        filesArr.forEach(function (f) {
+		          if (!f.type.match("image.*")) {
+		            alert("확장자는 이미지 확장자만 가능합니다.");
+		            return;
+		          }
+		          let reader = new FileReader();
+		          reader.onload = function (e) {
+		            $("#img").attr("src", e.target.result);
+		          };
+		          reader.readAsDataURL(f);
+		        });
+		      });
+		     
 			
 			
 			<%--아이디 중복 체크 --%>
@@ -112,34 +132,40 @@
 			
 
 			<%-- 생년월일 선택 부분 구현--%>
-			window.onload = function() {
-				var sYear = 1950;
-				var eYear = 2021;
-				var sMonth = 01;
-				var eMonth = 12;
-				var sDay = 1;
-				var eDay = 31;
+			var now = new Date();
+			var birthYear = now.getFullYear();
+			var birthMonth = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1): '0'+(now.getMonth() + 1);
+			var birthDate = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+ (now.getDate());
+			
+			for(var i = 1900; i <= birthYear; i++) {
 				
-				var strYear = "";
-				var strMonth = "";
-				var strDay = "";
-				
-				for(var i =sYear; i<=eYear; i++){
-					strYear +="<option value "+i+"> " +i+ " </option>";
-				}
-				for (var i =sMonth; i<=eMonth; i++) {
-					strMonth += "<option value" +i+"> " +i+ "</option>";
-				}
-				
-				for(var i = sDay; i<=eDay; i++) {
-					strDay += "<option value" +i+ ">" +i+ "</option>";
-				}
-				
-				document.getElementById('birthYear').innerHTML = strYear;
-				document.getElementById('birthMonth').innerHTML = strMonth;
-				document.getElementById('birthDate').innerHTML = strDay;
-				
+				$('#birthYear').append('<option value ="'+ i +'" >' + i + '년</option>')
 			}
+			for(var i = 1; i <= 12; i++) {
+				if (i < 10) {
+					$('#birthMonth').append("<option value='0" + i + "'>0" + i+ "</option>");
+						} else {
+							$('#birthMonth').append("<option value='" + i + "'>" + i+ "</option>");
+						}
+					}
+				
+				
+				
+			for (var i = 1; i <= 31; i++) {
+				if (i < 10) {
+					$("#birthDate").append(
+							"<option value='0" + i + "'>0" + i
+									+ "</option>");
+				} else {
+					$("#birthDate").append(
+							"<option value='" + i + "'>" + i
+									+ "</option>");
+				}
+			}
+			$("#birthYear > option[value="+birthYear+"]").attr("selected", "true");
+			$("#birthMonth > option[value="+birthMonth+"]").attr("selected", "true");
+			$("#birthDate > otpion[value="+birthDate+"]").attr("selected", "true");
+			
 			
 			
 			<%--비밀 번호 양식 확인 (보류)--%>
@@ -158,19 +184,20 @@
 			}
 			
 			<%--입력한 비밀번호 재확인 --%>
-				function chkpwd() {
-					var p1 = document.getElementById('userPwd').value;
-					var p2 = document.getElementById('userPwdCheck').value;
-					var pwdcheck = document.getElementsByClassName("alertpwd")[0];
-					if(p1 != p2) {
-						pwdcheck.innerText="비밀번호가 일치하지 않습니다.";
-						pwdcheck.style.color="red";
-					} else {
-						pwdcheck.innerText="비밀번호가 일치합니다.";
-						pwdcheck.style.color="blue";
-					}	
-				}
-				
+			
+			$('#pwChkBtn').on('click', function() {
+				var p1 = document.getElementById('userPwd').value;
+				var p2 = document.getElementById('userPwdCheck').value;
+				if(p1 != p2) {
+					pwdcheck.innerText="비밀번호가 일치하지 않습니다. 다시 입력해주세요.";
+					pwdcheck.style.color="red";
+				} else {
+					pwdcheck.innerText="비밀번호가 일치합니다.";
+					pwdcheck.style.color="blue";
+				};	
+			});
+			
+			
 				
 			<%--업로드 프로필 사진 미리보기 (보류) --%>
 				function setPreview(event) {
@@ -191,14 +218,6 @@
 		
 		</script>
 
-<style>
-.preViewContainer {
-	width: 100px;
-	height: 100px;
-	object-fit: cover;
-	background-color: gray;
-}
-</style>
 
 <title>회원 가입 폼</title>
 </head>
@@ -213,39 +232,39 @@
 		</div>
 
 		<div>
-			<label for="userPwd">Password</label> <input type="password"
-				name="userPwd" id="userPwd">
+			<label for="userPwd">Password</label>
+			<input type="password" name="userPwd" id="userPwd">
 		</div>
 
 		<%-- 비밀번호 양식이 맞는지 확인(10자이상, 영문대소문자, 특수문자 하나 이상) --%>
 
-		<div>
-			<span class="pwdformchk"></span>
-		</div>
+		
 
 
 
 		<div>
 			<label for="userPwdCheck">Password 확인</label> 
 			<input type="password" name="userPwdCheck" id="userPwdCheck">
-			<button type="button" onclick="chkpwd();">확인</button>
+			<button type="button" id = "pwChkBtn">확인</button>
 		</div>
 		<%-- 입력한 비밀번호와 일치하는지 확인 --%>
 		<div>
-			<span class="alertpwd"></span>
+			<span id="pwdcheck"></span>
 		</div>
-
-
+		
+		<div>
+			<span class="pwdformchk"></span>
+		</div>
+		
 		<div>
 			<label for="userEmail">E-mail</label> <input type="text"
 				name="userEmail" id="userEmail">
 		</div>
 		<div>
-			<label for="userBirth">생년월일</label> <select id="birthYear"
-				name="birthYear">
-			</select> <select id="birthMonth" name="birthMonth">
-			</select> <select id="birthDate" name="birthDate">
-			</select>
+			<label for="userBirth">생년월일</label> 
+			<select id="birthYear" name="birthYear"></select> 
+			<select id="birthMonth" name="birthMonth"></select> 
+			<select id="birthDate" name="birthDate"></select>
 		</div>
 
 		<div>
@@ -259,9 +278,8 @@
 
 		<div>
 			<h3>프로필 사진 설정</h3>
-			<div class="preViewContainer" id="previewContainer"></div>
-			<input type="file" id="profilePhoto" name="profilePhoto"
-				accept="image/*" onchange="setPreview(event);" />
+			<img id="img"></div>
+			<input type="file" id="profilePhoto" name="profilePhoto" />
 		</div>
 
 		<div>
