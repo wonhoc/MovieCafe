@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.lang.reflect.Constructor;
@@ -5,54 +6,101 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandFactory {
-	private static CommandFactory factory;
-	
-	private Map<String, String> map = new HashMap<String, String>();
-	
-	// constructor
-	private CommandFactory() {
-		//ÂÊÁö¾²±â Æû ¿äÃ»
-		map.put("/sendMsgForm.do", "controller.message.SendMsgFormController");
-		//ÂÊÁö¾²±â ¿äÃ»
-		map.put("/sendMsg.do", "controller.message.SendMsgController");
-		//º¸³½ ¸Ş½ÃÁö ¸ñ·Ï ¿äÃ»
-		map.put("/sendMsgList.do", "controller.message.SendMsgListController");
-		//º¸³½ ¸Ş½ÃÁö »èÁ¦ ¿äÃ»
-		map.put("/removeSendMsg.do", "controller.message.SendMsgRemoveController");
-		//º¸³½ ¸Ş¼¼Áö »ó¼¼º¸±â ¿äÃ»
-		map.put("/detailSendMsg.do", "controller.message.SendMsgDetailController");
-		//¹ŞÀº ¸Ş¼¼Áö ¸ñ·Ï ¿äÃ»
-		map.put("/receiveMsgList.do", "controller.message.ReceivceMsgListController");
-		//¹ŞÀº ¸Ş¼¼Áö »ó¼¼º¸±â ¿äÃ»
-		map.put("/detailReceiveMsg.do", "controller.message.ReceivceMsgDetailController");
-		//¹ŞÀº ¸Ş¼¼Áö »èÁ¦ ¿äÃ»
-		map.put("/removeReceiveMsg.do", "controller.message.ReceiveMsgRemoveController");
-		//º¸³½ ¸Ş¼¼Áö »ó¼¼º¸±â ÆäÀÌÁö¿¡¼­ »èÁ¦ ¿äÃ»
-		map.put("/removeDetailSendMsg.do", "controller.message.RemoveDetailSendMsgController");
-		//¹ŞÀº ¸Ş¼¼Áö »ó¼¼º¸±â ÆäÀÌÁö¿¡¼­ »èÁ¦ ¿äÃ»
-		map.put("/removeDetailReceiveMsg.do", "controller.message.RemoveDetailReceiveMsgController");
-	}
-	
-	public static CommandFactory getInstance() {
-		if(factory == null) {
-			factory = new CommandFactory();
+	//ì‹±ê¸€í†¤ íŒ¨í„´
+		private static CommandFactory factory;
+		private Map<String, String> map = new HashMap<String, String>();
+		
+		private CommandFactory() {
+			//íšŒì› ìƒì„¸ì¡°íšŒìš”ì²­
+			map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");	
+			
+			//íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ ìš”ì²­
+			map.put("/pwdCheck.do", "controller.member.PwdCheckCommand");
+			
+			//ë‹‰ë„¤ì„ì¤‘ë³µì²´í¬
+			map.put("/checkNick.do", "controller.member.CheckNickNameCommand");
+			
+			//íšŒì› ìì§„íƒˆí‡´ìš”ì²­
+			map.put("/userDelete.do", "controller.member.DeleteUserCommand");
+      
+      // ê´€ëŒí‰ ì¶”ì²œ ìš”ì²­
+		  map.put("/upLikeGuanram.do", "controller.movie.ModifyGuanramLikeCommand");
+      
+      // ì˜í™” ëª©ë¡ ì¡°íšŒ ìš”ì²­
+		  map.put("/main.do", "controller.movie.MovieListCommand");
+		
+		  // ì˜í™” ì‚­ì œ ìš”ì²­
+	  	map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
+		
+	  	// ì˜í™” ìƒì„¸ ì¡°íšŒ ìš”ì²­
+	  	map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
+		
+	  	// ì˜í™” ì •ë³´ ìˆ˜ì • í¼ ìš”ì²­
+	  	map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
+		
+	  	// ê´€ëŒí‰ ì‘ì„± í¼ ìš”ì²­
+	  	map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
+		
+		  // ê´€ëŒí‰ ì‘ì„± ìš”ì²­
+	  	map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
+		
+		  // ê´€ëŒí‰ ì‚­ì œ ìš”ì²­
+		  map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
+      
+      //ìª½ì§€ì“°ê¸° í¼ ìš”ì²­
+		  map.put("/sendMsgForm.do", "controller.message.SendMsgFormController");
+      
+		  //ìª½ì§€ì“°ê¸° ìš”ì²­
+		  map.put("/sendMsg.do", "controller.message.SendMsgController");
+      
+	  	//ë³´ë‚¸ ë©”ì‹œì§€ ëª©ë¡ ìš”ì²­
+	  	map.put("/sendMsgList.do", "controller.message.SendMsgListController");
+      
+		  //ë³´ë‚¸ ë©”ì‹œì§€ ì‚­ì œ ìš”ì²­
+  		map.put("/removeSendMsg.do", "controller.message.SendMsgRemoveController");
+      
+  		//ë³´ë‚¸ ë©”ì‹œì§€ ìƒì„¸ë³´ê¸° ìš”ì²­
+	  	map.put("/detailSendMsg.do", "controller.message.SendMsgDetailController");
+      
+	  	//ë°›ì€ ë©”ì‹œì§€ ëª©ë¡ ìš”ì²­
+  		map.put("/receiveMsgList.do", "controller.message.ReceivceMsgListController");
+      
+  		//ë°›ì€ ë©”ì‹œì§€ ìƒì„¸ë³´ê¸° ìš”ì²­
+		  map.put("/detailReceiveMsg.do", "controller.message.ReceivceMsgDetailController");
+      
+   		//ë°›ì€ ë©”ì‹œì§€ ì‚­ì œ ìš”ì²­
+		  map.put("/removeReceiveMsg.do", "controller.message.ReceiveMsgRemoveController");
+      
+  		//ë³´ë‚¸ ë©”ì‹œì§€ ìƒì„¸ë³´ê¸° í˜ì´ì§€ì—ì„œ ì‚­ì œ ìš”ì²­
+   		map.put("/removeDetailSendMsg.do", "controller.message.RemoveDetailSendMsgController");
+      
+	  	//ë°›ì€ ë©”ì‹œì§€ ìƒì„¸ë³´ê¸° í˜ì´ì§€ì—ì„œ ì‚­ì œ ìš”ì²­
+	  	map.put("/removeDetailReceiveMsg.do", "controller.message.RemoveDetailReceiveMsgController");
 		}
-		return factory;
-	}
-	
-	public Command createCommand(String commandURI) throws Exception {
-		String commandClass = map.get(commandURI);
-		if(commandClass == null) {
-			return null;
+		
+		
+		public static CommandFactory getInstance() {
+			if(factory == null) {
+				factory = new CommandFactory();
+			}
+			return factory;
 		}
-		try {
-			Class<?> cls = Class.forName(commandClass);
-			Constructor<?> constructor = cls.getConstructor(null);
-			Command command = (Command) constructor.newInstance();
-			return command;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+		
+		public Command createCommand(String commandURI) throws Exception {
+			String commandClass = map.get(commandURI);
+			if (commandClass == null) {
+				return null;
+			}
+			
+			try {	
+				// ë™ì  í´ë˜ìŠ¤ ë¡œë”© í›„ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±  
+				Class<?> cls = Class.forName(commandClass);
+				Constructor<?> constructor = cls.getConstructor(null);
+				Command command = (Command)constructor.newInstance();
+				return command;
+			} catch (Exception e) {
+				throw e;
+			}
+			
+		}	
 	}
-}

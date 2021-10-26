@@ -1,5 +1,8 @@
 package util.member;
 
 public class Member {
-// sample file 
+	private String memberNo;
+	private String name;
+	
+	
 }
