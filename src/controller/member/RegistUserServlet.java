@@ -19,7 +19,7 @@ import util.file.FileUploadUtils;
 @WebServlet("/joinUser")
 public class RegistUserServlet extends HttpServlet {
 	
-	// ÇÁ·ÎÇÊ »çÁø ¾÷·Îµå °æ·Î. ½ÇÁ¦ Àû¿ë ½Ã º¯°æÇÒ °Í.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -48,17 +48,14 @@ public class RegistUserServlet extends HttpServlet {
 		System.out.println(userNick);
 		System.out.println(userName);
 		System.out.println(gender);
-
 		
-		// ÇÁ·ÎÇÊ »çÁø ¾÷·Îµå
-		
-		
+		// í”„ë¡œí•„ ì‚¬ì§„ ì—…ë¡œë“œ
 		Part part = request.getPart("profilePhoto");
-		
 		ArrayList<String> filName = FileUploadUtils.upload(part, request, "user");
 		
 		String photoOrigin = filName.get(0);
 		String photoSys = filName.get(1);
+		
 		
 		
 		UserInfoVo userInfoVo = new UserInfoVo();
@@ -73,11 +70,12 @@ public class RegistUserServlet extends HttpServlet {
 		userInfoVo.setGender(gender);
 		userInfoVo.setPhotoOrigin(photoOrigin);
 		userInfoVo.setPhotoSys(photoSys);
+
 		
 		UserService service = UserService.getInstance();
 		service.registUser(userInfoVo);
 		
-		// È¸¿ø °¡ÀÔ ÈÄ ÀÌµ¿ÇÒ ÆäÀÌÁö ÁÖ¼Ò. ÃßÈÄ ¼öÁ¤ÇÒ °Í
+		// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		response.sendRedirect(request.getContextPath() + "/main.do");
 		
 			

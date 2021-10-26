@@ -26,19 +26,20 @@ public class UserInfoVo {
 	}	
 
 	
-	// ·Î±×ÀÎ¿¡¼­ ÇÊ¿äÇÑ ÀÌÀÌµð, ÆÐ½º¿öµå  Vo
+	// ï¿½Î±ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½, ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½  Vo
 	public UserInfoVo(String userId, String userPwd) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
 	
-	// ¾ÆÀÌµð, È¸¿øµî±Þ, È¸¿ø ´Ð³×ÀÓÀ» ´ãÀº Vo
-	public UserInfoVo(String userId, String userNick, String rankType) {
+	// ï¿½ï¿½ï¿½Ìµï¿½, È¸ï¿½ï¿½ï¿½ï¿½ï¿½, È¸ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Vo
+	public UserInfoVo(String userId, String userNick, String rankType, String joinDate) {
 		super();
 		this.userId = userId;
 		this.userNick = userNick;
 		this.rankType = rankType;
+		this.joindate = joinDate;
 	}
 
 	public String getUserId() {

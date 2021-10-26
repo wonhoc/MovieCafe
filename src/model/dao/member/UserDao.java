@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Execute;
 
 import domain.member.UserInfoVo;
 
@@ -23,7 +22,7 @@ public class UserDao {
 		return userDao;
 	}
 
-	// È¸¿ø Á¤º¸¸¦ µî·ÏÇÏ´Ù.
+	// íšŒì›ê°€ì…ì„ í•˜ë‹¤.
 	public void insertUser(UserInfoVo userInfoVo) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -35,8 +34,8 @@ public class UserDao {
 
 			sql.append("INSERT INTO user_info(user_id, user_pwd, user_nick, user_email,                 ");
 			sql.append("user_birth, user_contact, gender, user_name,                          ");
-			sql.append("photo_origin, photo_sys)                                                        ");
-			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
+			sql.append("photo_origin, photo_sys )                                                        ");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                             ");
 
 			pstmt = conn.prepareStatement(sql.toString());
 
@@ -54,6 +53,8 @@ public class UserDao {
 
 			pstmt.executeUpdate();
 
+			
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -69,8 +70,43 @@ public class UserDao {
 		}
 
 	}
+	
+	
+	public void inserUserRank(String userId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			
+			sql.append("INSERT INTO rank(user_id, rank_type)    ");
+			sql.append("VALUE ( ?, 'N'   )   ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, userId);
+			
+			pstmt.executeUpdate();
+			
+			
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
 
-	// È¸¿ø ¾ÆÀÌµğ Áßº¹ °Ë»ç
+		}
+	}
+
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ ï¿½Ë»ï¿½
 	public boolean existId(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -114,7 +150,7 @@ public class UserDao {
 	}
 
 	
-	// È¸¿ø ¾ÆÀÌµğ, ´Ğ³×ÀÓ, µî±Ş¹øÈ£¸¦ Á¶È¸ÇÑ´Ù.
+	//ë¡œê·¸ì¸ í›„ ì•„ì´ë””, ë‹‰ë„¤ì„, íšŒì› ë“±ê¸‰, ê°€ì…ì¼ì„ ê°€ì ¸ì˜¨ë‹¤.
 	
 	public UserInfoVo selectUserIdNickRank(String userId) throws Exception {
 		PreparedStatement pstmt = null;
@@ -129,7 +165,7 @@ public class UserDao {
 			
 			StringBuffer sql = new StringBuffer();
 			
-			sql.append("SELECT user_info.user_id, user_info.user_nick, rank.rank_type     ");
+			sql.append("SELECT user_info.user_id, user_info.user_nick, rank.rank_type, user_info.joindate     ");
 			sql.append("FROM user_info INNER JOIN rank                           		");
 			sql.append("ON (user_info.rank_no = rank.rank_no) AND user_info.user_id = ?                  	");
 			
@@ -142,6 +178,7 @@ public class UserDao {
 				userInfoVo.setUserId(rs.getString(1));;
 				userInfoVo.setUserNick(rs.getString(2));
 				userInfoVo.setRankType(rs.getString(3));
+				userInfoVo.getJoindate(rs.getString(4));
 				System.out.println(rs.getString(1));
 			}
 			
@@ -169,7 +206,7 @@ public class UserDao {
 	
 	
 	
-	// ·Î±×ÀÎ ¾ÆÀÌµğ, ÆĞ½º¿öµå Vo
+	// ë¡œê·¸ì¸ì„ ìœ„í•œ ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸ vo
 	public int selectCountUser(UserInfoVo userInfoVo) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -194,7 +231,7 @@ public class UserDao {
 
 			rs = pstmt.executeQuery();
 
-			// ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏ¸é 1, ¾Æ´Ï¸é 0
+			// ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ 1, ï¿½Æ´Ï¸ï¿½ 0
 			if (rs.next()) {
 				loginCheck = rs.getInt(1);
 			}
@@ -221,7 +258,7 @@ public class UserDao {
 	}// selectUser() end
 
 	
-	// È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ñ´ï¿½.
 	public UserInfoVo selectUser(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -270,7 +307,7 @@ public class UserDao {
 		return user;
 	}
 
-	// È¸¿øÀÇ Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù.
+	// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	public void updateUser(UserInfoVo user, Connection conn) throws Exception {
 
 		PreparedStatement pstmt = null;
@@ -307,7 +344,7 @@ public class UserDao {
 		}
 	}
 
-	// ÀÚÁøÅ»Åğ¸¦ ÇÏ¸é Å»ÅğÀ¯Çü°ú Å»Åğ³¯Â¥¸¦ º¯°æÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ ï¿½Ï¸ï¿½ Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	public void deleteUser(String userId, Connection conn) throws Exception {
 
 		PreparedStatement pstmt = null;
@@ -334,7 +371,7 @@ public class UserDao {
 		}
 	}
 
-	//´Ğ³×ÀÓÁßº¹°Ë»ç
+	//ï¿½Ğ³ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½Ë»ï¿½
 		public boolean confirmNickName(String userNick) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;

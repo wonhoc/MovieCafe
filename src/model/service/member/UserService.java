@@ -20,14 +20,15 @@ public class UserService {
 		}
 		return service;
 	}
-		//È¸¿ø Á¤º¸ µî·Ï ¼­ºñ½º
+		//È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		public void registUser(UserInfoVo user) throws Exception {
 			
 			UserDao userDao = UserDao.getInstance();
 			userDao.insertUser(user);
+			userDao.inserUserRank(user.getUserId());
 		}
 		
-		// ¾ÆÀÌµð Áßº¹°Ë»ç¸¦ ÇÏ´Ù.
+		// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½Ë»ç¸¦ ï¿½Ï´ï¿½.
 		public boolean checkId(String userId) throws Exception {
 				UserDao userDao = UserDao.getInstance();
 				return userDao.existId(userId);
@@ -35,14 +36,14 @@ public class UserService {
 		}//checkId end
 		
 		
-		// È¸¿øÀÇ ¾ÆÀÌµð, È¸¿øµî±Þ, ´Ð³×ÀÓÀ» Á¶È¸ÇÑ´Ù.
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½, È¸ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ñ´ï¿½.
 		public UserInfoVo retrieveIdRankNick(String userId) throws Exception {
 				UserDao userDao = UserDao.getInstance();
 				return userDao.selectUserIdNickRank(userId);
 		}
 		
 		
-		// ·Î±×ÀÎ
+		// ï¿½Î±ï¿½ï¿½ï¿½
 		public int loginUser(UserInfoVo userInfoVo) throws Exception {
 			
 			try {
@@ -51,8 +52,8 @@ public class UserService {
 				int checkIdPwd = userDao.selectCountUser(userInfoVo);
 				
 				System.out.println("checkIdPwd = " + checkIdPwd);
-				// checkIdPwd = 1 -> ·Î±×ÀÎ °¡´É
-				// checkIdPwd = 0 -> ·Î±×ÀÎ ºÒ°¡ = °èÁ¤ ¾øÀ½
+				// checkIdPwd = 1 -> 
+				// checkIdPwd = 0 -> ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ = ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				return checkIdPwd;
 				
 			} catch (Exception e) {
@@ -61,7 +62,7 @@ public class UserService {
 	
 		}
 		
-		//È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
+		//È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ñ´ï¿½.
 		public UserInfoVo retrieveUser(String userId) throws Exception {
 
 			UserDao userDao = UserDao.getInstance();
@@ -70,12 +71,12 @@ public class UserService {
 		
 
 		
-		//È¸¿øÀÇ Á¤º¸¸¦ º¯°æÇÑ´Ù.
+		//È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		public void modifyUser(UserInfoVo user) throws Exception {
 			boolean isSuccess = false;
 			Connection conn = null;
 			try {
-				conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
+				conn = DBConn.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½
 				conn.setAutoCommit(false);
 
 				UserDao userDao = UserDao.getInstance();
@@ -100,12 +101,12 @@ public class UserService {
 				}
 			}
 		}
-		//È¸¿øÀÌ ÀÚÁøÅ»Åð¸¦ ÇÏ¸é Å»ÅðÀ¯Çü°ú Å»Åð³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
+		//È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ ï¿½Ï¸ï¿½ Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ñ´ï¿½.
 		public void removeUser(String userId) throws Exception {
 			boolean isSuccess = false;
 			Connection conn = null;
 			try {
-				conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
+				conn = DBConn.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½
 				conn.setAutoCommit(false);
 
 				UserDao userDao = UserDao.getInstance();
@@ -130,7 +131,7 @@ public class UserService {
 				}
 			}
 		}
-		//´Ð³×ÀÓÁßº¹°Ë»ç¸¦ ÇÏ´Ù.
+		//ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½Ë»ç¸¦ ï¿½Ï´ï¿½.
 		public boolean checkNickName(String userNick) throws Exception {
 				UserDao userDao = UserDao.getInstance();
 				return userDao.confirmNickName(userNick);

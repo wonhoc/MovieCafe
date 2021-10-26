@@ -24,17 +24,17 @@ public class LoginCommand implements Command {
 				System.out.println("userPwd : " + userPwd);
 				
 				
-				// ·Î±×ÀÎ È®ÀÎ ºÎºÐ
+				// ï¿½Î±ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Îºï¿½
 				UserService service = UserService.getInstance();
 				
 				UserInfoVo userInfoVo = new UserInfoVo(userId, userPwd);
-				// È¸¿ø, ¾ÆÀÌµð°¡ ÀÖÀ¸¸é 1, ¾øÀ¸¸é 0
+				// È¸ï¿½ï¿½, ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0
 				int isMember = service.loginUser(userInfoVo);
 				System.out.println(isMember);
 				
-				// ·Î±×ÀÎ È®ÀÎ ºÎºÐ ³¡				
+				// ï¿½Î±ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½				
 				
-				// °èÁ¤ÀÌ ÀÖÀ» °æ¿ì ¼¼¼Ç¿¡¼­ È¸¿ø Á¤º¸ °¡Áö°í ¿È
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				if(isMember == 1) {
 					HttpSession session = request.getSession();
 					UserInfoVo user = service.retrieveIdRankNick(userId);
@@ -43,12 +43,12 @@ public class LoginCommand implements Command {
 					session.setAttribute("userInfo", user);
 					
 					session.setMaxInactiveInterval(30 * 60);
-					System.out.println("¼º°ø");
+					System.out.println("ì„±ê³µ");
 					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);
 					
 					
 				} else {
-					System.out.println("½ÇÆÐ");
+					System.out.println("ì‹¤íŒ¨");
 					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);
 					
 				}				
@@ -62,7 +62,7 @@ public class LoginCommand implements Command {
 				return null;
 				
 			}
-			// ¼¼¼Ç ³¡.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 	}
 
 }
