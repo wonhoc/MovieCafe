@@ -11,27 +11,27 @@ public class CommandFactory {
 	
 	// constructor
 	private CommandFactory() {
-		//ÂÊÁö¾²±â Æû ¿äÃ»
+		//ìª½ì§€ì“°ê¸° í¼ ìš”ì²­
 		map.put("/sendMsgForm.do", "controller.message.SendMsgFormController");
-		//ÂÊÁö¾²±â ¿äÃ»
+		//ìª½ì§€ì“°ê¸° ìš”ì²­
 		map.put("/sendMsg.do", "controller.message.SendMsgController");
-		//º¸³½ ¸Ş½ÃÁö ¸ñ·Ï ¿äÃ»
+		//ë³´ë‚¸ ë©”ì‹œì§€ ëª©ë¡ ìš”ì²­
 		map.put("/sendMsgList.do", "controller.message.SendMsgListController");
-		//º¸³½ ¸Ş½ÃÁö »èÁ¦ ¿äÃ»
+		//ë³´ë‚¸ ë©”ì‹œì§€ ì‚­ì œ ìš”ì²­
 		map.put("/removeSendMsg.do", "controller.message.SendMsgRemoveController");
-		//º¸³½ ¸Ş¼¼Áö »ó¼¼º¸±â ¿äÃ»
+		//ë³´ë‚¸ ë©”ì„¸ì§€ ìƒì„¸ë³´ê¸° ìš”ì²­
 		map.put("/detailSendMsg.do", "controller.message.SendMsgDetailController");
-		//¹ŞÀº ¸Ş¼¼Áö ¸ñ·Ï ¿äÃ»
+		//ë°›ì€ ë©”ì„¸ì§€ ëª©ë¡ ìš”ì²­
 		map.put("/receiveMsgList.do", "controller.message.ReceivceMsgListController");
-		//¹ŞÀº ¸Ş¼¼Áö »ó¼¼º¸±â ¿äÃ»
+		//ë°›ì€ ë©”ì„¸ì§€ ìƒì„¸ë³´ê¸° ìš”ì²­
 		map.put("/detailReceiveMsg.do", "controller.message.ReceivceMsgDetailController");
-		//¹ŞÀº ¸Ş¼¼Áö »èÁ¦ ¿äÃ»
+		//ë°›ì€ ë©”ì„¸ì§€ ì‚­ì œ ìš”ì²­
 		map.put("/removeReceiveMsg.do", "controller.message.ReceiveMsgRemoveController");
-		//º¸³½ ¸Ş¼¼Áö »ó¼¼º¸±â ÆäÀÌÁö¿¡¼­ »èÁ¦ ¿äÃ»
+		//ë³´ë‚¸ ë©”ì„¸ì§€ ìƒì„¸ë³´ê¸° í˜ì´ì§€ì—ì„œ ì‚­ì œ ìš”ì²­
 		map.put("/removeDetailSendMsg.do", "controller.message.RemoveDetailSendMsgController");
-		//¹ŞÀº ¸Ş¼¼Áö »ó¼¼º¸±â ÆäÀÌÁö¿¡¼­ »èÁ¦ ¿äÃ»
+		//ë°›ì€ ë©”ì„¸ì§€ ìƒì„¸ë³´ê¸° í˜ì´ì§€ì—ì„œ ì‚­ì œ ìš”ì²­
 		map.put("/removeDetailReceiveMsg.do", "controller.message.RemoveDetailReceiveMsgController");
-		//ºñµ¿±âÃ³¸®·Î º¸³½»ç¶÷ È®ÀÎ ¿äÃ»
+		//ë¹„ë™ê¸°ì²˜ë¦¬ë¡œ ë³´ë‚¸ì‚¬ëŒ í™•ì¸ ìš”ì²­
 		map.put("/CheckReceiveId.do", "controller.message.CheckReceiveIdController");
 	}
 	

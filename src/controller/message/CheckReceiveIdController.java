@@ -14,7 +14,7 @@ public class CheckReceiveIdController implements Command {
 		
 		String receiveId = request.getParameter("userId");
 		
-		//DB¿¡¼­ ÀÔ·Â¹ŞÀº ¾ÆÀÌµğ¸¦ Á¶È¸ÇÑ °ªÀ» returnÇØÁÖ±â
+		//DBì—ì„œ ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë°›ëŠ” ì•„ì´ë””ê°€ ìˆëŠ”ì§€ í™•ì¸í•˜ê¸°
 		int resultCount = ReceiveMSgDao.getInstance().selectId(receiveId);
 		System.out.println(resultCount);
 		request.setAttribute("resultCount", resultCount);	

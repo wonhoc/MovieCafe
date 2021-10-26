@@ -1,10 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
-<c:set var="headerTemplate" value="${param.headerTemplate }.jsp" />
-<c:set var="asideTemplate" value="${param.asideTemplate }.jsp" />
-<c:set var="footerTemplate" value="${param.footerTemplate }.jsp" />
 
+<c:set var="contentTemplate" value="/${param.contentTemplate }.jsp" />
 
 <!DOCTYPE html>
 <html>
@@ -15,10 +12,17 @@
 header {
   padding-top: 1em;
 }
+main {
+	display : flex;
+	width : 100%;
+}
 aside {
   width: 20%;
   height: 100%;
   background-color: #eab48a;
+}
+section {
+	width : 100%;
 }
 footer {
   display: flex;
@@ -32,13 +36,18 @@ footer {
 </head>
 <body>
 <header>
-	<jsp:include page="${headerTemplate }" flush="false"></jsp:include>
+	<jsp:include page="/header.jsp" flush="false"></jsp:include>
 </header>
-<aside>
-	<jsp:include page="${asideTemplate }" flush="false"></jsp:include>
-</aside>
+<main>
+	<aside>
+		<jsp:include page="/aside.jsp" flush="false"></jsp:include>
+	</aside>
+	<section>
+		<jsp:include page="${contentTemplate }" ></jsp:include>
+	</section>
+</main>
 <footer>
-	<jsp:include page="${footerTemplate }" flush="false"></jsp:include>
+	<jsp:include page="/footer.jsp" flush="false"></jsp:include>
 </footer>
 </body>
 </html>
