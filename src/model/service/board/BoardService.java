@@ -1,10 +1,11 @@
 package model.service.board;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import domain.board.BoardVo;
+import domain.board.RecomVo;
 import model.dao.board.BoardDao;
+import model.dao.board.RecomDao;
 
 
 public class BoardService {
@@ -69,4 +70,21 @@ public class BoardService {
 					//return BoardDao.getInstance().selectBoardList(cateNo, keyfield, keyword);
 					return boards;
 				}
+				
+				//게시글을 상세조회하다.
+				public BoardVo detailBoard(int boardNo) throws Exception{
+					BoardDao boardDao = BoardDao.getInstance();
+					BoardVo board =boardDao.selectBoard(boardNo);
+					System.out.println("service 상세보기 완료. 댓글 개수는 "+board.getCommentList().size());
+					return board;
+				}
+				
+				//게시글을 추천하다. recomBoard
+				public void recomBoard(RecomVo recom) throws Exception{
+					RecomDao recomDao = RecomDao.getInstance();
+					recomDao.insertRecommend(recom);
+					System.out.println("service 추천 완료 ");
+					
+				}
+				
 }
