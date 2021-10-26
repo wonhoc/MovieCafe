@@ -146,7 +146,54 @@ section {
   width : 3rem;
   margin: 0 0.5em;
 }
+.fa-heart {
+  margin-right : 0.5em;
+  cursor : pointer;
+  transition: transform 200ms linear;
+}
+.fa-heart:hover {
+  transform: scale(1.1);
+}
+
 </style>
+<script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".like").on("click", function() {
+    	console.log("wow");
+    	$(this).removeClass('far');
+    	$(this).addClass('fas');
+    	
+    	const obj = $(this);
+    	
+    	console.log(obj);
+     	
+    	 $.ajax({
+             url:'${pageContext.request.contextPath}/upLikeGuanram.do',
+             method: 'GET',
+             dataType: 'json',
+             data: {
+                movieNo: ${param.movieNo} 
+             },
+             success:function(data){   
+            	 obj.find('p').hide(); 
+            	 obj.find('.review_text').html(data.upLikeCount);
+                	
+             },
+             error:function(error){
+                 console.log(error);
+             }
+         }); 
+    	
+    });
+    
+  });
+</script>
+
 </head>
 <body>
 
@@ -210,6 +257,7 @@ section {
               </a>
      
              </c:if>
+             
             </div>
           </div>
           <c:forEach var="review" items="${movieDetail.guanramList }">
@@ -218,11 +266,12 @@ section {
             <p class="review_text id">${review.userId }</p>
             <p class="review_text content">${review.guanramReview }</p>
             <p class="review_text date">${review.guanramWdate }</p>
+            
             <div class="like">
-              <i class="fas fa-heart review_text"></i>
-              <!-- <i class="far fa-heart review_text"></i> -->
+              <i class="far fa-heart review_text heart" ></i>
               <p class="review_text">${review.guanramLike }</p>
             </div>
+            
             <div class="rank">
             <c:forEach var="i" begin="1" end="${review.guanramRating }">
               <i class="fas fa-star review_text"></i>
