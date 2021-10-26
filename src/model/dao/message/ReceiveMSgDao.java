@@ -216,5 +216,49 @@ public class ReceiveMSgDao {
 			}// end
 			return count;
 		}//selectTotalReceiveMsg() end
+		
+		//받는 아이디 갯수 조회하기
+		public int selectId(String userId) throws Exception {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Connection conn = null;
+			try {
+				int resultCount = 0;
+				conn = DBConn.getConnection();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append(" SELECT COUNT(user_Id) ");
+				sql.append(" FROM user_info ");
+				sql.append(" WHERE user_Id = ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, userId);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					resultCount = rs.getInt(1);
+				}//if end
+				
+				return resultCount;
+
+			} catch (Exception e) {
+				throw e;
+			}finally {
+				try {
+					
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+					
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}// end
+			
+			
+		}//selectId() end
+		
 	
 }// class end

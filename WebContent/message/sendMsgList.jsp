@@ -13,6 +13,71 @@
         <meta charset='UTF-8'>
         <title>내가쓴 쪽지</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   	<style>
+  	#removeSendMsgBtn,
+ 	#sendFormBtn,
+#sendMsglistBtn,
+#recieveMsglistBtn,
+#sendMsgBtn {
+  height: 2rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #5b5b5b;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+#removeSendMsgBtn:hover,
+#sendFormBtn:hover,
+#sendMsglistBtn:hover,
+#recieveMsglistBtn:hover,
+#sendMsgBtn:hover {
+  background-color: #e2e2e2;
+}
+
+#sendMsgList {
+  border: #eab48a 4px solid;
+  border-radius: 0.5em;
+}
+
+.reciveId {
+  width: 60%;
+  height: 1.7rem;
+  line-height: 1.7rem;
+}
+#plusFrom {
+  cursor: pointer;
+}
+#removeSendMsgBtn{
+	margin-left: 350px;
+	color: red;
+	
+}
+
+#paging{
+	width: 350px;
+	text-align: center;
+	font-family: ;
+}
+
+
+#recieveId,
+.content {
+  font-size: 16px;
+  padding: 0.5em;
+  border: 1px solid #b1b1b1;
+}
+#sendMsgList {
+  width: 400px;
+  height: 200px;
+}
+
+.bottom {
+  text-align: end;
+}   	
+   	</style>
     </head>
     <body>
     
@@ -75,11 +140,11 @@
 		        </table>
 		        <c:if test="${not empty requestScope.sendMsgList }">		
 		     <div id="etc">
-       	 		<button type="submit" id="removeSendMsgBtn" style="margin-left: 300px">삭제</button>
+       	 		<button type="submit" id="removeSendMsgBtn">삭제</button>
        	 	</div>
        	 		</c:if>
    	 		<%-- 페이징처리 --%>
-   	 	<div id="paging"  style="text-align:  center; width: 300px">
+   	 	<div id="paging">
        	<c:set var="pageBlock" value="${requestScope.pageBlock }" scope="page"/>
 		<c:set var="startPage" value="${requestScope.startPage }" scope="page"/>
 		<c:set var="endPage" value="${requestScope.endPage }" scope="page"/>
@@ -101,7 +166,7 @@
 				<c:url var="url" value="/sendMsgList.do">
 					<c:param name="currentPage" value="${i }"/>
 				</c:url>
-				<a href="${url }">&nbsp;${i}&nbsp;</a>
+				<a href="${url }">&nbsp;&nbsp;${i}&nbsp;&nbsp;</a>
 			</c:if>
 		</c:forEach>
 		<c:if test="${endPage < totalPage }">

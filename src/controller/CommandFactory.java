@@ -31,6 +31,8 @@ public class CommandFactory {
 		map.put("/removeDetailSendMsg.do", "controller.message.RemoveDetailSendMsgController");
 		//받은 메세지 상세보기 페이지에서 삭제 요청
 		map.put("/removeDetailReceiveMsg.do", "controller.message.RemoveDetailReceiveMsgController");
+		//비동기처리로 보낸사람 확인 요청
+		map.put("/CheckReceiveId.do", "controller.message.CheckReceiveIdController");
 	}
 	
 	public static CommandFactory getInstance() {

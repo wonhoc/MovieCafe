@@ -12,9 +12,57 @@
         		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
         		crossorigin="anonymous">
         </script>
-        <script>
-        	
-        </script>
+      <style>
+ #sendFormBtn,
+#sendMsglistBtn,
+#recieveMsglistBtn,
+#sendMsgBtn {
+  height: 2rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #5b5b5b;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor: pointer;
+}
+#sendFormBtn:hover,
+#sendMsglistBtn:hover,
+#recieveMsglistBtn:hover,
+#sendMsgBtn:hover {
+  background-color: #e2e2e2;
+}
+
+#sendMsgListTb {
+  border: #eab48a 4px solid;
+  border-radius: 0.5em;
+}
+
+.reciveId {
+  width: 60%;
+  height: 1.7rem;
+  line-height: 1.7rem;
+}
+#plusFrom {
+  cursor: pointer;
+}
+
+#recieveId,
+.content {
+  font-size: 16px;
+  padding: 0.5em;
+  border: 1px solid #b1b1b1;
+}
+#sendMsgContent {
+  width: 300px;
+  height: 200px;
+}
+
+.bottom {
+  text-align: end;
+}
+      </style>
     </head>
     <body>
         <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
@@ -48,27 +96,38 @@
 		var temp = 0;
 		<%-- 받는사람, 내용 없을시 false return --%>
 		$(document).ready(function() {
-				$('#sendMsgBtn').on('click', function() {
-					
-				if($('#sendMsgContent').val().trim() == ""){
-					alert('내용을 입력해주세요.');
-					return false;
-				}
-					
-					
-					let count = 0;
-					$('input[name=reciveId]').each(function() {
+				$('#sendMsgBtn').on('click', function() {			
+				<%-- 받는 사람 유효성 검사--%>
+				const sendCheckok =	
+				$('input[name=reciveId]').each(function() {
 						const name = $(this).val().trim();
+						
 						if(name == '') {
-							count++;
+							alert('받는사람을 정확하게 입력해주세요.');
+							return false;
 						}
+					<%-- Ajax로 보낼 수 있는 아이디 확인  --%>
+					return receivechkProcess('${pageContext.request.contextPath}/CheckReceiveId.do', name);
+						
 					});	
-					if(count != 0) {
-						alert('받는사람을 정확하게 입력해주세요.')
+					
+					
+					<%-- 내용 유효성 검사 --%>
+					if($('#sendMsgContent').val().trim() == ""){
+						alert('내용을 입력해주세요.');
 						return false;
-					}	
-				})     		
+					}
+					
+				if(sendCheckok){
+					<%-- 내용 유효성 검사가 다 되었다면  --%>
+					$('#sendMsgForm').submit();	
+				}else{
+					alert('zz');
+				}
+				})
+			
     	});
+		
 		<%-- 받는사람 추가 --%>
 		$('#plusFrom').on('click', function() {
 			if(temp<4){temp = temp + 1;}else{
@@ -79,13 +138,54 @@
 				+ '<button type="button" id="minForm">-</button>';
 			$('#recieveId').append(htmlstr);		
 		});
-		<%-- -버튼 클릭시 받는사람 삭제 --%>
+		<%-- 버튼 클릭시 받는사람 삭제 --%>
 		$(document).on("click","#minForm",function(){
 			temp = temp -1;
 			$(this).prev().prev().remove();
 			$(this).prev().remove();
 			$(this).remove();
 		});
+		
+		
+		<%-- Ajax  --%>
+		const getAjax = function(url, userId) {
+			return new Promise( (resolve, reject) => {
+				$.ajax({
+					url: url,
+					method: 'POST',
+					dataType: 'json',
+					data: {
+						userId: userId
+					},
+					//콜백함수
+					success: function(data) {
+						resolve(data);
+					},
+					error : function(e) {
+						reject(e);
+					}
+				});
+			});
+		};
+		
+		async function receivechkProcess(url, userId) {
+			console.log('name = ' , userId);
+			try {
+				const result = await getAjax(url, userId);
+				console.log("result : ", result.resultCount);
+				if(result.resultCount == 0 ) {
+ 						alert(userId + '에게 쪽지를 보낼 수 없습니다.\n아이디를 다시 확인해주세요');
+ 						return false;
+ 					}
+				} catch (error)  {
+					console.log("error : ", error);	
+				
+				}
+			}
+				
+		
+		
+		
 		</script>
     </body>
 </html>
