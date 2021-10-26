@@ -99,6 +99,13 @@ section {
 <!-- 임의로 사용자 아이디를 세션에 바인딩 -->
 <c:set var="userId" value="test_user01" scope="session" />
 
+
+<%-- 세션의 유저 정보 확인
+${sessionScope.userInfo.userId} <br>
+${sessionScope.userInfo.userNick} <br>
+${sessionScope.userInfo.rankType} <br>
+--%>
+
 <section>
 	<c:if test="${empty requestScope.movieList }">
 		<p class="content_text"> 등록된 영화가 없습니다. </p>

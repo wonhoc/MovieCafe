@@ -22,3 +22,4 @@ public class CheckNickNameCommand implements Command{
 	}
 	
 }
+
