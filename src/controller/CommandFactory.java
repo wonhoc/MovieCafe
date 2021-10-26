@@ -5,22 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandFactory {
-	//½Ì±ÛÅæ ÆĞÅÏ
+	//ì‹±ê¸€í†¤ íŒ¨í„´
 		private static CommandFactory factory;
 		private Map<String, String> map = new HashMap<String, String>();
 		
 		private CommandFactory() {
-			//È¸¿ø »ó¼¼Á¶È¸¿äÃ»
-			map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");	
 			
-			//ÆĞ½º¿öµå È®ÀÎ ¿ä«Š
-			map.put("/pwdCheck.do", "controller.member.PwdCheckCommand");
 			
-			//´Ğ³×ÀÓÁßº¹Ã¼Å©
-			map.put("/checkNick.do", "controller.member.CheckNickNameCommand");
 			
-			//È¸¿ø ÀÚÁøÅ»Åğ¿äÃ»
-			map.put("/userDelete.do", "controller.member.DeleteUserCommand");
+			//ì‚¬ìš©ìì •ë³´ì¡°íšŒ
+			map.put("/listUser.do", "controller.member.ListUserCommand");
+			
 		}
 		
 		
@@ -39,7 +34,7 @@ public class CommandFactory {
 			}
 			
 			try {	
-				// µ¿Àû Å¬·¡½º ·Îµù ÈÄ ÀÎ½ºÅÏ½º »ı¼º  
+				// ë™ì  í´ë˜ìŠ¤ ë¡œë”© í›„ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±  
 				Class<?> cls = Class.forName(commandClass);
 				Constructor<?> constructor = cls.getConstructor(null);
 				Command command = (Command)constructor.newInstance();

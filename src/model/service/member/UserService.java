@@ -1,88 +1,40 @@
 package model.service.member;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import domain.member.UserInfoVo;
 import model.DBConn;
-import model.dao.member.UserDao;
 
+import model.dao.member.UserDao;
 
 public class UserService {
 	// single pattern
-		private static UserService service;
+	private static UserService service;
 
-		private UserService() {
+	private UserService() {
 
+	}
+
+	public static UserService getInstance() {
+		if (service == null) {
+			service = new UserService();
 		}
+		return service;
+	}
 
-		public static UserService getInstance() {
-			if (service == null) {
-				service = new UserService();
-			}
-			return service;
-		}
 	
-	
-	
-	//È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
-	public UserInfoVo retrieveUser(String userId) throws Exception {
+
+	//ê´€ë¦¬ìê°€ íšŒì› ì •ë³´ ì¡°íšŒë¥¼ í•œë‹¤.
+	public ArrayList<UserInfoVo> retrieveUserList(int startRow, int postSize) throws Exception {
 		UserDao userDao = UserDao.getInstance();
-		return userDao.selectUser(userId);
+		return userDao.selectUserList(startRow, postSize);
 	}
+
 	
-	//È¸¿øÀÇ Á¤º¸¸¦ º¯°æÇÑ´Ù.
-	public void modifyUser(UserInfoVo user) throws Exception {
-		boolean isSuccess = false;
-		Connection conn = null;
-		try {
-			conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
-			conn.setAutoCommit(false);
 
-			UserDao userDao = UserDao.getInstance();
-			userDao.updateUser(user, conn);
-
-			isSuccess = true;
-
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			try {
-				if (conn != null) {
-					if (isSuccess) {
-						conn.commit();
-					} else {
-						conn.rollback();
-					}
-				}
-
-			} catch (Exception e2) {
-				throw e2;
-			}
-		}
+	// ì´ íšŒì›ì˜ ìˆ˜ë¥¼ êµ¬í•œë‹¤.
+	public int retrieveUserTotalCount() throws Exception {
+		return UserDao.getInstance().selectUserTotalCount();
 	}
-	//È¸¿øÀÌ ÀÚÁøÅ»Åğ¸¦ ÇÏ¸é Å»ÅğÀ¯Çü°ú Å»Åğ³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
-	public void removeUser(String userId) throws Exception {
-		Connection conn = null;
-		try {
-			conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
-			UserDao userDao = UserDao.getInstance();
-			userDao.deleteUser(userId, conn);
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			try {
-				if (conn != null) conn.close();
-				
-			} catch (Exception e2) {
-				throw e2;
-			}
-		}
-	}
-	//´Ğ³×ÀÓÁßº¹°Ë»ç¸¦ ÇÏ´Ù.
-	public boolean checkNickName(String userNick) throws Exception {
-		UserDao userDao = UserDao.getInstance();
-		return userDao.confirmNickName(userNick);
-		
-}
 }
