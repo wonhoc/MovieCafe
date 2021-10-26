@@ -18,8 +18,6 @@ public class CheckIdCommand implements Command {
 			boolean result2 = service.checkId(userId);
 			request.setAttribute("isUserId", result2);
 			return new ActionForward("/member/isUserId.jsp", false);
-	}
-
+	}	
 	
-	
-}//class end
+}

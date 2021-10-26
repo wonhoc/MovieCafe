@@ -34,27 +34,32 @@ public class MovieListCommand implements Command {
 		request.setAttribute("movieList", movieList);
 
 		int totalPostCount = MovieService.getInstace().retrieveTotalMovieCount();
-		
-		int currentBlock = currentPage % totalPostCount == 0 ? currentPage / totalPostCount : currentPage / totalPostCount + 1;
 
-		int startPage = 1 + (currentBlock - 1) * totalPostCount;
-		int endPage = startPage + (totalPostCount - 1);
+		if(totalPostCount == 0) {
+			return new ActionForward("/template.jsp?contentTemplate=main", false);
+		} else {
+			int currentBlock = currentPage % totalPostCount == 0 ? currentPage / totalPostCount : currentPage / totalPostCount + 1;
 
-		int totalPage = totalPostCount % POST_PER_PAGE == 0 ? totalPostCount / POST_PER_PAGE
-				: totalPostCount / POST_PER_PAGE + 1;
-		
-		if(endPage > totalPage) {
-			endPage = totalPage;
+			int startPage = 1 + (currentBlock - 1) * totalPostCount;
+			int endPage = startPage + (totalPostCount - 1);
+
+			int totalPage = totalPostCount % POST_PER_PAGE == 0 ? totalPostCount / POST_PER_PAGE
+					: totalPostCount / POST_PER_PAGE + 1;
+			
+			if(endPage > totalPage) {
+				endPage = totalPage;
+			}
+			
+			request.setAttribute("pageBlock", totalPostCount);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("totalPostCount", totalPostCount);
+			request.setAttribute("postSize", POST_PER_PAGE);
+			
+			return new ActionForward("/template.jsp?contentTemplate=main&currentPage=" + currentPage, false);	
 		}
 		
-		request.setAttribute("pageBlock", totalPostCount);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("totalPage", totalPage);
-		request.setAttribute("totalPostCount", totalPostCount);
-		request.setAttribute("postSize", POST_PER_PAGE);
-		
-		return new ActionForward("/template.jsp?contentTemplate=main&currentPage=" + currentPage, false);
 	}
 
 }

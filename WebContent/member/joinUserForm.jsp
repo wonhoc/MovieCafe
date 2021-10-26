@@ -13,14 +13,114 @@
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
+<style>
+content {
+  width: 100%;
+}
+.join_title {
+  font-size: 36px;
+    font-weight: bolder;
+    margin: 0.3em 0;
+}
+.join_notice {
+  padding: 3em 0 2em 5em;
+}
+.join_devide {
+  width: 30%;
+  height: 4px;
+  background-color: black;
+}
+.join_text {
+  margin: 0.25em;
+}
 
+.input_section {
+  display: flex;
+  align-items: center;
+}
+.input_title {
+  margin-right: 1em;
+}
+
+.input_box {
+  height: 1.5rem;
+  outline: auto;
+  border-radius: 0.25em;
+}
+
+.join_box {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+button {
+  cursor: pointer;
+  height: 1.5rem;
+  margin: 0 0.3em;
+  font-size: 18px;
+  color: #454545;
+  background-color: #fdfdfd;
+  border: 2px solid #454545;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+}
+button:hover {
+  background-color: #e2e2e2;
+}
+
+#profilePhoto {
+  outline: none;
+}
+
+.form_imgBtn label {
+  margin-top: 1em;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  color: #404040;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #626262;
+  border-radius: 0.25em;
+}
+.form_imgBtn input[type="file"] {
+  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+#img {
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid;
+}
+
+.btn_box {
+  margin-top: 3em;
+  text-align: center;
+}
+.submitBtn {
+  width: 3em;
+  height: 1.7em;
+  padding: 0.25em;
+}
+</style>
 <script type="text/javascript">
 		$(document).ready(function() {
 			
 			
 			<%--프로필 사진 미리보기--%>
-		    $("#profilePhoto").on("change", function handleImgFileSelect(e) {
-		    	console.log("wow");
+		    $("#imgInput").on("change", function handleImgFileSelect(e) {
 		        let files = e.target.files;
 		        let filesArr = Array.prototype.slice.call(files);
 		        filesArr.forEach(function (f) {
@@ -211,9 +311,7 @@
 					};
 					reader.readAsDataURL(event.target.files[0]);
 					
-				}
-				
-			
+				}		
 		});
 		
 		</script>
@@ -222,91 +320,92 @@
 <title>회원 가입 폼</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/joinUser"
+	<section>
+          <div class="join_notice">
+            <h1 class="join_title">회원 가입</h1>
+            <div class="join_devide"></div>
+            <p class="join_text">철수와 영화에 오신 것을 환영합니다.</p>
+            <p class="join_text">회원 가입을 위해서 아래 내용을 작성해주세요</p>
+          </div>
+          
+        <form action="${pageContext.request.contextPath}/joinUser"
 		method="POST" enctype="multipart/form-data">
-		<div>
-			<label for="userId">ID</label> 
-			<input type="text" name="userId" id="userId"> 
-			<button type="button" id="idChkBtn" name="idChkBtn">확인</button>
-			<div id="resultId"></div>
-		</div>
+		<div class="join_box">
+            <div class="join_left">
+                <div class="input_section">
+                    <h3 class="input_title">ID</h3> 
+                    <input class="input_box" type="text" name="userId" id="userId"> 
+                    <button type="button" id="idChkBtn" name="idChkBtn">확인</button>
+                </div>
+                <div id="resultId">이미 있는 아이디 입니다.</div>
+                <div class="input_section">
+                    <h3 class="input_title">Password</h3>
+                    <input class="input_box" type="password" name="userPwd" id="userPwd">
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title">Password 확인</h3> 
+                    <input class="input_box" type="password" name="userPwdCheck" id="userPwdCheck">
+                    <button type="button" id = "pwChkBtn">확인</button>
+                </div>
+                <div>
+                    <span id="pwdcheck"></span>
+                </div>
+                <div>
+                    <span class="pwdformchk"></span>
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title">E-mail</h3> 
+                    <input class="input_box" type="text" name="userEmail" id="userEmail">
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title">생년월일</h3> 
+                    <select id="birthYear" name="birthYear"></select> 
+                    <select id="birthMonth" name="birthMonth"></select> 
+                    <select id="birthDate" name="birthDate"></select>
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title">연락처</h3> 
+                    <select id="contact1" name="contact1">
+                        <option value="010">010</option>
+                    </select> 
+                    <input type="text" id="contact2" name="contact2"> 
+                    <input type="text" id="contact3" name="contact3">
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title"> 닉네임 설정</h3> 
+                    <input class="input_box" type="text" name="userNick" id="userNick">
+                    <button type="button" id="userNickBtn">확인</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div class="join_right">
 
-		<div>
-			<label for="userPwd">Password</label>
-			<input type="password" name="userPwd" id="userPwd">
-		</div>
-
-		<%-- 비밀번호 양식이 맞는지 확인(10자이상, 영문대소문자, 특수문자 하나 이상) --%>
-
-		
-
-
-
-		<div>
-			<label for="userPwdCheck">Password 확인</label> 
-			<input type="password" name="userPwdCheck" id="userPwdCheck">
-			<button type="button" id = "pwChkBtn">확인</button>
-		</div>
-		<%-- 입력한 비밀번호와 일치하는지 확인 --%>
-		<div>
-			<span id="pwdcheck"></span>
-		</div>
-		
-		<div>
-			<span class="pwdformchk"></span>
-		</div>
-		
-		<div>
-			<label for="userEmail">E-mail</label> <input type="text"
-				name="userEmail" id="userEmail">
-		</div>
-		<div>
-			<label for="userBirth">생년월일</label> 
-			<select id="birthYear" name="birthYear"></select> 
-			<select id="birthMonth" name="birthMonth"></select> 
-			<select id="birthDate" name="birthDate"></select>
-		</div>
-
-		<div>
-			<label for="userContact">연락처</label> <select id="contact1"
-				name="contact1">
-				<option value="010">010</option>
-			</select> <input type="text" id="contact2" name="contact2"> <input
-				type="text" id="contact3" name="contact3">
-
-		</div>
-
-		<div>
-			<h3>프로필 사진 설정</h3>
-			<img id="img"></div>
-			<input type="file" id="profilePhoto" name="profilePhoto" />
-		</div>
-
-		<div>
-			<label for="userNick"> 닉네임 설정</label> 
-			<input type="text" name="userNick" id="userNick">
-			<button type="button" id="userNickBtn">확인</button>
-			<div id="result"></div>
-		</div>
-
-
-		<div>
-			<label for="userName"> 이름</label> <input type="text" name="userName"
-				id="userName">
-		</div>
-
-		<div>
-			<label> 성별</label> <label for="pickGender">남</label> <input
-				type="radio" name="pickGender" id="pickMale" value="M" checked>
-			<label for="pickFemale">여</label> <input type="radio"
-				name="pickGender" id="pickfeMale" value="F">
-		</div>
-
-		<button type="button">취소</button>
-		<button type="submit">확인</button>
-
+                <img id="img">
+                <div class="form_imgBtn">
+                    <label for="imgInput">이미지 등록</label>
+                    <input type="file" class="form_imgInput" id="imgInput" name="imgInput"/>
+                  </div>
+                
+                <div class="input_section">
+                    <h3 class="input_title"> 이름</h3> 
+                    <input class="input_box" type="text" name="userName" id="userName">
+                </div>
+                <div class="input_section">
+                    <h3 class="input_title"> 성별</h3> 
+                    <label for="pickGender">남</label> 
+                    <input type="radio" name="pickGender" id="pickMale" value="M" checked>
+                    <label for="pickFemale">여</label> 
+                    <input type="radio" name="pickGender" id="pickfeMale" value="F">
+                </div>
+            </div>
+        </div>
+        <div class="btn_box">
+            <button class="submitBtn" type="button">취소</button>
+		    <button class="submitBtn" type="submit">확인</button>
+        </div>
+           
 	</form>
-
+ </section>
 
 </body>
 </html>

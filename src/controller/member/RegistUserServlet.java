@@ -18,8 +18,6 @@ import util.file.FileUploadUtils;
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = 1024 * 300, maxRequestSize = -1L, location = "")
 @WebServlet("/joinUser")
 public class RegistUserServlet extends HttpServlet {
-	
-	// ÇÁ·ÎÇÊ »çÁø ¾÷·Îµå °æ·Î. ½ÇÁ¦ Àû¿ë ½Ã º¯°æÇÒ °Í.
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -48,9 +46,6 @@ public class RegistUserServlet extends HttpServlet {
 		System.out.println(userNick);
 		System.out.println(userName);
 		System.out.println(gender);
-
-		
-		// ÇÁ·ÎÇÊ »çÁø ¾÷·Îµå
 		
 		
 		Part part = request.getPart("profilePhoto");
@@ -77,7 +72,7 @@ public class RegistUserServlet extends HttpServlet {
 		UserService service = UserService.getInstance();
 		service.registUser(userInfoVo);
 		
-		// È¸¿ø °¡ÀÔ ÈÄ ÀÌµ¿ÇÒ ÆäÀÌÁö ÁÖ¼Ò. ÃßÈÄ ¼öÁ¤ÇÒ °Í
+		// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		response.sendRedirect(request.getContextPath() + "/main.do");
 		
 			

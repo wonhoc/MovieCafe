@@ -93,27 +93,14 @@ section {
 <c:set var="totalPage" value="${requestScope.totalPage }" scope="page" />
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
 
-<%-- <!-- 임의로 관리자 정보를 세션에 바인딩 -->--%>
-<c:set var="userLank" value="A" scope="session" /> 
-
-<!-- 임의로 사용자 아이디를 세션에 바인딩 -->
-<c:set var="userId" value="test_user01" scope="session" />
-
-
-<%-- 세션의 유저 정보 확인
-${sessionScope.userInfo.userId} <br>
-${sessionScope.userInfo.userNick} <br>
-${sessionScope.userInfo.rankType} <br>
---%>
-
 <section>
 	<c:if test="${empty requestScope.movieList }">
 		<p class="content_text"> 등록된 영화가 없습니다. </p>
 	</c:if>
 		<div class="main_top">
           <h1 class="content_title">이 달의 영화</h1>
-          
-          <c:if test="${userLank.equals('A') }" >
+ 
+          <c:if test="${userInfo.rankType.equals('A') }" >
             	<c:url var="addMovieUrl" value="/indexControl.jsp?contentTemplate=/movie/movieBoardForm"></c:url> 
             	<a href="${addMovieUrl }">
             		<button class="add_btn">등록</button>
@@ -144,7 +131,7 @@ ${sessionScope.userInfo.rankType} <br>
 	          	</a>
     	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3> 	   
          	 </div>
-            <c:if test="${userLank.equals('A') }" >
+            <c:if test="${userInfo.rankType.equals('A') }" >
             	<c:url var="deleteUrl" value="/removeMovie.do">
             		<c:param name="movieNo" value="${pageScope.movie.movieNo }" />
             	</c:url> 

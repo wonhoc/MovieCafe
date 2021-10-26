@@ -136,7 +136,6 @@ public class UserDao {
 				userInfoVo.setUserId(rs.getString(1));;
 				userInfoVo.setUserNick(rs.getString(2));
 				userInfoVo.setRankType(rs.getString(3));
-				System.out.println(rs.getString(1));
 			}
 		
 			
@@ -208,7 +207,6 @@ public class UserDao {
 		}
 
 		return loginCheck;
-
 	}
   
   //회원 상세정보를 조회한다.

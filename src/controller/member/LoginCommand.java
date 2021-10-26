@@ -1,7 +1,5 @@
 package controller.member;
 
-import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,41 +16,29 @@ public class LoginCommand implements Command {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			try {
 				String userId = request.getParameter("userId");
-				String userPwd = request.getParameter("userPwd");
-				
-				System.out.println("userId : " + userId);
-				System.out.println("userPwd : " + userPwd);
-				
-				
-				// ·Î±×ÀÎ È®ÀÎ ºÎºÐ
+				String userPwd = request.getParameter("userPwd");				
+		
 				UserService service = UserService.getInstance();
 				
 				UserInfoVo userInfoVo = new UserInfoVo(userId, userPwd);
-				// È¸¿ø, ¾ÆÀÌµð°¡ ÀÖÀ¸¸é 1, ¾øÀ¸¸é 0
+			
 				int isMember = service.loginUser(userInfoVo);
 				System.out.println(isMember);
 				
-				// ·Î±×ÀÎ È®ÀÎ ºÎºÐ ³¡				
-				
-				// °èÁ¤ÀÌ ÀÖÀ» °æ¿ì ¼¼¼Ç¿¡¼­ È¸¿ø Á¤º¸ °¡Áö°í ¿È
 				if(isMember == 1) {
 					HttpSession session = request.getSession();
-					UserInfoVo user = service.retrieveIdRankNick(userId);
-					
+					UserInfoVo user = service.retrieveIdRankNick(userId);				
 					
 					session.setAttribute("userInfo", user);
-					
+					System.out.println(user);
 					session.setMaxInactiveInterval(30 * 60);
-					System.out.println("¼º°ø");
-					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);
-					
+					System.out.println("ì„±ê³µ");
+					return new ActionForward("/main.do", true);					
 					
 				} else {
-					System.out.println("½ÇÆÐ");
-					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);
-					
-				}				
-				
+					System.out.println("ì‹¤íŒ¨");
+					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);				
+				}								
 				
 			} catch(Exception e) {
 				e.getStackTrace();
@@ -62,7 +48,7 @@ public class LoginCommand implements Command {
 				return null;
 				
 			}
-			// ¼¼¼Ç ³¡.
+		
 	}
 
 }
