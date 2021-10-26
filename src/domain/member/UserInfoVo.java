@@ -1,6 +1,7 @@
 package domain.member;
 
 public class UserInfoVo {
+
 	private String userId;
 	private String userPwd;
 	private String userNick;
@@ -18,11 +19,30 @@ public class UserInfoVo {
 	private String joindate;
 	private int rankNo;
 	private String rankType;
+
 	
-	public UserInfoVo() {
+  
+  public UserInfoVo() {
 		super();
 	}
+
+public UserInfoVo(String userId) {
+		super();
+		this.userId = userId;
+	}
 	
+	public UserInfoVo(String userId, String userPwd) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+	}
+  
+  public UserInfoVo(String userId, String userNick, String rankType) {
+		super();
+		this.userId = userId;
+		this.userNick = userNick;
+		this.rankType = rankType;
+   }
 	
 	public UserInfoVo(String userId, String userPwd, String userNick, String userEmail, String userBirth,
 			String userContact, String gender, String exitdate, String userName, String photoOrigin, String photoSys,
@@ -47,19 +67,7 @@ public class UserInfoVo {
 		this.rankType = rankType;
 	}
 
-	public UserInfoVo(String userId) {
-		super();
-		this.userId = userId;
-	}
-	
-
-	public UserInfoVo(String userId, String exitdate, String exitType) {
-		super();
-		this.userId = userId;
-		this.exitdate = exitdate;
-		this.exitType = exitType;
-	}
-
+  
 	public String getUserId() {
 		return userId;
 	}
@@ -197,23 +205,12 @@ public class UserInfoVo {
 		this.rankType = rankType;
 	}
 
-
 	@Override
 	public String toString() {
 		return "UserInfoVo [userId=" + userId + ", userPwd=" + userPwd + ", userNick=" + userNick + ", userEmail="
 				+ userEmail + ", userBirth=" + userBirth + ", userContact=" + userContact + ", gender=" + gender
 				+ ", exitdate=" + exitdate + ", userName=" + userName + ", photoOrigin=" + photoOrigin + ", photoSys="
 				+ photoSys + ", boardCount=" + boardCount + ", comCount=" + comCount + ", exitType=" + exitType
-				+ ", joindate=" + joindate + ", rankNo=" + rankNo + "]";
+				+ ", joindate=" + joindate + ", rankNo=" + rankNo + ", rankType=" + rankType + "]";
 	}
-
-	
-	
-
-	
-	
-	
-	
-	
-	
 }

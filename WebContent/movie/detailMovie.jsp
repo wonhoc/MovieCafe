@@ -19,7 +19,7 @@ section {
 .detail_top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .top_left {
@@ -227,10 +227,10 @@ $(document).ready(function () {
           </div>
          </div>
         
-         <c:if test="${userLank.equals('A') }" >
+         <c:if test="${userInfo.rankType.equals('A')}" >
             <c:url var="modifyUrl" value="/modifyMovieForm.do">
             	<c:param name="movieNo" value="${param.movieNo }" />
-            	<c:param name="userId" value="${param.userId }" />
+            	
             </c:url> 
             <a href="${modifyUrl }">
             	<button class="modify_btn">수정</button>
@@ -244,11 +244,11 @@ $(document).ready(function () {
             <h1 class="review_title">관람평</h1>
             <div class="review_lett">
             
-            <c:if test="${userLank.equals('R') }" >
+            <c:if test="${userInfo.rankType.equals('R') }" >
               <button class="review_btn">내가 쓴 글</button>
               
               <c:url var="reviewRegisterUrl" value="/registerGuanramForm.do">
-              	<c:param name="userId" value="${param.userId }" />
+              	
               	<c:param name="movieNo" value="${param.movieNo }" />
               </c:url>
               <c:set var="movieImg" value="${movieDetail.posterSys }" scope="session" />
@@ -279,16 +279,16 @@ $(document).ready(function () {
             </div>
             
             <c:url var="removeGuanramUrl" value="/removeGuanram.do">
-              	<c:param name="userId" value="${param.userId }" />
+              	
               	<c:param name="movieNo" value="${param.movieNo }" />
              </c:url>
             
-            <c:if test="${review.userId == sessionScope.userId }" >
+            <c:if test="${review.userId == userInfo.userId }" >
             	<a href="${removeGuanramUrl}" >
             		<button class="delete_btn">삭제</button>
             	</a>
             </c:if>
-            <c:if test="${review.userId != sessionScope.userId }" >
+            <c:if test="${review.userId != userInfo.userId }" >
             	<div class="hidden"></div>
             </c:if>
           </div>

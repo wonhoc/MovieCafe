@@ -20,21 +20,208 @@ public class UserDao {
 		}
 		return userDao;
 	}
-	
-	
-	//È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
+  
+  // íšŒì› ì •ë³´ë¥¼ ë“±ë¡í•˜ë‹¤.
+	public void insertUser(UserInfoVo userInfoVo) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			conn = DBConn.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+
+			sql.append("INSERT INTO user_info(user_id, user_pwd, user_nick, user_email,                 ");
+			sql.append("user_birth, user_contact, gender, user_name,                          ");
+			sql.append("photo_origin, photo_sys)                                                        ");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)                        ");
+
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.setString(1, userInfoVo.getUserId());
+			pstmt.setString(2, userInfoVo.getUserPwd());
+			pstmt.setString(3, userInfoVo.getUserNick());
+			pstmt.setString(4, userInfoVo.getUserEmail());
+			pstmt.setString(5, userInfoVo.getUserBirth());
+			pstmt.setString(6, userInfoVo.getUserContact());
+			pstmt.setString(7, userInfoVo.getGender());
+
+			pstmt.setString(8, userInfoVo.getUserName());
+			pstmt.setString(9, userInfoVo.getPhotoOrigin());
+			pstmt.setString(10, userInfoVo.getPhotoSys());
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+
+		}
+
+	}
+  
+  // íšŒì› ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬
+	public boolean existId(String userId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean isId = false;
+		try {
+			
+			conn = DBConn.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT  *           ");
+			sql.append("FROM user_info     ");
+			sql.append("WHERE user_id = ?   ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isId = true;
+				
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		return isId;
+	}
+  
+  // íšŒì› ì•„ì´ë””, ë‹‰ë„¤ì„, ë“±ê¸‰ë²ˆí˜¸ë¥¼ ì¡°íšŒí•œë‹¤.
+	public UserInfoVo selectUserIdNickRank(String userId) throws Exception {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		
+		UserInfoVo userInfoVo = new UserInfoVo();
+		
+		try {
+			
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			
+			sql.append("SELECT user_info.user_id, user_info.user_nick, rank.rank_type     ");
+			sql.append("FROM user_info INNER JOIN rank                           		");
+			sql.append("ON (user_info.rank_no = rank.rank_no) AND user_info.user_id = ?                  	");
+			
+			pstmt= conn.prepareStatement(sql.toString());
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userInfoVo.setUserId(rs.getString(1));;
+				userInfoVo.setUserNick(rs.getString(2));
+				userInfoVo.setRankType(rs.getString(3));
+			}
+		
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		
+		return userInfoVo;
+	}
+  
+  
+  
+	// ë¡œê·¸ì¸ ì•„ì´ë””, íŒ¨ìŠ¤ì›Œë“œ Vo
+	public int selectCountUser(UserInfoVo userInfoVo) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int loginCheck = 0;
+
+		try {
+			conn = DBConn.getConnection();
+			
+				
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT COUNT( * ) FROM user_info        ");
+			sql.append(" WHERE user_id = ? AND user_pwd = ?    ");
+
+			pstmt = conn.prepareStatement(sql.toString());
+
+			
+			pstmt.setString(1, userInfoVo.getUserId());
+			pstmt.setString(2, userInfoVo.getUserPwd());
+			
+
+			rs = pstmt.executeQuery();
+
+			// ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ë©´ 1, ì•„ë‹ˆë©´ 0
+			if (rs.next()) {
+				loginCheck = rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {
+				throw e2;
+			}
+
+		}
+
+		return loginCheck;
+	}
+  
+  //íšŒì› ìƒì„¸ì •ë³´ë¥¼ ì¡°íšŒí•œë‹¤.
 	public UserInfoVo selectUser(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		UserInfoVo user = new UserInfoVo();
 		try {
-			
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT user_id, user_pwd, user_nick, user_email, user_birth,                 ");
 			sql.append("user_contact, gender, user_name, photo_origin, photo_sys                    ");
 			sql.append("FROM user_info  ");
+
 			sql.append("WHERE user_id = ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -53,9 +240,7 @@ public class UserDao {
 				user.setPhotoOrigin(rs.getString(9));
 				user.setPhotoSys(rs.getString(10));
 			}
-			
-			
-			
+	
 		} catch (Exception e) {
 			throw e;
 		}finally {
@@ -72,8 +257,9 @@ public class UserDao {
 		}
 		return user;
 	}
+
 	
-	//È¸¿øÀÇ Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù.
+	//íšŒì›ì˜ ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤.
 	public void updateUser(UserInfoVo user, Connection conn) throws Exception {
 		
 		PreparedStatement pstmt = null;
@@ -109,9 +295,10 @@ public class UserDao {
 			}
 		}
 	}
-	//ÀÚÁøÅ»Åğ¸¦ ÇÏ¸é Å»ÅğÀ¯Çü°ú Å»Åğ³¯Â¥¸¦ º¯°æÇÑ´Ù.
+
+	//ìì§„íƒˆí‡´ë¥¼ í•˜ë©´ íƒˆí‡´ìœ í˜•ê³¼ íƒˆí‡´ë‚ ì§œë¥¼ ë³€ê²½í•œë‹¤.
 	public void deleteUser(String userId, Connection conn) throws Exception {
-		
+
 		PreparedStatement pstmt = null;
 		try {
 			StringBuffer sql = new StringBuffer();
@@ -121,7 +308,6 @@ public class UserDao {
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.setString(1, userId);
-			
 
 			pstmt.executeUpdate();
 
@@ -136,7 +322,8 @@ public class UserDao {
 			}
 		}
 	}
-	//´Ğ³×ÀÓÁßº¹°Ë»ç
+
+	//ë‹‰ë„¤ì„ì¤‘ë³µê²€ì‚¬
 	public boolean confirmNickName(String userNick) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -175,3 +362,4 @@ public class UserDao {
 		return isNick;
 	}
 }
+
