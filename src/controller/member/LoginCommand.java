@@ -49,7 +49,12 @@ public class LoginCommand implements Command {
 					
 				} else {
 					System.out.println("실패");
-					return new ActionForward("/indexControl.jsp?contentTemplate=main", false);
+					response.setContentType("text/html; charset=UTF-8");
+					
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('아이디/비밀번호가 잘못되었습니다. 다시 확인하고 입력해주세요.'); history.go(-1);</script>");
+					out.flush();
+					return new ActionForward("/member/loginUserForm.jsp", true);
 					
 				}				
 				

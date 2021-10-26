@@ -50,7 +50,6 @@ public class CommandFactory {
 		//회원 자진탈퇴요청
 		map.put("/userDelete.do", "controller.member.DeleteUserCommand");
 		
-		
 		// ID/PWD 찾기에서 아이디 반환 요청
 		map.put("/returnId.do", "controller.member.returnIdCommand");
 		
