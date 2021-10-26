@@ -137,6 +137,13 @@ public class UserService {
 				return userDao.confirmNickName(userNick);
 			
 		}
+		
+		public String returnUserId(String userName, String userContact) throws Exception {
+			UserDao userDao = UserDao.getInstance();
+			System.out.println(userDao.forgetIdPwd(userName, userContact));
+			return userDao.forgetIdPwd(userName, userContact);
+			
+		}
 
 		
 	}

@@ -78,6 +78,13 @@ ${sessionScope.userInfo.rankType} <br>
 --%>
 
 <section>
+
+	${userInfo }
+	<c:if test="${not empty userInfo  }">
+		<a href="logout.do">로그아웃</a>
+	</c:if>
+	
+	
 	<h1 class="content_title">이 달의 영화</h1>
 	<c:if test="${empty requestScope.movieList }">
 		<p class="content_text"> 등록된 영화가 없습니다. </p>

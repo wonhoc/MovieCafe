@@ -106,7 +106,6 @@ public class UserDao {
 		}
 	}
 
-	// ȸ�� ���̵� �ߺ� �˻�
 	public boolean existId(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -178,7 +177,6 @@ public class UserDao {
 				userInfoVo.setUserId(rs.getString(1));;
 				userInfoVo.setUserNick(rs.getString(2));
 				userInfoVo.setRankType(rs.getString(3));
-				userInfoVo.getJoindate(rs.getString(4));
 				System.out.println(rs.getString(1));
 			}
 			
@@ -411,6 +409,48 @@ public class UserDao {
 				}
 			}
 			return isNick;
+		}
+		
+		// 아이디 찾기 : 이름, 연락처를 넘겨주고 아이디를 받아옴
+		public String forgetIdPwd(String userName, String userContact) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String returnUserId = "";
+			
+			try {
+				conn = DBConn.getConnection();
+				StringBuffer sql = new StringBuffer();
+				
+				sql.append("SELECT user_id FROM user_info    ");
+				sql.append("WHERE user_name = ?  and user_contact = ?   ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, userName);
+				pstmt.setString(2, userContact);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					returnUserId = rs.getString(1);
+				}
+				
+			}catch (Exception e) {
+				throw e;
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}
+			return returnUserId;
 		}
 
 }

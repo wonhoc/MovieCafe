@@ -51,6 +51,12 @@ public class CommandFactory {
 		map.put("/userDelete.do", "controller.member.DeleteUserCommand");
 		
 		
+		// ID/PWD 찾기에서 아이디 반환 요청
+		map.put("/returnId.do", "controller.member.returnIdCommand");
+		
+		// 로갓
+		map.put("/logout.do", "controller.member.LogoutCommand");
+		
 	}
 		
 	public static CommandFactory getInstance() {

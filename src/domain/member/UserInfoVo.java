@@ -39,8 +39,18 @@ public class UserInfoVo {
 		this.userId = userId;
 		this.userNick = userNick;
 		this.rankType = rankType;
-		this.joindate = joinDate;
 	}
+	
+	
+	
+	//아이디를 찾기 위한 VO
+	public UserInfoVo(String userId, String userContact, String userName) {
+		super();
+		this.userId = userId;
+		this.userContact = userContact;
+		this.userName = userName;
+	}
+
 
 	public String getUserId() {
 		return userId;
