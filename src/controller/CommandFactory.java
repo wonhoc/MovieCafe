@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.lang.reflect.Constructor;
@@ -84,6 +85,9 @@ public class CommandFactory {
 		  
 			// 회원 가입 폼 요청
 			map.put("/joinUserForm.do", "controller.member.JoinUserFormCommand");
+      
+      //비동기처리로 보낸사람 확인 요청
+		map.put("/CheckReceiveId.do", "controller.message.CheckReceiveIdController");
 
 		}
 		

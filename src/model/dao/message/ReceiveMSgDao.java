@@ -3,11 +3,8 @@ package model.dao.message;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
-
 import domain.message.ReceiveMsgVo;
-import domain.message.SendMessageVo;
 import model.DBConn;
 
 
@@ -25,7 +22,7 @@ public class ReceiveMSgDao {
 		return receovemsgdao;
 	}//getInstance() end
 	
-	//º¸³»¿Â ÂÊÁö ÀúÀå
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void insertMessage(Connection conn,String sendMsg ,String receiveId, int sendMsgNo, String writer) throws Exception {
 		PreparedStatement pstmt = null;
 		
@@ -33,12 +30,12 @@ public class ReceiveMSgDao {
 		
 		StringBuffer sql = new StringBuffer();
 		
-		//ÂÊÁö Á¤º¸ ÀúÀå
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		sql.append(" INSERT INTO receive_msg(receive_msg_content, receive_id, receive_msg_no, writer) ");
 		sql.append(" VALUES (?, ?, ?, ?) ");
 		
 		pstmt = conn.prepareStatement(sql.toString());
-		
+	
 		pstmt.setString(1, sendMsg);
 		pstmt.setString(2, receiveId);
 		pstmt.setInt(3, sendMsgNo);
@@ -58,11 +55,11 @@ public class ReceiveMSgDao {
 			
 	}//insertMessage() end
 	
-	//¹ÞÀº ÂÊÁö ¸ñ·Ï Á¶È¸
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public ArrayList<ReceiveMsgVo> selectReceiveMsgList(Connection conn, String userId, int startRow, int postSize) throws Exception{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //¹ÝÈ¯ÇÒ ArrayList°´Ã¼	
+		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //ï¿½ï¿½È¯ï¿½ï¿½ ArrayListï¿½ï¿½Ã¼	
 		
 		try {
 			StringBuffer sql = new StringBuffer();
@@ -89,7 +86,7 @@ public class ReceiveMSgDao {
 				receiveMsgVo.setReceiveMsgContent(rs.getString(3));
 				receiveMsgVo.setMsgWdate(rs.getString(4));
 				receiveMsgVo.setIsRead(rs.getInt(5));
-				//¹ÝÈ¯ÇÒ ArrayList¿¡ add
+				//ï¿½ï¿½È¯ï¿½ï¿½ ArrayListï¿½ï¿½ add
 				receiveMsgList.add(receiveMsgVo);
 			}//while end
 			
@@ -111,7 +108,7 @@ public class ReceiveMSgDao {
 			
 	}//selectReceiveMsgList() end
 	
-	//»èÁ¦ÇÒ ¸Þ¼¼Áö¸¦ »èÁ¦ÇÏ´Â method
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ method
 	public void deleteReceiveMsg(Connection conn, int receiveMsgNo) throws Exception{
 		PreparedStatement pstmt = null;
 		
@@ -140,7 +137,7 @@ public class ReceiveMSgDao {
 		
 	}//deleteReceiveMsg() end
 	
-		//¹ÞÀº ÂÊÁö  Á¶È¸
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½È¸
 		public ReceiveMsgVo selectReceiveMsg(Connection conn, int receiveMsgNo) throws Exception{
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -179,7 +176,7 @@ public class ReceiveMSgDao {
 			
 		}//selectReceiveMsg() end
 		
-		//¹ÞÀº ¸ðµç ÂÊÁö ¼ö¸¦±¸ÇÏ±â
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		public int selectTotalReceiveMsg(Connection conn ,String userId) throws Exception {
 			int count = 0;
 			PreparedStatement pstmt = null;
@@ -216,5 +213,49 @@ public class ReceiveMSgDao {
 			}// end
 			return count;
 		}//selectTotalReceiveMsg() end
+		
+		//ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½
+		public int selectId(String userId) throws Exception {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Connection conn = null;
+			try {
+				int resultCount = 0;
+				conn = DBConn.getConnection();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append(" SELECT COUNT(user_Id) ");
+				sql.append(" FROM user_info ");
+				sql.append(" WHERE user_Id = ? ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, userId);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					resultCount = rs.getInt(1);
+				}//if end
+				
+				return resultCount;
+
+			} catch (Exception e) {
+				throw e;
+			}finally {
+				try {
+					
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+					
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}// end
+			
+			
+		}//selectId() end
+		
 	
 }// class end

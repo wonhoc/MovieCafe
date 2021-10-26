@@ -17,29 +17,27 @@ import model.service.message.MsgService;
 public class SendMsgController implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//°Ô½Ã±Û ¾²±â ¿äÃ» Ä¿¸Çµå
+		//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» Ä¿ï¿½Çµï¿½
 		try {
 			
 		
 		//HttpSession session = request.getSession();
-		//String writer = session.getAttribute("userId"); //·Î±×ÀÎ ±¸Çö½Ã ½ÇÇàµÉ ±¸¹®
-		request.setCharacterEncoding("utf-8"); //ÇÊÅÍ ²À ³ªÁß¿¡ Ãß°¡ÇÏ±â
+		//String writer = session.getAttribute("userId"); //ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		request.setCharacterEncoding("utf-8"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ß°ï¿½ï¿½Ï±ï¿½
 		
-		String writer = request.getParameter("userid"); //Å×½ºÆ®¿ë
-		String receiveId = request.getParameter("reciveId"); //¹Ş´Â»ç¶÷ ¾ÆÀÌµğ
-		String sendMsgContent = request.getParameter("sendMsgContent"); //¹ß½ÅÇÑ ÂÊÁö ³»¿ë
+		String writer = request.getParameter("userid"); //ï¿½×½ï¿½Æ®ï¿½ï¿½
+		String receiveIds[] = request.getParameterValues("reciveId"); //ï¿½Ş´Â»ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+		String sendMsgContent = request.getParameter("sendMsgContent"); //ï¿½ß½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		SendMessageVo msgVo = new SendMessageVo();
-		ArrayList<String>addrs = new ArrayList<String>(); //¹ŞÀ»»ç¶÷µéÀ» ÀúÀåÇÒ ArrayList
-		
-		
-		msgVo.setWriterId(writer);	//ÀÛ¼ºÀÚ
-		msgVo.setSendMsgContent(sendMsgContent); //Àü¼ÛÇÒ ¸Ş¼¼Áö
-		//³ªÁß¿¡ ¹İº¹¹®À¸·Î ¹Ù²Ù±â
-		addrs.add(receiveId);
-		
+		ArrayList<String>addrs = new ArrayList<String>(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ArrayList
+		msgVo.setWriterId(writer);	//ì„¸ì…˜ì— ë°”ì¸ë”©ëœ ì‚¬ìš©ì ID
+		msgVo.setSendMsgContent(sendMsgContent);
+		//ë°°ì—´ì— ì €ì¥ëœ ê°’ë“¤ ì£¼ì†Œë¡ì— ë„£ê¸°
+		for(String receiveId : receiveIds ) {		
+			addrs.add(receiveId);
+		}//for end
 		msgVo.setAddress(addrs);
-		
 		MsgService service = MsgService.getInstance();
 		
 		service.registerMsg(msgVo);
