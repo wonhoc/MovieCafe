@@ -20,48 +20,77 @@ public class UserInfoVo {
 	private int rankNo;
 	private String rankType;
 
-	public UserInfoVo() {
+  
+  public UserInfoVo(String userId) {
 		super();
-
-	}	
-
+		this.userId = userId;
+	}
 	
-	// 로그인에서 필요한 이이디, 패스워드  Vo
 	public UserInfoVo(String userId, String userPwd) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
-	
-	// 아이디, 회원등급, 회원 닉네임을 담은 Vo
-	public UserInfoVo(String userId, String userNick, String rankType) {
+  
+  public UserInfoVo(String userId, String exitdate, String exitType) {
+		super();
+		this.userId = userId;
+		this.exitdate = exitdate;
+		this.exitType = exitType;
+	}
+  
+  public UserInfoVo(String userId, String userNick, String rankType) {
 		super();
 		this.userId = userId;
 		this.userNick = userNick;
 		this.rankType = rankType;
+   }
+	
+	public UserInfoVo(String userId, String userPwd, String userNick, String userEmail, String userBirth,
+			String userContact, String gender, String exitdate, String userName, String photoOrigin, String photoSys,
+			int boardCount, int comCount, String exitType, String joindate, int rankNo, String rankType) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userNick = userNick;
+		this.userEmail = userEmail;
+		this.userBirth = userBirth;
+		this.userContact = userContact;
+		this.gender = gender;
+		this.exitdate = exitdate;
+		this.userName = userName;
+		this.photoOrigin = photoOrigin;
+		this.photoSys = photoSys;
+		this.boardCount = boardCount;
+		this.comCount = comCount;
+		this.exitType = exitType;
+		this.joindate = joindate;
+		this.rankNo = rankNo;
+		this.rankType = rankType;
 	}
 
+  
 	public String getUserId() {
 		return userId;
 	}
 
- 	public void setUserId(String userid) {
+	public void setUserId(String userid) {
 		this.userId = userid;
 	}
 
- 	public String getUserPwd() {
+	public String getUserPwd() {
 		return userPwd;
 	}
 
- 	public void setUserPwd(String userPwd) {
+	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
 
- 	public String getUserNick() {
+	public String getUserNick() {
 		return userNick;
 	}
 
- 	public void setUserNick(String userNick) {
+	public void setUserNick(String userNick) {
 		this.userNick = userNick;
 	}
 
@@ -81,32 +110,31 @@ public class UserInfoVo {
 		this.userBirth = userBirth;
 	}
 
-
 	public String getUserContact() {
 		return userContact;
 	}
 
- 	public void setUserContact(String userContact) {
+	public void setUserContact(String userContact) {
 		this.userContact = userContact;
 	}
 
- 	public String getGender() {
+	public String getGender() {
 		return gender;
 	}
 
- 	public void setGender(String gender) {
- 		this.gender = gender;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
- 	public String getExitdate() {
+	public String getExitdate() {
 		return exitdate;
 	}
 
- 	public void setExitdate(String exitdate) {
+	public void setExitdate(String exitdate) {
 		this.exitdate = exitdate;
 	}
 
- 	public String getUserName() {
+	public String getUserName() {
 		return userName;
 	}
 
@@ -114,85 +142,78 @@ public class UserInfoVo {
 		this.userName = userName;
 	}
 
- 	public String getPhotoOrigin() {
+	public String getPhotoOrigin() {
 		return photoOrigin;
 	}
 
- 	public void setPhotoOrigin(String photoOrigin) {
+	public void setPhotoOrigin(String photoOrigin) {
 		this.photoOrigin = photoOrigin;
 	}
 
- 	public String getPhotoSys() {
+	public String getPhotoSys() {
 		return photoSys;
-
 	}
 
- 	public void setPhotoSys(String photoSys) {
- 		this.photoSys = photoSys;
+	public void setPhotoSys(String photoSys) {
+		this.photoSys = photoSys;
 	}
 
- 	public int getBoardCount() {
+	public int getBoardCount() {
 		return boardCount;
 	}
 
- 	public void setBoardCount(int boardCount) {
- 		this.boardCount = boardCount;
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
 	}
 
 	public int getComCount() {
 		return comCount;
 	}
 
- 	public void setComCount(int comCount) {
+	public void setComCount(int comCount) {
 		this.comCount = comCount;
 	}
 
- 	public String getExitType() {
+	public String getExitType() {
 		return exitType;
 	}
 
- 	public void setExitType(String exitType) {
+	public void setExitType(String exitType) {
 		this.exitType = exitType;
 	}
 
- 	public String getJoindate() {
+	public String getJoindate() {
 		return joindate;
 	}
 
- 	public void setJoindate(String joindate) {
+	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
 
- 	public int getRankNo() {
+	public int getRankNo() {
 		return rankNo;
 	}
 
- 	public void setRankNo(int rankNo) {
+	public void setRankNo(int rankNo) {
 		this.rankNo = rankNo;
 	}
- 	
+	
 	public String getRankType() {
 		return rankType;
 	}
+
+
 	public void setRankType(String rankType) {
 		this.rankType = rankType;
 	}
- 
+
 
 	@Override
-
 	public String toString() {
-
 		return "UserInfoVo [userId=" + userId + ", userPwd=" + userPwd + ", userNick=" + userNick + ", userEmail="
-
 				+ userEmail + ", userBirth=" + userBirth + ", userContact=" + userContact + ", gender=" + gender
-
 				+ ", exitdate=" + exitdate + ", userName=" + userName + ", photoOrigin=" + photoOrigin + ", photoSys="
-
 				+ photoSys + ", boardCount=" + boardCount + ", comCount=" + comCount + ", exitType=" + exitType
-
 				+ ", joindate=" + joindate + ", rankNo=" + rankNo + "]";
-
 	}
-
 }

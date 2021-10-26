@@ -8,19 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 public class FileUploadUtils {
-
 	public static String UPLOAD_PATH = "";
-	
-	public static ArrayList<String> upload(Part part, HttpServletRequest request, String uploadPath) throws Exception {
+
+	public static ArrayList<String> upload(Part part, HttpServletRequest request, String path) throws Exception {
 		
-		UPLOAD_PATH = request.getServletContext().getRealPath("/") + "/upload" + uploadPath;
+		UPLOAD_PATH = request.getServletContext().getRealPath("/") + "/upload/" + path;
 		
 		ArrayList<String> fileName = new ArrayList<String>();
-		
-		System.out.println(part.getSubmittedFileName());
+
 		String originalFileName = part.getSubmittedFileName();
 
-		File file = new File(uploadPath + "/" + originalFileName);
+		File file = new File(UPLOAD_PATH + "/" + originalFileName);
 		String systemFileName = "";
 
 		if (file.exists()) {
@@ -30,12 +28,12 @@ public class FileUploadUtils {
 			systemFileName = originalFileName;
 		}
 
-		part.write(uploadPath + "/" + systemFileName);
+		part.write(UPLOAD_PATH + "/" + systemFileName);
 		part.delete();
-		
+
 		fileName.add(originalFileName);
 		fileName.add(systemFileName);
-		
+
 		return fileName;
 	}
 }

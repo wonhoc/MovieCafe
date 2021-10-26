@@ -81,6 +81,7 @@
     ></script>
 <script type="text/javascript">
 $(document).ready(function () {
+	$("select[name='age']").find('option[value="D"]').attr("selected", true);
     $("#imgInput").on("change", handleImgFileSelect);
     $('#form').submit(function() {
     	let flag = true;
@@ -123,39 +124,45 @@ $(document).ready(function () {
 </head>
 <body>
 <h1 class="content_title">영화 정보 등록</h1>
-       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile?type=insert" method="POST" enctype="multipart/form-data">
+       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile?type=modify" method="POST" enctype="multipart/form-data">
          <div class="movie_input">
            <div class="form_left">
              <img id="img">
              <div class="form_imgBtn">
                <label for="imgInput">이미지 등록</label>
-               <input type="file" class="form_imgInput" id="imgInput" name="imgInput"/>
+               <input type="file" class="form_imgInput" id="imgInput" name="imgInput" />
              </div>
            </div>
            <div class="form_right">
              <div class="form_inputSection">
                <h3 class="input_title">제목</h3>
-               <input type="text" class="input_box" name="title" id="title"/>
+               <input type="text" class="input_box" name="title" id="title" 
+                value="${sessionScope.movieInfo.movieTitle } "/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">감독</h3>
-               <input type="text" class="input_box" name="director" id="director" />
+               <input type="text" class="input_box" name="director" id="director"
+                value="${sessionScope.movieInfo.movieDir }" />
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">배우</h3>
-               <input type="text" class="input_box" name="actor" id="actor" />
+               <input type="text" class="input_box" name="actor" id="actor" 
+                value="${sessionScope.movieInfo.movieActor }" />
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">장르</h3>
-               <input type="text" class="input_box" name="genre" id="genre"/>
+               <input type="text" class="input_box" name="genre" id="genre" 
+                value="${sessionScope.movieInfo.movieGenre }"/>
             </div>
              <div class="form_inputSection">
                <h3 class="input_title">러닝타임</h3>
-               <input type="text" class="input_box" name="runtime" id="runtime"/>
+               <input type="text" class="input_box" name="runtime" id="runtime" 
+                value="${sessionScope.movieInfo.movieRuntime }"/>
             </div>
              <div class="form_inputSection">
                <h3 class="input_title">예매처 링크</h3>
-               <input type="text" class="input_box" name="link" id="link"/>
+               <input type="text" class="input_box" name="link" id="link" 
+                value="${sessionScope.movieInfo.movieLink }"/>
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">관람가</h3>
@@ -169,11 +176,12 @@ $(document).ready(function () {
              </div>
              <div class="form_inputSection">
                <h3 class="input_title">상영날짜</h3>
-               <input type="text" class="input_box" name="date" placeholder="YYYY-MM-DD로 작성해주세요" id="date"/>
+               <input type="text" class="input_box" name="date" placeholder="YYYY-MM-DD로 작성해주세요" id="date"
+                value="${sessionScope.movieInfo.movieRelease }" />
              </div>
            </div>
          </div>
-         <button type="submit" class="form_btn" id="submitBtn">등록</button>
+         <button type="submit" class="form_btn" id="submitBtn">수정</button>
        </form>
 </body>
 </html>

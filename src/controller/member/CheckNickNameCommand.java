@@ -18,7 +18,8 @@ public class CheckNickNameCommand implements Command{
 		boolean result = service.checkNickName(userNick);
 		request.setAttribute("isUserNick", result);
 		
-		return new ActionForward("/member/isUserNick.jsp", false);
+		return new ActionForward("/indexControl.jsp?contentTemplate=member/isUserNick", false);
 	}
+	
 }
 

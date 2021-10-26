@@ -7,42 +7,43 @@ import model.DBConn;
 import model.dao.member.UserDao;
 
 public class UserService {
-	
-	private static UserService service;
-	
-	private UserService() {
-		
-	}
-	
-	public static UserService getInstance() {
-		if(service == null) {
-			service = new UserService();
+	// single pattern
+		private static UserService service;
+
+		private UserService() {
+
 		}
-		return service;
-	}
-		//È¸¿ø Á¤º¸ µî·Ï ¼­ºñ½º
+
+		public static UserService getInstance() {
+			if (service == null) {
+				service = new UserService();
+			}
+			return service;
+		}
+
+		//íšŒì› ì •ë³´ ë“±ë¡ ì„œë¹„ìŠ¤
 		public void registUser(UserInfoVo user) throws Exception {
 			
 			UserDao userDao = UserDao.getInstance();
 			userDao.insertUser(user);
 		}
 		
-		// ¾ÆÀÌµğ Áßº¹°Ë»ç¸¦ ÇÏ´Ù.
+		// ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬ë¥¼ í•˜ë‹¤.
 		public boolean checkId(String userId) throws Exception {
 				UserDao userDao = UserDao.getInstance();
 				return userDao.existId(userId);
 
-		}//checkId end
+		}
 		
 		
-		// È¸¿øÀÇ ¾ÆÀÌµğ, È¸¿øµî±Ş, ´Ğ³×ÀÓÀ» Á¶È¸ÇÑ´Ù.
+		// íšŒì›ì˜ ì•„ì´ë””, íšŒì›ë“±ê¸‰, ë‹‰ë„¤ì„ì„ ì¡°íšŒí•œë‹¤.
 		public UserInfoVo retrieveIdRankNick(String userId) throws Exception {
 				UserDao userDao = UserDao.getInstance();
 				return userDao.selectUserIdNickRank(userId);
 		}
 		
 		
-		// ·Î±×ÀÎ
+		// ë¡œê·¸ì¸
 		public int loginUser(UserInfoVo userInfoVo) throws Exception {
 			
 			try {
@@ -51,91 +52,76 @@ public class UserService {
 				int checkIdPwd = userDao.selectCountUser(userInfoVo);
 				
 				System.out.println("checkIdPwd = " + checkIdPwd);
-				// checkIdPwd = 1 -> ·Î±×ÀÎ °¡´É
-				// checkIdPwd = 0 -> ·Î±×ÀÎ ºÒ°¡ = °èÁ¤ ¾øÀ½
+				// checkIdPwd = 1 -> ë¡œê·¸ì¸ ê°€ëŠ¥
+				// checkIdPwd = 0 -> ë¡œê·¸ì¸ ë¶ˆê°€ = ê³„ì • ì—†ìŒ
 				return checkIdPwd;
 				
 			} catch (Exception e) {
 				throw e;
 			} 
 	
-		}
-		
-		//È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
-		public UserInfoVo retrieveUser(String userId) throws Exception {
+		}	
+
+	
+	//íšŒì› ìƒì„¸ì •ë³´ë¥¼ ì¡°íšŒí•œë‹¤.
+	public UserInfoVo retrieveUser(String userId) throws Exception {
+		UserDao userDao = UserDao.getInstance();
+		return userDao.selectUser(userId);
+	}
+	
+	//íšŒì›ì˜ ì •ë³´ë¥¼ ë³€ê²½í•œë‹¤.
+	public void modifyUser(UserInfoVo user) throws Exception {
+		boolean isSuccess = false;
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();//ë°ì´í„°ë² ì´ìŠ¤
+			conn.setAutoCommit(false);
 
 			UserDao userDao = UserDao.getInstance();
-			return userDao.selectUser(userId);
-		}
-		
+			userDao.updateUser(user, conn);
 
-		
-		//È¸¿øÀÇ Á¤º¸¸¦ º¯°æÇÑ´Ù.
-		public void modifyUser(UserInfoVo user) throws Exception {
-			boolean isSuccess = false;
-			Connection conn = null;
+			isSuccess = true;
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
 			try {
-				conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
-				conn.setAutoCommit(false);
-
-				UserDao userDao = UserDao.getInstance();
-				userDao.updateUser(user, conn);
-
-				isSuccess = true;
-
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				try {
-					if (conn != null) {
-						if (isSuccess) {
-							conn.commit();
-						} else {
-							conn.rollback();
-						}
+				if (conn != null) {
+					if (isSuccess) {
+						conn.commit();
+					} else {
+						conn.rollback();
 					}
-
-				} catch (Exception e2) {
-					throw e2;
 				}
+
+			} catch (Exception e2) {
+				throw e2;
 			}
 		}
-		//È¸¿øÀÌ ÀÚÁøÅ»Åğ¸¦ ÇÏ¸é Å»ÅğÀ¯Çü°ú Å»Åğ³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
-		public void removeUser(String userId) throws Exception {
-			boolean isSuccess = false;
-			Connection conn = null;
-			try {
-				conn = DBConn.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º
-				conn.setAutoCommit(false);
-
-				UserDao userDao = UserDao.getInstance();
-				userDao.deleteUser(userId, conn);
-
-				isSuccess = true;
-
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				try {
-					if (conn != null) {
-						if (isSuccess) {
-							conn.commit();
-						} else {
-							conn.rollback();
-						}
-					}
-
-				} catch (Exception e2) {
-					throw e2;
-				}
-			}
-		}
-		//´Ğ³×ÀÓÁßº¹°Ë»ç¸¦ ÇÏ´Ù.
-		public boolean checkNickName(String userNick) throws Exception {
-				UserDao userDao = UserDao.getInstance();
-				return userDao.confirmNickName(userNick);
-			
-		}
-
-		
 	}
+	//íšŒì›ì´ ìì§„íƒˆí‡´ë¥¼ í•˜ë©´ íƒˆí‡´ìœ í˜•ê³¼ íƒˆí‡´ë‚ ì§œë¥¼ ì—…ë°ì´íŠ¸í•œë‹¤.
+	public void removeUser(String userId) throws Exception {
+		Connection conn = null;
+		try {
+			conn = DBConn.getConnection();//ë°ì´í„°ë² ì´ìŠ¤
+			UserDao userDao = UserDao.getInstance();
+			userDao.deleteUser(userId, conn);
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if (conn != null) conn.close();
+				
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+	}
+	//ë‹‰ë„¤ì„ì¤‘ë³µê²€ì‚¬ë¥¼ í•˜ë‹¤.
+	public boolean checkNickName(String userNick) throws Exception {
+		UserDao userDao = UserDao.getInstance();
+		return userDao.confirmNickName(userNick);
+		
+}
+}

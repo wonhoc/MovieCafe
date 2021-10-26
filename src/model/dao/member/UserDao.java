@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Execute;
-
 import domain.member.UserInfoVo;
+import model.DBConn;
 
 public class UserDao {
-	// Singleton Pattern
 	private static UserDao userDao;
 
 	private UserDao() {
@@ -22,8 +20,8 @@ public class UserDao {
 		}
 		return userDao;
 	}
-
-	// È¸¿ø Á¤º¸¸¦ µî·ÏÇÏ´Ù.
+  
+  // íšŒì› ì •ë³´ë¥¼ ë“±ë¡í•˜ë‹¤.
 	public void insertUser(UserInfoVo userInfoVo) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -69,8 +67,8 @@ public class UserDao {
 		}
 
 	}
-
-	// È¸¿ø ¾ÆÀÌµğ Áßº¹ °Ë»ç
+  
+  // íšŒì› ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬
 	public boolean existId(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -94,8 +92,6 @@ public class UserDao {
 				
 			}
 			
-			System.out.println("UserDao = " + isId);
-			
 		} catch (Exception e) {
 			throw e;
 		}finally {
@@ -112,10 +108,8 @@ public class UserDao {
 		}
 		return isId;
 	}
-
-	
-	// È¸¿ø ¾ÆÀÌµğ, ´Ğ³×ÀÓ, µî±Ş¹øÈ£¸¦ Á¶È¸ÇÑ´Ù.
-	
+  
+  // íšŒì› ì•„ì´ë””, ë‹‰ë„¤ì„, ë“±ê¸‰ë²ˆí˜¸ë¥¼ ì¡°íšŒí•œë‹¤.
 	public UserInfoVo selectUserIdNickRank(String userId) throws Exception {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -144,9 +138,7 @@ public class UserDao {
 				userInfoVo.setRankType(rs.getString(3));
 				System.out.println(rs.getString(1));
 			}
-			
-			
-			
+		
 			
 		} catch (Exception e) {
 			throw e;
@@ -165,11 +157,10 @@ public class UserDao {
 		
 		return userInfoVo;
 	}
-	
-	
-	
-	
-	// ·Î±×ÀÎ ¾ÆÀÌµğ, ÆĞ½º¿öµå Vo
+  
+  
+  
+	// ë¡œê·¸ì¸ ì•„ì´ë””, íŒ¨ìŠ¤ì›Œë“œ Vo
 	public int selectCountUser(UserInfoVo userInfoVo) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -194,7 +185,7 @@ public class UserDao {
 
 			rs = pstmt.executeQuery();
 
-			// ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏ¸é 1, ¾Æ´Ï¸é 0
+			// ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ë©´ 1, ì•„ë‹ˆë©´ 0
 			if (rs.next()) {
 				loginCheck = rs.getInt(1);
 			}
@@ -218,29 +209,28 @@ public class UserDao {
 
 		return loginCheck;
 
-	}// selectUser() end
-
-	
-	// È¸¿ø »ó¼¼Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
+	}
+  
+  //íšŒì› ìƒì„¸ì •ë³´ë¥¼ ì¡°íšŒí•œë‹¤.
 	public UserInfoVo selectUser(String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		UserInfoVo user = new UserInfoVo();
 		try {
-
 			conn = DBConn.getConnection();
 			StringBuffer sql = new StringBuffer();
 			sql.append("SELECT user_id, user_pwd, user_nick, user_email, user_birth,                 ");
 			sql.append("user_contact, gender, user_name, photo_origin, photo_sys                    ");
 			sql.append("FROM user_info  ");
-			sql.append("WHERE user_id = ? ");
+
+			sql.append("WHERE user_id = ?");
 			pstmt = conn.prepareStatement(sql.toString());
-
+			
 			pstmt.setString(1, userId);
-
+			
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			if(rs.next()) {
 				user.setUserId(rs.getString(1));
 				user.setUserPwd(rs.getString(2));
 				user.setUserNick(rs.getString(3));
@@ -252,10 +242,10 @@ public class UserDao {
 				user.setPhotoOrigin(rs.getString(9));
 				user.setPhotoSys(rs.getString(10));
 			}
-
+	
 		} catch (Exception e) {
 			throw e;
-		} finally {
+		}finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -270,9 +260,10 @@ public class UserDao {
 		return user;
 	}
 
-	// È¸¿øÀÇ Á¤º¸¸¦ ¼öÁ¤ÇÑ´Ù.
+	
+	//íšŒì›ì˜ ì •ë³´ë¥¼ ìˆ˜ì •í•œë‹¤.
 	public void updateUser(UserInfoVo user, Connection conn) throws Exception {
-
+		
 		PreparedStatement pstmt = null;
 		try {
 			StringBuffer sql = new StringBuffer();
@@ -307,7 +298,7 @@ public class UserDao {
 		}
 	}
 
-	// ÀÚÁøÅ»Åğ¸¦ ÇÏ¸é Å»ÅğÀ¯Çü°ú Å»Åğ³¯Â¥¸¦ º¯°æÇÑ´Ù.
+	//ìì§„íƒˆí‡´ë¥¼ í•˜ë©´ íƒˆí‡´ìœ í˜•ê³¼ íƒˆí‡´ë‚ ì§œë¥¼ ë³€ê²½í•œë‹¤.
 	public void deleteUser(String userId, Connection conn) throws Exception {
 
 		PreparedStatement pstmt = null;
@@ -334,46 +325,43 @@ public class UserDao {
 		}
 	}
 
-	//´Ğ³×ÀÓÁßº¹°Ë»ç
-		public boolean confirmNickName(String userNick) throws Exception {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			boolean isNick = false;
-			try {
-				
-				conn = DBConn.getConnection();
-				StringBuffer sql = new StringBuffer();
-				sql.append("SELECT * ");
-				sql.append("FROM user_info  ");
-				sql.append("WHERE user_nick = ?");
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setString(1, userNick);
-				
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					isNick = true;
-				}
-				
-				System.out.println("UserDao = " + isNick);
-				
-				
-			} catch (Exception e) {
-				throw e;
-			}finally {
-				try {
-					if (rs != null)
-						rs.close();
-					if (pstmt != null)
-						pstmt.close();
-					if (conn != null)
-						conn.close();
-				} catch (Exception e2) {
-					throw e2;
-				}
+	//ë‹‰ë„¤ì„ì¤‘ë³µê²€ì‚¬
+	public boolean confirmNickName(String userNick) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean isNick = false;
+		try {
+			
+			conn = DBConn.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT * ");
+			sql.append("FROM user_info  ");
+			sql.append("WHERE user_nick = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, userNick);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isNick = true;
 			}
-			return isNick;
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
 		}
-
+		return isNick;
+	}
 }
+

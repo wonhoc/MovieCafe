@@ -28,8 +28,6 @@ public class ControllerServlet extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String commandURI = requestURI.substring(contextPath.length());
 			
-			System.out.println("commandURI : " + commandURI);
-			
 			CommandFactory factory = CommandFactory.getInstance();
 			Command command = factory.createCommand(commandURI);
 			ActionForward forward = command.execute(request, response);

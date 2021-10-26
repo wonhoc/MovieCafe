@@ -40,7 +40,7 @@ section {
    transform: scale(1.2);
 }
 
-.deleteBtn{
+.deleteBtn {
   height: 1.5rem;
   margin-left : 1em;
   color: #b1b1b1;
@@ -54,10 +54,36 @@ section {
 .deleteBtn:hover{
   background-color: #e2e2e2;
 }
+
+.movieImg {
+	width : 10rem;
+	height : 15rem;
+}
+.main_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.add_btn {
+  height: 2rem;
+  margin: 0 3em;
+  font-size: 18px;
+  color: #a7a6a6;
+  background-color: #fdfdfd;
+  border: 2px solid #b1b1b1;
+  border-bottom-color: #b1b1b1;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
+  cursor : pointer;
+}
+.add_btn:hover {
+  background-color: #e2e2e2;
+}
 </style>
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
       crossorigin="anonymous"></script>
+</script>
 </head>
 <body>
 
@@ -67,8 +93,11 @@ section {
 <c:set var="totalPage" value="${requestScope.totalPage }" scope="page" />
 <c:set var="currentPage" value="${param.currentPage }" scope="page" />
 
-<!-- 임의로 관리자 정보를 세션에 바인딩 -->
-<c:set var="userLank" value="admin" scope="session" />
+<%-- <!-- 임의로 관리자 정보를 세션에 바인딩 -->--%>
+<c:set var="userLank" value="A" scope="session" /> 
+
+<!-- 임의로 사용자 아이디를 세션에 바인딩 -->
+<c:set var="userId" value="test_user01" scope="session" />
 
 
 <%-- 세션의 유저 정보 확인
@@ -78,10 +107,20 @@ ${sessionScope.userInfo.rankType} <br>
 --%>
 
 <section>
-	<h1 class="content_title">이 달의 영화</h1>
 	<c:if test="${empty requestScope.movieList }">
 		<p class="content_text"> 등록된 영화가 없습니다. </p>
 	</c:if>
+		<div class="main_top">
+          <h1 class="content_title">이 달의 영화</h1>
+          
+          <c:if test="${userLank.equals('A') }" >
+            	<c:url var="addMovieUrl" value="/indexControl.jsp?contentTemplate=/movie/movieBoardForm"></c:url> 
+            	<a href="${addMovieUrl }">
+            		<button class="add_btn">등록</button>
+            	</a>          	
+          	</c:if>
+          
+        </div>
 	<c:if test="${not empty requestScope.movieList }">
 	<div class="movieList">
 		<c:if test="${startPage > pageBlock }">
@@ -92,12 +131,20 @@ ${sessionScope.userInfo.rankType} <br>
 		</c:if>
 		<c:forEach var="movie" items="${requestScope.movieList }" varStatus="loop">
           <div class="listSection">
-          	<div class="sectionMovie">
-	          	<img src="C:/upload/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
-    	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3>
-    	        
-          	</div>
-            <c:if test="${userLank.equals('admin') }" >
+          
+          <c:url var="detailUrl" value="/detailMovie.do">
+          	<c:param name="movieNo" value="${pageScope.movie.movieNo }"/>
+          	<c:param name="userId" value="${userId }"/>
+          	<c:param name="userLank" value="${userLank }"/>
+          </c:url>
+     
+          	<div class="sectionMovie" id="movie">
+          		<a href="${detailUrl }">
+	          		<img src="upload/movie/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
+	          	</a>
+    	        <h3 class="movie_title">${pageScope.movie.movieTitle }</h3> 	   
+         	 </div>
+            <c:if test="${userLank.equals('A') }" >
             	<c:url var="deleteUrl" value="/removeMovie.do">
             		<c:param name="movieNo" value="${pageScope.movie.movieNo }" />
             	</c:url> 

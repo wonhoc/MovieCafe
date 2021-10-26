@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import domain.movie.MovieInfoVo;
@@ -17,12 +18,13 @@ import util.file.FileUploadUtils;
 
 @MultipartConfig(fileSizeThreshold = 1024, maxFileSize = -1L, maxRequestSize = -1L, location = "/temp")
 @WebServlet("/uploadMovieFile")
-public class uploadMovieFile extends HttpServlet {
-	public static final String UPLOAD_PATH = "C:/upload";
-
+public class uploadMovieFile extends HttpServlet {	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		try {
+			
 			String path = request.getServletContext().getRealPath("/");
 			System.out.println("path : " + path);
 
@@ -39,29 +41,43 @@ public class uploadMovieFile extends HttpServlet {
 
 			Part part = request.getPart("imgInput");
 
-			ArrayList<String> fileName = FileUploadUtils.upload(part, UPLOAD_PATH);
+			ArrayList<String> fileName = FileUploadUtils.upload(part, request, "movie");
 			
 			String originalFileName = fileName.get(0);
 			String systemFileName = fileName.get(1);
-			
-			MovieInfoVo movieInfo = new MovieInfoVo(title, director, actor, genre, runtime, link, age, date,
-					originalFileName, systemFileName);
-
-
+					
 			MovieService movieService = MovieService.getInstace();
 			
-			int exists = movieService.compaerMovie(movieInfo.getMovieTitle());
-			
-			if(exists == 1) {
-				request.setAttribute("exists", 1);
+			if(request.getParameter("type").equals("modify")) {				
+				HttpSession session = request.getSession();
+				MovieInfoVo movieInfo = (MovieInfoVo)session.getAttribute("movieInfo");
+				
+				movieInfo.setMovieTitle(title);
+				movieInfo.setMovieDir(director);
+				movieInfo.setMovieActor(actor);
+				movieInfo.setMovieGenre(genre);
+				movieInfo.setMovieRuntime(runtime);
+				movieInfo.setMovieLink(link);
+				movieInfo.setMovieAge(age);
+				movieInfo.setMovieRelease(date);
+				
+				movieService.modifyMovie(movieInfo);
 			} else {
-				movieService.registerMovie(movieInfo);	
+				
+				MovieInfoVo movieInfo = new MovieInfoVo(title, director, actor, genre, runtime, link, age, date,
+						originalFileName, systemFileName);
+				
+				int exists = movieService.compaerMovie(movieInfo.getMovieTitle());
+				
+				if(exists == 1) {
+					request.setAttribute("exists", 1);
+				} else {
+						movieService.registerMovie(movieInfo);	
+				}
 			}
 
 			response.sendRedirect(request.getContextPath() + "/main.do");	
-			
-			
-			
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
