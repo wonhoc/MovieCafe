@@ -5,58 +5,71 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandFactory {
-	private static CommandFactory factory;
-	
-	private Map<String, String> map = new HashMap<String, String>();
-	
-	// constructor
-	private CommandFactory() {
-		// ¿µÈ­ ¸ñ·Ï Á¶È¸ ¿äÃ»
-		map.put("/main.do", "controller.movie.MovieListCommand");
+	//ì‹±ê¸€í†¤ íŒ¨í„´
+		private static CommandFactory factory;
+		private Map<String, String> map = new HashMap<String, String>();
 		
-		// ¿µÈ­ »èÁ¦ ¿äÃ»
-		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
+		private CommandFactory() {
+			//íšŒì› ìƒì„¸ì¡°íšŒìš”ì²­
+			map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");	
+			
+			//íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ ìš”ÂŠ
+			map.put("/pwdCheck.do", "controller.member.PwdCheckCommand");
+			
+			//ë‹‰ë„¤ì„ì¤‘ë³µì²´í¬
+			map.put("/checkNick.do", "controller.member.CheckNickNameCommand");
+			
+			//íšŒì› ìì§„íƒˆí‡´ìš”ì²­
+			map.put("/userDelete.do", "controller.member.DeleteUserCommand");
+      
+      // ê´€ëŒí‰ ì¶”ì²œ ìš”ì²­
+		  map.put("/upLikeGuanram.do", "controller.movie.ModifyGuanramLikeCommand");
+      
+      // ì˜í™” ëª©ë¡ ì¡°íšŒ ìš”ì²­
+		  map.put("/main.do", "controller.movie.MovieListCommand");
 		
-		// ¿µÈ­ »ó¼¼ Á¶È¸ ¿äÃ»
-		map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
+		  // ì˜í™” ì‚­ì œ ìš”ì²­
+	  	map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
 		
-		// ¿µÈ­ Á¤º¸ ¼öÁ¤ Æû ¿äÃ»
-		map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
+	  	// ì˜í™” ìƒì„¸ ì¡°íšŒ ìš”ì²­
+	  	map.put("/detailMovie.do", "controller.movie.DetailMovieCommand");
 		
-		// °ü¶÷Æò ÀÛ¼º Æû ¿äÃ»
-		map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
+	  	// ì˜í™” ì •ë³´ ìˆ˜ì • í¼ ìš”ì²­
+	  	map.put("/modifyMovieForm.do", "controller.movie.ModifyMovieFormCommand");
 		
-		// °ü¶÷Æò ÀÛ¼º ¿äÃ»
-		map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
+	  	// ê´€ëŒí‰ ì‘ì„± í¼ ìš”ì²­
+	  	map.put("/registerGuanramForm.do", "controller.movie.RegisterGuanramFormCommand");
 		
-		// °ü¶÷Æò »èÁ¦ ¿äÃ»
-		map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
+		  // ê´€ëŒí‰ ì‘ì„± ìš”ì²­
+	  	map.put("/registerGuanram.do", "controller.movie.RegisterGuanramCommand");
 		
-		// °ü¶÷Æò ÃßÃµ ¿äÃ»
-		map.put("/upLikeGuanram.do", "controller.movie.ModifyGuanramLikeCommand");
-		
-	}
-	
-	public static CommandFactory getInstance() {
-		if(factory == null) {
-			factory = new CommandFactory();
+		  // ê´€ëŒí‰ ì‚­ì œ ìš”ì²­
+		  map.put("/removeGuanram.do", "controller.movie.RemoveGuanramCommand");
 		}
-		return factory;
-	}
-	
-	public Command createCommand(String commandURI) throws Exception {
-		String commandClass = map.get(commandURI);
-		if(commandClass == null) {
-			return null;
+		
+		
+		public static CommandFactory getInstance() {
+			if(factory == null) {
+				factory = new CommandFactory();
+			}
+			return factory;
 		}
-		try {
-			Class<?> cls = Class.forName(commandClass);
-			Constructor<?> constructor = cls.getConstructor(null);
-			Command command = (Command) constructor.newInstance();
-			return command;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+		
+		public Command createCommand(String commandURI) throws Exception {
+			String commandClass = map.get(commandURI);
+			if (commandClass == null) {
+				return null;
+			}
+			
+			try {	
+				// ë™ì  í´ë˜ìŠ¤ ë¡œë”© í›„ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±  
+				Class<?> cls = Class.forName(commandClass);
+				Constructor<?> constructor = cls.getConstructor(null);
+				Command command = (Command)constructor.newInstance();
+				return command;
+			} catch (Exception e) {
+				throw e;
+			}
+			
+		}	
 	}
-}
