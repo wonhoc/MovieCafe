@@ -41,7 +41,16 @@
 			<%--아이디 중복 체크 --%>
 			$('#idChkBtn').on('click', function(){
 				const userId = $('#userId').val();
-				idchkProcess('${pageContext.request.contextPath}/checkId.do', userId);
+				if(userId== "") {
+					$('#resultId').text('아이디는 필수 입력 항목입니다.');
+                	$('#resultId').css('color', 'red');
+                	$('#isSubmitBtn').attr("disabled",true);
+				}  else {
+					idchkProcess('${pageContext.request.contextPath}/checkId.do', userId);	
+				};
+					
+				
+				
 			});
 			
 			const getAjax2 = function(url, userId) {
@@ -69,13 +78,18 @@
 				try {
 					const result = await getAjax2(url, userId);
 					console.log("result : ", result.isUserId);
+					
+					
 					if(result.isUserId == 'true') {
 	                	$('#resultId').text('이미 사용중인 아이디 입니다.');
 	                	$('#resultId').css('color', 'red');
+	                	
+	                	$('#isSubmitBtn').attr("disabled",true);
 					} else {
 	                	$('#resultId').text('사용 가능한 아이디입니다.');
 	                	$('#resultId').css('color', 'blue');
-						}
+	                	$('#isSubmitBtn').attr("disabled",false);
+					}
 					} catch (error)  {
 						console.log("error : ", error);	
 					
@@ -85,9 +99,16 @@
 						
 						
 			<%--닉네임 중복 체크 --%>
-			$('#userNickBtn').on('click', function() {				
+			$('#userNickBtn').on('click', function() {
 				const userNick = $('#userNick').val();
-				sendProcess('${pageContext.request.contextPath}/checkNick.do', userNick);		
+				if(userNick== "") {
+					$('#result').text('닉네임은 필수 입력 항목입니다.');
+                	$('#result').css('color', 'red');
+                	$('#isSubmitBtn').attr("disabled",true);
+				}  else {
+					sendProcess('${pageContext.request.contextPath}/checkNick.do', userNick);		
+				};
+				
 				
 			});
 			
@@ -121,9 +142,11 @@
 	                if(result.isUserNick == 'true') {
 	                	$('#result').text('이미 사용중인 닉네임입니다.');
 	                	$('#result').css('color', 'red');
+	                	$('#isSubmitBtn').attr("disabled",true);
 	                }  else {
 	                	$('#result').text('사용 가능한 닉네임입니다.');
 	                	$('#result').css('color', 'blue');
+	                	$('#isSubmitBtn').attr("disabled",false);
 	                }
 	            } catch (error) {
 	                console.log("error : ", error);   
@@ -303,7 +326,7 @@
 		</div>
 
 		<button type="button">취소</button>
-		<button type="submit">확인</button>
+		<button type="button" id="isSubmitBtn">확인</button>
 
 	</form>
 

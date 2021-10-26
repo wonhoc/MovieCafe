@@ -54,8 +54,13 @@ public class CommandFactory {
 		// ID/PWD 찾기에서 아이디 반환 요청
 		map.put("/returnId.do", "controller.member.returnIdCommand");
 		
+		// ID/PWD 찾기에서 비밀번호 반환 요청
+		map.put("/returnPw.do", "controller.member.ReturnPwdCommand");
+		
 		// 로갓
 		map.put("/logout.do", "controller.member.LogoutCommand");
+		
+	
 		
 	}
 		

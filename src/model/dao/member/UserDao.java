@@ -452,5 +452,50 @@ public class UserDao {
 			}
 			return returnUserId;
 		}
+		// 비밀번호 찾기
+		public String forgetPwd(String userId, String userContact, String userBirth) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String returnUserPwd = "";
+			
+			try {
+				conn = DBConn.getConnection();
+				StringBuffer sql = new StringBuffer();
+				
+				sql.append("SELECT user_pwd FROM user_info   ");
+				sql.append("WHERE user_id = ?  AND user_contact = ? AND user_birth = ?    ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, userId);
+				pstmt.setString(2, userContact);
+				pstmt.setString(3, userBirth);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					returnUserPwd = rs.getString(1);
+				}
+				
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e2) {
+					throw e2;
+				}
+			}
+			return returnUserPwd;
+			
+			
+		}
+		
 
 }

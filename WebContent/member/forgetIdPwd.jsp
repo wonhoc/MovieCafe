@@ -57,7 +57,7 @@
 				if(result3.returnId.length >= 1) {
 						alert("아이디는 " + result3.returnId + " 입니다.");				
 					} else {
-						alert("실패");
+						alert("아이디를 찾는데 실패하였습니다.");
 					} 
 					
 				} catch(error5) {
@@ -74,18 +74,15 @@
 			
 			for(var i = 1900; i <= birthYear; i++) {
 				
-				$('#birthYear').append('<option value ="'+ i +'" >' + i + '년</option>')
-			}
+				$('#birthYear').append('<option value ="'+ i +'" >' + i + '년</option>');
+			};
 			for(var i = 1; i <= 12; i++) {
 				if (i < 10) {
-					$('#birthMonth').append("<option value='0" + i + "'>0" + i+ "</option>");
+					$('#birthMonth').append("<option value='0" + i + "'>0" + i+ "월</option>");
 						} else {
-							$('#birthMonth').append("<option value='" + i + "'>" + i+ "</option>");
+							$('#birthMonth').append("<option value='" + i + "'>" + i+ "일</option>");
 						}
 					}
-				
-				
-				
 			for (var i = 1; i <= 31; i++) {
 				if (i < 10) {
 					$("#birthDate").append(
@@ -100,19 +97,23 @@
 			$("#birthYear > option[value="+birthYear+"]").attr("selected", "true");
 			$("#birthMonth > option[value="+birthMonth+"]").attr("selected", "true");
 			$("#birthDate > otpion[value="+birthDate+"]").attr("selected", "true");
-			
+
+		
 			<%-- 비밀번호 찾기 --%>
 			$('#inputNameConBirBtn').on('click', function() {
 				
+				
 				const inputUserId2 = $('#inputUserId2').val();
 				const inputUserCon2 = $('#inputUserCon2').val();
-				const inputUserBir2 = $('#birthYear' + '#birthMonth' + '#birthDate').val();
+				const inputUserBir2 = $('#birthYear').val() +"-" + $('#birthMonth').val() + "-" + $('#birthDate').val();
 				
-				getForgetPw = ('${pageContext.request.contextPath}/returnPw.do', inputUserId2,inputUserCon2,inputUserBir2);
+				console.log(inputUserId2 + inputUserCon2 + inputUserBir2);
+				
+				getForgetPw('${pageContext.request.contextPath}/returnPw.do', inputUserId2,inputUserCon2,inputUserBir2);
 			});
 			
 			const getAjax4 = function(url, inputUserId2, inputUserCon2,inputUserBir2 ) {
-				return new Promise((reslove, reject => {
+				return new Promise((resolve, reject) => {
 					$.ajax({
 					
 						url: url,
@@ -122,7 +123,6 @@
 							inputUserId2 : inputUserId2,
 							inputUserCon2 : inputUserCon2,
 							inputUserBir2 : inputUserBir2
-							
 						},
 						success: function(data) {
 							resolve(data);
@@ -133,9 +133,25 @@
 					});
 				});
 			};
+			async function getForgetPw(url, inputUserId2, inputUserCon2, inputUserBir2) {
+				try {
+					const result4 = await getAjax4(url,inputUserId2, inputUserCon2, inputUserBir2 );
+						if (result4.returnPwd.length >= 1) {
+							alert("비밀번호는" + result4.returnPwd + "입니다.");
+						} else {
+							alert("비밀번호를 찾는데 실패하였습니다.");
+						}
+				
+					}catch (error6) {
+						console.log("error6 : ", error6);
+					
+				}				
+			}
+		})
+		
 			
 			
-			})
+			
 
 		
 		</script>

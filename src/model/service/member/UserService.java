@@ -137,12 +137,18 @@ public class UserService {
 				return userDao.confirmNickName(userNick);
 			
 		}
-		
+		//아이디 찾기
 		public String returnUserId(String userName, String userContact) throws Exception {
 			UserDao userDao = UserDao.getInstance();
 			System.out.println(userDao.forgetIdPwd(userName, userContact));
 			return userDao.forgetIdPwd(userName, userContact);
 			
+		}
+		//비밀번호 찾기
+		public String returnUserPwd(String userId, String userContact, String userBirth) throws Exception {
+			UserDao userDao = UserDao.getInstance();
+			System.out.println(userDao.forgetPwd(userId, userContact, userBirth));
+			return userDao.forgetPwd(userId, userContact, userBirth);
 		}
 
 		
