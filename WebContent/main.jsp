@@ -92,14 +92,14 @@ section {
 ></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	$("#deleteBtn").on("click", function() {
-    	console.log("delete")
-    	if(confirm("이 영화 정보를 삭제하시겠습니까?") == true) {
-    		location.href = 'removeMovie.do?movieNo=' + ${pageScope.movie.movieNo }
+	$(".deleteBtn").on("click", function() {
+    	
+    	 if(confirm("이 영화 정보를 삭제하시겠습니까?") == true) {
+    		location.replace('removeMovie.do?movieNo='+$(this).val());
     		alert("삭제되었습니다.")
     	} else {
     		return;
-    	}
+    	} 
     });
   });
 </script>
@@ -144,7 +144,6 @@ $(document).ready(function () {
           	<c:param name="userId" value="${userId }"/>
           	<c:param name="userLank" value="${userLank }"/>
           </c:url>
-     
           	<div class="sectionMovie" id="movie">
           		<a href="${detailUrl }">
 	          		<img src="upload/movie/${pageScope.movie.posterSys }" alt="movie" class="movieImg" />
@@ -155,10 +154,7 @@ $(document).ready(function () {
             	<c:url var="deleteUrl" value="/removeMovie.do">
             		<c:param name="movieNo" value="${pageScope.movie.movieNo }" />
             	</c:url> 
-            	<a href="${deleteUrl }">
-            		<button id="deleteBtn" class="deleteBtn"><i class="fas fa-minus"></i></button>
-            	</a>
-            	
+            	<button id="deleteBtn" class="deleteBtn" value="${pageScope.movie.movieNo }"><i class="fas fa-minus"></i></button>
           	</c:if>
           </div>
         </c:forEach>

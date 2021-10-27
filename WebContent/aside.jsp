@@ -182,8 +182,6 @@ i {
             </c:if>
             
             <c:if test="${not empty userInfo.userId }">
-            
-
 	            <c:if test="${empty userInfo.photoSys }">
     	        	<img src="upload/user/profile.png" alt="profile" class="login_profile" />
     	        </c:if>
@@ -201,7 +199,12 @@ i {
               		<i class="fas fa-user user_icon"></i>
               	</a>
            	 	
-           	 		<i class="fas fa-envelope user_icon" id="MsgHomeBtn"></i>       	        	 	
+           	 		<i class="fas fa-envelope user_icon" id="MsgHomeBtn"></i>  
+           	 		<c:url var="logoutUrl" value="/logout.do"></c:url>
+           	 		<a href="${logoutUrl }">
+           	 			<button class="logout_btn">로그아웃</button> 
+           	 		</a>
+           	 		    	        	 	
  			  </div>
             </c:if>
             

@@ -73,14 +73,17 @@
   width: 400px;
   height: 200px;
 }
-
+section{
+margin-left: auto;
+margin-right: auto;
+}
 .bottom {
   text-align: end;
 }   	
    	</style>
     </head>
     <body>
-    
+    <section>
         <div id="navibox" style="margin-left: 40px; margin-bottom: 20px">
             <button type="button" id="sendFormBtn" onclick="location='${pageContext.request.contextPath }/sendMsgForm.do'">쪽지쓰기</button>
             <button type="button" id=sendMsglistBtn onclick="location='${pageContext.request.contextPath }/sendMsgList.do'">보낸쪽지함</button>
@@ -195,5 +198,6 @@
 		});
 		
 		</script>
+		</section>
     </body>
 </html>

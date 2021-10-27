@@ -47,6 +47,9 @@ public class SendMsgListController implements Command {
 		 ArrayList<SendMessageVo> sendMsgList = service.retrieveSendMsgList(userId, startRow, POST_PER_PAGE); 
 		//request������ sendMsgList�̸����� ������ ������ ��ü ���ε�
 		request.setAttribute("sendMsgList", sendMsgList);
+		for(SendMessageVo messge : sendMsgList) {
+			System.out.println("sendmsg :" + messge.getSendMsgNo());
+		}
 		
 		//3. Block�� ���Ѵ�.
 		int currentBlock = currentPage % PAGE_BLOCK == 0 ? currentPage / PAGE_BLOCK : currentPage / PAGE_BLOCK + 1 ;

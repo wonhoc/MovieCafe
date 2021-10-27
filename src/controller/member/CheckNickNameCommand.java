@@ -14,11 +14,12 @@ public class CheckNickNameCommand implements Command{
 		
 		String userNick = request.getParameter("userNick");
 		UserService service = UserService.getInstance();
-		
 		boolean result = service.checkNickName(userNick);
+		System.out.println(result);
 		request.setAttribute("isUserNick", result);
 		
-		return new ActionForward("/indexControl.jsp?contentTemplate=member/isUserNick", false);
+		
+		return new ActionForward("/member/isUserNick.jsp", false);
 	}
 	
 }

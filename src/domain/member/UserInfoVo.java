@@ -36,11 +36,23 @@ public class UserInfoVo {
 		this.userPwd = userPwd;
 	}
 
-	public UserInfoVo(String userId, String userNick, String rankType) {
+	
+
+	public UserInfoVo(String userId, String userNick, String rankType, String photoSys, String joindate ) {
 		super();
 		this.userId = userId;
 		this.userNick = userNick;
+		this.photoSys = photoSys;
+		this.joindate = joindate;
 		this.rankType = rankType;
+	}
+
+	// 아이디를 찾기 위한 VO
+	public UserInfoVo(String userId, String userContact, String userName) {
+		super();
+		this.userId = userId;
+		this.userContact = userContact;
+		this.userName = userName;
 	}
 
 	public UserInfoVo(String userName, String userId, int reportCount, String rankType, String exitType) {
@@ -194,7 +206,7 @@ public class UserInfoVo {
 	}
 
 	public void setJoindate(String joindate) {
-		this.joindate = joindate;
+		this.joindate = joindate.substring(0, 11);
 	}
 
 	public int getRankNo() {

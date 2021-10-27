@@ -49,6 +49,12 @@
 
 .home {
 	font-size: 36px;
+	color: #ed7c31;
+	 transition: transform 200ms linear;
+}
+.home:hover {
+
+	transform: scale(1.1);
 }
 
 .header {

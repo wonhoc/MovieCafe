@@ -12,6 +12,10 @@ public class SendMsgFormController implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		HttpSession session = request.getSession();
+		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
+		String userId = user.getUserId();
+		
 		
 		return new ActionForward("/message/sendMsgForm.jsp", false);
 		
