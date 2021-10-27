@@ -1,8 +1,8 @@
-<%--receiveMsgList.jsp --%>
-<%@page import="domain.message.SendMessageVo"%>
-<%@page import="java.util.ArrayList"%>
+<%-- receiveMsgList.jsp --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="domain.message.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -118,13 +118,16 @@
 							<%-- 내용이 10글자가 넘으면 --%>
 							<c:if test="${fn:length(pageScope.receiveMsg.receiveMsgContent) >= 11 }">
 							<td><a href="${detailReceiveMsgUrl } ">${fn:substring(pageScope.receiveMsg.receiveMsgContent,0,10) }...</a></td>			
-							</c:if>					
+							</c:if>			
 							<%-- 내용이 10글자가 안넘으면 --%>
 							<c:if test="${fn:length(pageScope.receiveMsg.receiveMsgContent) <= 10 }">
 							<td><a href="${detailReceiveMsgUrl } ">${fn:substring(pageScope.receiveMsg.receiveMsgContent,0,10) }</a></td>
-							</c:if>
-							<td>${fn:substring(pageScope.receiveMsg.msgWdate,0,10) }</td>																		<%-- 나중에 session으로 --%>
-							<td><input type="checkbox" name="removeCheckBox" value="${pageScope.receiveMsg.receiveMsgNo },${pageScope.receiveMsg.isRead},${requestScope.userId}"></td>			
+							</c:if>					
+							<td>${fn:substring(pageScope.receiveMsg.msgWdate,0,10) }</td>																		
+							<td><input type="checkbox" name="removeCheckBox" value="${pageScope.receiveMsg.receiveMsgNo },${pageScope.receiveMsg.isRead},${SessionScope.userInfo.userId}"></td>
+							<%-- 수신확인 --%>
+							
+								
 						</tr>					
 					</c:forEach>
 						

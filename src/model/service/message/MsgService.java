@@ -11,7 +11,7 @@ import model.dao.message.ReceiveMSgDao;
 import model.dao.message.SendMsgDao;
 
 public class MsgService {
-	//½Ì±ÛÅæÆĞÅÏ 
+	//ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	private static MsgService msgservice;
 	
 	private MsgService() {
@@ -25,31 +25,31 @@ public class MsgService {
 		return msgservice;
 	}//getInstance() end
 	
-	//ÂÊÁö Á¤º¸ µî·ÏÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public void registerMsg(SendMessageVo msgVo) throws Exception {
-		ArrayList<String> addrs = new ArrayList<String>();	//¹ŞÀ»»ç¶÷µéÀ» ÀúÀåÇÒ ArrayList
+		ArrayList<String> addrs = new ArrayList<String>();	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ArrayList
 		Connection conn = null;
-		boolean isSucess = false;	//Æ®·£Àè¼Ç Ã³¸®¸¦ À§ÇÑ °ª
+		boolean isSucess = false;	//Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		try {
 			conn = DBConn.getConnection();
 			
-			conn.setAutoCommit(false); //Æ®·£Àè¼Ç ½ÃÀÛ
+			conn.setAutoCommit(false); //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao °´Ã¼»ı¼º
-			//³»°¡¾´ ÂÊÁö Á¤º¸ DB¿¡ ÀúÀå
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			int sendMsgNo = sendmsgDao.insertMessage(conn, msgVo);
 			
 			
-			//º¸³½ »ç¶÷µéÀ» ÀúÀåÇÏ±â
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			addrs = msgVo.getAddress();
-			AddressDao addrDao = AddressDao.getInstance(); //AddressDao °´Ã¼»ı¼º
+			AddressDao addrDao = AddressDao.getInstance(); //AddressDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
 			
 			for(String addr : addrs) {
 				addrDao.insertAddr(conn, sendMsgNo, addr);
 			}//for end
 			
-			//¹Ş´Â»ç¶÷ ÆíÁöÇÔ¿¡ ÂÊÁö µî·ÏÇÏ±â
-			ReceiveMSgDao rmsdao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao °´Ã¼»ı¼º
+			//ï¿½Ş´Â»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+			ReceiveMSgDao rmsdao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
 			for(String addr : addrs) {
 				rmsdao.insertMessage(conn, msgVo.getSendMsgContent(), addr, sendMsgNo, msgVo.getWriterId());
 			}//for end
@@ -62,10 +62,10 @@ public class MsgService {
 				if(conn != null) {
 					if(isSucess) {
 						conn.commit();
-						System.out.println("µÊ");
+						System.out.println("ï¿½ï¿½");
 					}else{
 						conn.rollback();
-						System.out.println("¾ÈµÊ");
+						System.out.println("ï¿½Èµï¿½");
 					}//if end
 					conn.close();
 				}//if end
@@ -78,14 +78,14 @@ public class MsgService {
 		
 	}//registerMsg() end
 	
-	//³»°¡ ¾´ ÂÊÁö Á¶È¸ÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½
 	public ArrayList<SendMessageVo> retrieveSendMsgList(String userId, int startRow, int postSize) throws Exception {
-		ArrayList<SendMessageVo> sendMsgList = new ArrayList<SendMessageVo>(); //¹İÈ¯ÇÒ ¸Ş¼¼Áö Á¤º¸°¡ µéÀº ArrayList
+		ArrayList<SendMessageVo> sendMsgList = new ArrayList<SendMessageVo>(); //ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ArrayList
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao °´Ã¼»ı¼º
-			//¸Ş¼¼Áö Á¶È¸ method
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+			//ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ method
 			sendMsgList = sendmsgDao.selectSendmsg(conn, userId, startRow, postSize);
 			
 		} catch (Exception e) {
@@ -97,22 +97,22 @@ public class MsgService {
 		return sendMsgList;
 	}//retrieveSendMsgList() end
 	
-	//ÂÊÁöÁ¤º¸ »èÁ¦ÇÏ°í º¸³½ ÁÖ¼Ò·Ï »èÁ¦
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò·ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void removeSendMsg(int sendMsgNo) throws Exception {
 		Connection conn = null;
-		boolean isSucess = false;	//Æ®·£Àè¼Ç Ã³¸®¸¦ À§ÇÑ °ª
+		boolean isSucess = false;	//Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		try {
 			conn = DBConn.getConnection();
 			
-			conn.setAutoCommit(false); //Æ®·£Àè¼Ç ½ÃÀÛ
+			conn.setAutoCommit(false); //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
-			//ÁÖ¼Ò·Ï¿¡¼­ »èÁ¦
-			AddressDao addrDao = AddressDao.getInstance(); //AddressDao °´Ã¼»ı¼º
+			//ï¿½Ö¼Ò·Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			AddressDao addrDao = AddressDao.getInstance(); //AddressDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
 			addrDao.deleteAddress(conn, sendMsgNo);
 			
 			
-			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao °´Ã¼»ı¼º
-			//³»°¡¾´ ÂÊÁö Á¤º¸ »èÁ¦
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			sendmsgDao.deleteSendMsg(conn, sendMsgNo);
 			
 			
@@ -125,10 +125,10 @@ public class MsgService {
 				if(conn != null) {
 					if(isSucess) {
 						conn.commit();
-						System.out.println("µÊ");
+						System.out.println("ï¿½ï¿½");
 					}else{
 						conn.rollback();
-						System.out.println("¾ÈµÊ");
+						System.out.println("ï¿½Èµï¿½");
 					}//if end
 					conn.close();
 				}//if end
@@ -140,14 +140,14 @@ public class MsgService {
 		
 	}//removeMsg() end
 	
-	//³»°¡ ¾´ ÂÊÁö, ¼ö½Å¿©ºÎ Á¶È¸ÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½
 	public SendMessageVo retrieveSendMsg(int sendMsgNo) throws Exception {
-		SendMessageVo sendMs = new SendMessageVo(); //¹İÈ¯ÇÒ ¸Ş¼¼Áö Á¤º¸°¡ µéÀº °´Ã¼
+		SendMessageVo sendMs = new SendMessageVo(); //ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao °´Ã¼»ı¼º
-			//¸Ş¼¼Áö Á¶È¸ method
+			SendMsgDao sendmsgDao = SendMsgDao.getInstance(); //SendMsgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+			//ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ method
 			sendMs = sendmsgDao.selectSendMsg(conn, sendMsgNo);
 			
 		} catch (Exception e) {
@@ -160,14 +160,14 @@ public class MsgService {
 	}//retrieveSendMsg() end
 	
 	
-	//³»°Ô ¿Â ¸Ş¼¼Áö ¸ñ·Ï Á¶È¸
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public ArrayList<ReceiveMsgVo> retrieveReceiveMsgList(String userId, int startRow, int postSize) throws Exception {
-		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //¹İÈ¯ÇÒ ¸Ş¼¼Áö Á¤º¸°¡ µéÀº ArrayList
+		ArrayList<ReceiveMsgVo> receiveMsgList = new ArrayList<ReceiveMsgVo>(); //ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ArrayList
 		Connection conn = null;
 		try {
 			conn = DBConn.getConnection();
-			ReceiveMSgDao receiveMsgDao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao °´Ã¼»ı¼º
-			//³»°Ô ¿Â ¸Ş¼¼Áö Á¶È¸ method
+			ReceiveMSgDao receiveMsgDao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ method
 			receiveMsgList = receiveMsgDao.selectReceiveMsgList(conn, userId, startRow, postSize);
 			
 		} catch (Exception e) {
@@ -179,15 +179,15 @@ public class MsgService {
 		return receiveMsgList;
 	}//retrieveSendMsgList() end
 	
-	//³»°Ô ¿Â ¸Ş¼¼Áö »èÁ¦
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void removeReceiveMsg(int receiveMsgNo) throws Exception {
 		Connection conn = null;
 		
 		try {
 			conn = DBConn.getConnection();
-			//ReceiveMSgDao °´Ã¼ »ı¼º
+			//ReceiveMSgDao ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			ReceiveMSgDao rmd = ReceiveMSgDao.getInstance();
-			//³»°Ô¿Â ¸Ş¼¼Áö¸¦ »èÁ¦
+			//ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			rmd.deleteReceiveMsg(conn, receiveMsgNo);
 			
 		} catch (Exception e) {
@@ -203,19 +203,19 @@ public class MsgService {
 		
 	}//removeReceiveMsg() end
 	
-	//ÀĞÀ½»óÅÂ ÀĞÀ½À¸·Î ¹Ù²Ù°í ³»°Ô¿Â ¸Ş¼¼Áö »èÁ¦ÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public void ReadUpdateRemove(int receiveMsgNo, String receiveId) throws Exception {
 		Connection conn = null;
-		boolean isSucess = false;	//Æ®·£Àè¼Ç Ã³¸®¸¦ À§ÇÑ °ª
+		boolean isSucess = false;	//Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		try {
 		conn = DBConn.getConnection();
-		conn.setAutoCommit(false); //Æ®·£Àè¼Ç ½ÃÀÛ
+		conn.setAutoCommit(false); //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-		AddressDao addrDao = AddressDao.getInstance(); //AddressDao °´Ã¼ »ı¼º
-		ReceiveMSgDao rmd = ReceiveMSgDao.getInstance(); //ReceiveMSgDao °´Ã¼ »ı¼º
-		//¼ö½ÅÈ®ÀÎ »óÅÂ¸¦ ÀĞÀ½À¸·Î º¯°æ
+		AddressDao addrDao = AddressDao.getInstance(); //AddressDao ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+		ReceiveMSgDao rmd = ReceiveMSgDao.getInstance(); //ReceiveMSgDao ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		addrDao.Readed(conn, receiveMsgNo, receiveId);
-		//»èÁ¦ ¿äÃ»ÇÑ ³»°Ô ¿Â ÂÊÁö ¹øÈ£ ¸Â´Â ÂÊÁö »èÁ¦
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		rmd.deleteReceiveMsg(conn, receiveMsgNo);
 		
 		isSucess = true;
@@ -226,10 +226,10 @@ public class MsgService {
 				if(conn != null) {
 					if(isSucess) {
 						conn.commit();
-						System.out.println("µÊ");
+						System.out.println("ï¿½ï¿½");
 					}else{
 						conn.rollback();
-						System.out.println("¾ÈµÊ");
+						System.out.println("ï¿½Èµï¿½");
 					}//if end
 					conn.close();
 				}//if end
@@ -240,14 +240,14 @@ public class MsgService {
 		
 	}//ReadUpdate() end
 	
-	//³»°Ô ¿Â ¸Ş¼¼Áö »ó¼¼ Á¶È¸ÇÏ°í ÀĞÀ½»óÅÂ update
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ update
 		public ReceiveMsgVo retrieveReceiveMsg(int receiveMsgNo) throws Exception {	
-			Connection conn = null;
+			Connection conn = null;		
 			try {
 				conn = DBConn.getConnection();
-				conn.setAutoCommit(false); // Æ®·£Àè¼Ç ½ÃÀÛ
-				ReceiveMSgDao receiveMsgDao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao °´Ã¼»ı¼º
-				//³»°Ô ¿Â ¸Ş¼¼Áö Á¶È¸ method
+				conn.setAutoCommit(false); // Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				ReceiveMSgDao receiveMsgDao = ReceiveMSgDao.getInstance(); //ReceiveMSgDao ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ method
 				ReceiveMsgVo rmv = receiveMsgDao.selectReceiveMsg(conn, receiveMsgNo);
 				return rmv;
 			} catch (Exception e) {
@@ -261,27 +261,42 @@ public class MsgService {
 			}// end
 		}//retrieveSendMsg() end
 	
-	//ÀĞÀ½ »óÅÂ¸¸ true·Î ¸¸µê
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void updateRead(int sendMsgNo, String receiveId) throws Exception {
 		Connection conn = null;
+		boolean isSuccess = false;
 		try {
 			conn = DBConn.getConnection();
+			conn.setAutoCommit(false);
 			
 			AddressDao addrDao = AddressDao.getInstance();
 			addrDao.Readed(conn, sendMsgNo, receiveId);
 			
+			ReceiveMSgDao.getInstance().receiveReaded(sendMsgNo, receiveId, conn);
+			
+			isSuccess = true;
+			
 		} catch (Exception e) {
 			throw e;
 		}finally {
-			try {	
-				if(conn != null) conn.close();			
-			} catch(Exception e2) {
+			try {
+				if(conn != null) {
+					if(isSuccess) {
+						conn.commit();
+						System.out.println("ì½ìŒ ì—…ë°ì´íŠ¸");
+					}else{
+						conn.rollback();
+						System.out.println("ì½ìŒ ì—…ë°ì´íŠ¸ ì‹¤íŒ¨");
+					}//if end
+					conn.close();
+				}//if end
+			} catch (Exception e2) {
 				throw e2;
 			}// end
 		} //end
 	}//updateRead() end
 	
-//ÃÑ °Ô½Ã±Û ¼ö¸¦ ±¸ÇÑ´Ù
+//ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½
 	public int rerieveTotalReceiveMsg(String userId) throws Exception{
 		int count = 0;
 		Connection conn = null;
@@ -295,7 +310,7 @@ public class MsgService {
 		return count;
 	}//rerieveTotalReceiveMsg() end
 	
-	//ÃÑ °Ô½Ã±Û ¼ö¸¦ ±¸ÇÑ´Ù
+	//ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½
 	public int rerieveTotalSendMsg(String userId) throws Exception{
 		int count = 0;
 		Connection conn = null;

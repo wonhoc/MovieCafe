@@ -254,8 +254,39 @@ public class ReceiveMSgDao {
 				}
 			}// end
 			
-			
 		}//selectId() end
+		
+	public void receiveReaded(int receiveMsgno, String userId, Connection conn) throws Exception {
+		PreparedStatement pstmt = null;
+		try {
+			
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" UPDATE receive_msg ");
+		sql.append(" SET is_read = true ");
+		sql.append(" WHERE receive_msg_no = ? AND receive_id = ?");
+		
+		pstmt = conn.prepareStatement(sql.toString());
+		
+		pstmt.setInt(1, receiveMsgno);
+		pstmt.setString(2, userId);
+		
+		pstmt.executeUpdate();
+		
+		
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch (Exception e2) {
+				throw e2;
+			}// end
+			
+		}// end
+		
+		}//receiveReaded() end
 		
 	
 }// class end
