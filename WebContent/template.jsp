@@ -5,7 +5,7 @@
 <c:set var="asideTemplate" value="${param.asideTemplate }.jsp" />
 <c:set var="footerTemplate" value="${param.footerTemplate }.jsp" />
 
-<c:set var="movieInsert" value="${param.movieInsert }.jsp" />
+<c:set var="contentTemplate" value="${param.contentTemplate }.jsp" />
 
 <!DOCTYPE html>
 <html>
@@ -17,15 +17,15 @@ header {
   padding-top: 1em;
 }
 main {
-	display : flex;
+   display : flex;
 }
 aside {
   width: 20%;
   height: 100%;
   background-color: #eab48a;
 }
-content {
-	widrh : 100%
+section {
+   widrh : 100%
 }
 footer {
   display: flex;
@@ -39,18 +39,18 @@ footer {
 </head>
 <body>
 <header>
-	<jsp:include page="${headerTemplate }" flush="false"></jsp:include>
+   <jsp:include page="${headerTemplate }" flush="false"></jsp:include>
 </header>
 <main>
-	<aside>
-		<jsp:include page="${asideTemplate }" flush="false"></jsp:include>
-	</aside>
-	<content>
-		<jsp:include page="${movieInsert }" flush="false"></jsp:include>
-	</content>
+   <aside>
+      <jsp:include page="${asideTemplate }" flush="false"></jsp:include>
+   </aside>
+   <section>
+      <jsp:include page="${contentTemplate }" ></jsp:include>
+   </section>
 </main>
 <footer>
-	<jsp:include page="${footerTemplate }" flush="false"></jsp:include>
+   <jsp:include page="${footerTemplate }" flush="false"></jsp:include>
 </footer>
 </body>
 </html>

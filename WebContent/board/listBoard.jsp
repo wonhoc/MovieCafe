@@ -15,9 +15,23 @@
 <meta charset="UTF-8">
 <title>영화관람 팁 게시판목록보기</title>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+ 
  <style>
+ 
+ 
+ 
+ 
+ 
+ #categoty{
+ width: 100px;
+                border-collapse: collapse;
+                margin: 50px auto;   
+                font-size: 12px;
+ 
+ }
+ 		
             table {
-                width: 700px;
+                width: 300px;
                 border-collapse: collapse;
                 margin: 50px auto;   
                 font-size: 12px;             
@@ -39,12 +53,38 @@
             #paging {
             	margin: 10px auto;
             }
-
+aside {
+  width: 10%;
+  height: 100%;
+  background-color: #eab48a;
+}
         </style>
 </head>
 <body>
-
+<main>
  <center><h3>게시글 목록 조회</h3></center>
+ 
+ <aside>
+	<table id="category">
+		<tr>
+			<td>가나다</td>
+		</tr>
+		<tr>
+			<td>가나다</td>
+		</tr>
+		<tr>
+			<td>가나다</td>
+		</tr>
+		<tr>
+			<td>가나다</td>
+		</tr>
+		<tr>
+			<td>가나다</td>
+		</tr>
+	</table>
+ 
+ 
+ </aside>
  
  <table>
 	<tr>
@@ -63,7 +103,7 @@
 		<c:if test="${not empty requestScope.boards}">			
 			<c:forEach var="board" items="${requestScope.boards}" varStatus="status">
 				<tr>
-					<c:url var="detailUrl" value="/board/detailBoard.do">
+					<c:url var="detailUrl" value="/tipDetailBoard.do">
 						<c:param name= "boardNo" value="${pageScope.board.boardNo}"/>
 					</c:url>				
 					<td>${requestScope.totalPostCount - ((param.currentPage - 1) * requestScope.postSize) - status.index } </td>
@@ -112,6 +152,10 @@
 			<a href="${nextUrl}">[Next]</a>
 		</c:if>
 	</div>
-
+	<div>
+		<button onclick="location='tipWriteForm.jsp'">글쓰기</button>
+	</div>
+	
+</main>
 </body>
 </html>

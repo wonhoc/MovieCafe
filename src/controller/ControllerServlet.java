@@ -23,7 +23,9 @@ public class ControllerServlet extends HttpServlet {
 
 	public void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		try {
+			request.setCharacterEncoding("utf-8");
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
 			String commandURI = requestURI.substring(contextPath.length());

@@ -10,7 +10,7 @@ import domain.board.BoardFileVo;
 
 public class FileUtils {
 
-	public static final String UPLOAD_PATH = "C:\\upload";
+	public static final String UPLOAD_PATH = "C:/upload";
 	
 	public static BoardFileVo uploadFile(Part part) throws IOException {
 		

@@ -84,6 +84,34 @@ public class BoardFileDao {
 		
 	}
 	
+	//파일만 삭제
+	public void deleteOnlyFile(int boardfileNo, Connection conn) throws Exception{
+		
+		PreparedStatement pstmt = null;
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE FROM movie.boardFile		");
+			sql.append("WHERE boardfile_no = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, boardfileNo);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+			}catch (Exception e2) {
+			 throw e2;
+			}
+		}
+		
+		
+		
+	}
+	
 	
 	
 }

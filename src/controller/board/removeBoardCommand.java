@@ -21,7 +21,7 @@ public class removeBoardCommand implements Command{
 		
 		boardService.removeBoard(boardNo);
 		
-		return new ActionForward("/board/listBoard.do", true);
+		return new ActionForward("/index.jsp", true);
 		
 	}
 	

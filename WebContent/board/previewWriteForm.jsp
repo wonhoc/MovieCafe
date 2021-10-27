@@ -17,7 +17,8 @@
                 padding-bottom: 30px;
             }
         </style>
-         <script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  	
+        <script>
             window.addEventListener('load', function() {
                 const saveBtn = document.getElementById('saveBtn');
                 saveBtn.addEventListener('click', function() {
@@ -26,29 +27,28 @@
                 }); 
             })
 
-            <%-- 말머리정보 해결 --%>
-            
-
+           
         </script>
     </head>
     
 <body>
  <article>
  	<div class="container" role="main">
-<h1>게시판 작성</h1>
-
+<h1></h1>
+<h1>시사회정보</h1>
 <%-- 게시글작성 --%>
 	<form name="form" id="form" role="form" method="post" action="/movieCafeWepApp/fileUpload" enctype="multipart/form-data">
 	
 	 <%-- 세션에 있는 아이디  --%>
-	 <input type="hidden" name = "userId" value="test_user01">
+	 <input type="hidden" name = "userId" value="user_1">
+	 
 	 
 	 <%-- 말머리(나중에 수정) --%>
 	 <div class="mb-3">
             <label>말머리</label>
             <select name="horseNo" id="horseNo">
-                <option value="10">할인정보</option>
-                <option value="11">영화관 추천 </option>
+                <option value="8">다녀온 시사회</option>
+                <option value="9">예정 시사회</option>
             </select>
         </div>
         
@@ -75,12 +75,12 @@
 		<%-- 관리자 아이디 체크박스 --%>
 		
 		<div>
-			<input type="checkbox" value ="1" name="boardNotice"><label>공지</label>
+			<input type="checkbox" var="1" value ="1" name="boardNotice"><label>공지</label>
 		</div>
-		
 		
 </form>
 </div>
 </article>
+
 </body>
 </html>

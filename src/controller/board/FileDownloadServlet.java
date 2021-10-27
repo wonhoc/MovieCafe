@@ -16,15 +16,19 @@ import org.apache.tomcat.util.http.fileupload.FileUpload;
 
 import util.board.FileUtils;
 
-@WebServlet("/fileDownload")
+@WebServlet(urlPatterns = "/fileDownload")
 public class FileDownloadServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			
+		request.setCharacterEncoding("utf-8");
+		
 		String boardfileOrigin = request.getParameter("boardfileOrigin");
 		String boardfileSys = request.getParameter("boardfileSys");
+		
+		System.err.println("boardfileOrigin" + boardfileOrigin);
 		
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
@@ -50,7 +54,7 @@ public class FileDownloadServlet extends HttpServlet {
 				}
 			}
 			else {
-				throw new Exception("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
+				throw new Exception("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

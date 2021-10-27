@@ -34,7 +34,8 @@ public class FileUploadServlet extends HttpServlet {
 			if (!part.getHeader("Content-Disposition").contains("filename=")) {
 				
 				String name = part.getName();
-				
+			
+				System.out.printf("name: %s%n", name);
 				if(name.equals("boardTitle")) {
 					board.setBoardTitle(request.getParameter(name));
 				}else if (name.equals("userId")) {
