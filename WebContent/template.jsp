@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <c:set var="contentTemplate" value="/${param.contentTemplate }.jsp" />
+
 
 <!DOCTYPE html>
 <html>
@@ -13,8 +15,10 @@ header {
   padding-top: 1em;
 }
 main {
+
 	display : flex;
 	width : 100%;
+
 }
 aside {
   width: 20%;
@@ -22,7 +26,9 @@ aside {
   background-color: #eab48a;
 }
 section {
+
 	width : 100%;
+
 }
 footer {
   display: flex;
@@ -36,6 +42,7 @@ footer {
 </head>
 <body>
 <header>
+
 	<jsp:include page="/header.jsp" flush="false"></jsp:include>
 </header>
 <main>
@@ -48,6 +55,7 @@ footer {
 </main>
 <footer>
 	<jsp:include page="/footer.jsp" flush="false"></jsp:include>
+
 </footer>
 </body>
 </html>

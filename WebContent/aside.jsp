@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -213,11 +215,19 @@ i {
         </div>
         
       </div>
+     
       <div class="aside_category">
         <div class="category_orangeBox">
           <div class="category_whiteBox">
             <div class="category_section">
-              <h2 class="categoty_title">새싹 게시판</h2>
+            <c:url var="listUrl" value="/board/listBoard_NewMem.do">   
+            <c:param name="cateNo" value="1"></c:param>>
+            </c:url>
+      <h2 class="categoty_title"><a href="${listUrl}"> 새싹 게시판</a></h2>
+   
+
+             
+             
               <img
                 src="images/sprout.png"
                 alt="category_icon"
@@ -225,7 +235,11 @@ i {
               />
             </div>
             <div class="category_section">
-              <h2 class="categoty_title">영화리뷰</h2>
+            <c:url var="listUrl" value="/board/listBoard_MovieReview.do">
+             <c:param name="cateNo" value="2"></c:param>
+             </c:url>
+              <h2 class="categoty_title"><a href="${listUrl}">영화리뷰</a></h2>
+              
               <img
                 src="images/review.png"
                 alt="category_icon"
@@ -233,7 +247,10 @@ i {
               />
             </div>
             <div class="category_section">
-              <h2 class="categoty_title">시사회정보</h2>
+            <c:url var="listUrl" value="/board/listBoard_sisa.do">
+             <c:param name="cateNo" value="3"></c:param>
+             </c:url>
+              <h2 class="categoty_title"><a href="${listUrl}">시사회정보</a></h2>
               <img
                 src="images/theater.png"
                 alt="category_icon"
@@ -241,11 +258,17 @@ i {
               />
             </div>
             <div class="category_section">
-              <h2 class="categoty_title">영화관람 팁</h2>
+            <c:url var="listUrl" value="/board/listBoard_Tip.do">
+             <c:param name="cateNo" value="4"></c:param>
+             </c:url>
+              <h2 class="categoty_title"><a href="${listUrl}">영화관람 팁</a></h2>
               <img src="images/tip.png" alt="category_icon" class="category_icon" />
             </div>
             <div class="category_section">
-              <h2 class="categoty_title">티켓마켓</h2>
+            <c:url var="listUrl" value="/board/listBoard_Ticket.do">
+             <c:param name="cateNo" value="5"></c:param>
+             </c:url>
+              <h2 class="categoty_title"><a href="${listUrl}">티켓마켓</a></h2>
               <img
                 src="images/ticket.png"
                 alt="category_icon"
@@ -253,7 +276,10 @@ i {
               />
             </div>
             <div class="category_section">
-              <h2 class="categoty_title">이벤트</h2>
+            <c:url var="listUrl" value="/board/listBoard_Event.do">
+             <c:param name="cateNo" value="6"></c:param>
+             </c:url>
+              <h2 class="categoty_title"><a href="${listUrl}">이벤트</a></h2>
               <img src="images/party.png" alt="category_icon" class="category_icon" />
             </div>
           </div>
