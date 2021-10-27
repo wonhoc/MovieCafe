@@ -50,6 +50,10 @@ public class RegistUserServlet extends HttpServlet {
 		System.out.println(gender);
 		
 		// 프로필 사진 업로드
+		
+		
+		
+		
 		Part part = request.getPart("profilePhoto");
 		ArrayList<String> filName = FileUploadUtils.upload(part, request, "user");
 		
