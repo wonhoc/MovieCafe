@@ -169,6 +169,7 @@ $(document).ready(function () {
     	$(this).addClass('fas');
     	
     	const obj = $(this);
+    	const userId = $(this).prevAll('.id').text();
     	
     	console.log(obj);
      	
@@ -177,7 +178,8 @@ $(document).ready(function () {
              method: 'GET',
              dataType: 'json',
              data: {
-                movieNo: ${param.movieNo} 
+                movieNo: '${param.movieNo}' ,
+                reviewId: userId
              },
              success:function(data){   
             	 obj.find('p').hide(); 

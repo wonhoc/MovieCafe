@@ -127,7 +127,7 @@ $(document).ready(function () {
        <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile?type=modify" method="POST" enctype="multipart/form-data">
          <div class="movie_input">
            <div class="form_left">
-             <img id="img">
+             <img id="img" src="upload/movie/${sessionScope.movieInfo.posterSys }">
              <div class="form_imgBtn">
                <label for="imgInput">이미지 등록</label>
                <input type="file" class="form_imgInput" id="imgInput" name="imgInput" />

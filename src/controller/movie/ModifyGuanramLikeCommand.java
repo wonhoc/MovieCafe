@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.ActionForward;
 import controller.Command;
-import model.dao.movie.GuanramDao;
+import domain.member.UserInfoVo;
 import model.service.movie.MovieService;
 
 public class ModifyGuanramLikeCommand implements Command{
@@ -15,15 +15,8 @@ public class ModifyGuanramLikeCommand implements Command{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		int movieNo = Integer.parseInt(request.getParameter("movieNo"));
-		
-		/*
-		 * HttpSession session = request.getSession();
-		 * UserInfoVo userInfo = (UserInfoVo)session.getAttribute("userInfo"); String
-		 * userId = userInfo.getUserId();
-		 */
-		
-		String userId = "test_user04";
-		
+		String userId = request.getParameter("reviewId");
+				
 		MovieService movieService = MovieService.getInstace();
 		int no = movieService.upLikeGuanram(movieNo, userId);
 		request.setAttribute("upLikeCount", no);

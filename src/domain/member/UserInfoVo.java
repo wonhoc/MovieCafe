@@ -19,34 +19,43 @@ public class UserInfoVo {
 	private String joindate;
 	private int rankNo;
 	private String rankType;
+	private int reportCount;
 
-	
-  
-  public UserInfoVo() {
+	public UserInfoVo() {
 		super();
 	}
 
-public UserInfoVo(String userId) {
+	public UserInfoVo(String userId) {
 		super();
 		this.userId = userId;
 	}
-	
+
 	public UserInfoVo(String userId, String userPwd) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
-  
-  public UserInfoVo(String userId, String userNick, String rankType) {
+
+	public UserInfoVo(String userId, String userNick, String rankType) {
 		super();
 		this.userId = userId;
 		this.userNick = userNick;
 		this.rankType = rankType;
-   }
-	
+	}
+
+	public UserInfoVo(String userName, String userId, int reportCount, String rankType, String exitType) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.exitType = exitType;
+		this.rankType = rankType;
+		this.reportCount = reportCount;
+	}
+
 	public UserInfoVo(String userId, String userPwd, String userNick, String userEmail, String userBirth,
 			String userContact, String gender, String exitdate, String userName, String photoOrigin, String photoSys,
-			int boardCount, int comCount, String exitType, String joindate, int rankNo, String rankType) {
+			int boardCount, int comCount, String exitType, String joindate, int rankNo, String rankType,
+			int reportCount) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -65,9 +74,9 @@ public UserInfoVo(String userId) {
 		this.joindate = joindate;
 		this.rankNo = rankNo;
 		this.rankType = rankType;
+		this.reportCount = reportCount;
 	}
 
-  
 	public String getUserId() {
 		return userId;
 	}
@@ -195,14 +204,21 @@ public UserInfoVo(String userId) {
 	public void setRankNo(int rankNo) {
 		this.rankNo = rankNo;
 	}
-	
+
 	public String getRankType() {
 		return rankType;
 	}
 
-
 	public void setRankType(String rankType) {
 		this.rankType = rankType;
+	}
+
+	public int getReportCount() {
+		return reportCount;
+	}
+
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
 	}
 
 	@Override

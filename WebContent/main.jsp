@@ -84,6 +84,24 @@ section {
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
       crossorigin="anonymous"></script>
+
+<script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$("#deleteBtn").on("click", function() {
+    	console.log("delete")
+    	if(confirm("이 영화 정보를 삭제하시겠습니까?") == true) {
+    		location.href = 'removeMovie.do?movieNo=' + ${pageScope.movie.movieNo }
+    		alert("삭제되었습니다.")
+    	} else {
+    		return;
+    	}
+    });
+  });
 </script>
 </head>
 <body>

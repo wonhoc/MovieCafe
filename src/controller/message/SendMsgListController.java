@@ -25,6 +25,7 @@ public class SendMsgListController implements Command {
 		HttpSession session = request.getSession();
 		UserInfoVo user = (UserInfoVo)session.getAttribute("userInfo");
 		String userId = user.getUserId();
+		System.out.println("sendListuserId: " + userId);
 		
 		
 		
@@ -44,7 +45,6 @@ public class SendMsgListController implements Command {
 		MsgService service = MsgService.getInstance();
 		//������ �޼��� ������ ��ü
 		 ArrayList<SendMessageVo> sendMsgList = service.retrieveSendMsgList(userId, startRow, POST_PER_PAGE); 
-		
 		//request������ sendMsgList�̸����� ������ ������ ��ü ���ε�
 		request.setAttribute("sendMsgList", sendMsgList);
 		

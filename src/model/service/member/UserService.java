@@ -2,6 +2,7 @@
 package model.service.member;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import domain.member.UserInfoVo;
 import model.DBConn;

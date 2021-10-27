@@ -4,6 +4,8 @@ package model.dao.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import domain.member.UserInfoVo;
 import model.DBConn;
@@ -239,8 +241,6 @@ public class UserDao {
 		
 		return userInfoVo;
 	}
-  
-  
   
 	// 로그인 아이디, 패스워드 Vo
 	public int selectCountUser(UserInfoVo userInfoVo) throws Exception {

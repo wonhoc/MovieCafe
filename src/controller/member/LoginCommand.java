@@ -26,6 +26,7 @@ public class LoginCommand implements Command {
 				System.out.println(isMember);
 				
 				if(isMember == 1) {
+					
 					HttpSession session = request.getSession();
 					UserInfoVo user = service.retrieveIdRankNick(userId);				
 					
