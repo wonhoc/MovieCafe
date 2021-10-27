@@ -197,7 +197,8 @@
 				var p1 = document.getElementById('userPwd').value;
 				if(p1.match(exp)) {
 					pwdformchk.innerText = "비밀번호 양식에 적합합니다.";
-					pwdformchk.style.color="blue"				
+					pwdformchk.style.color="blue"	
+					
 				} else {
 					wpd.formchk.innerText = "영문대소문자,특수문자가 하나 이상 들어가야 합니다. "
 					pwdformchk.style.color="red"				
@@ -214,9 +215,11 @@
 				if(p1 != p2) {
 					pwdcheck.innerText="비밀번호가 일치하지 않습니다. 다시 입력해주세요.";
 					pwdcheck.style.color="red";
+					$('#isSubmitBtn').attr("disabled",true);
 				} else {
 					pwdcheck.innerText="비밀번호가 일치합니다.";
 					pwdcheck.style.color="blue";
+					$('#isSubmitBtn').attr("disabled",false);
 				};	
 			});
 			
@@ -235,8 +238,31 @@
 					reader.readAsDataURL(event.target.files[0]);
 					
 				}
-				
-			
+				<%--전체 유효성 검증 --%>
+				$('#isSubmitBtn').on('click', function() {
+					
+					if($('#userId').val() == "" || $('#userId').val() == null ||
+					   $('#userPwd').val() == "" || $('#userPwd').val() == null ||
+					   $('#userEmail').val() == "" || $('#userEmail').val() == null ||
+					   $('#profilePhoto').val() == "" || $('#profilePhoto').val() == null ||
+					   $('#contact2').val() == "" || $('#contact2').val() == null || 
+					   $('#contact3').val() == "" || $('#contact3').val() == null ||
+					   $('#userNick').val() == "" || $('#userNick').val() == null ||
+					   $('#userName').val() == "" || $('#userName').val() == null )
+					  	 {
+						console.log($('#userId').val());
+						console.log($('#userPwd').val());
+						console.log($('#userEmail').val());
+						console.log($('#profilePhoto').val());
+						console.log($('#contact2').val());
+						console.log($('#contact3').val());
+						console.log($('#userNick').val());
+						console.log($('#userName').val());
+						alert("필수 항목을 입력하지 않았습니다. 다시 확인해주세요.");
+					} else {
+						$('#inputLoginData').submit();	
+					}
+				})
 		});
 		
 		</script>
@@ -245,7 +271,7 @@
 <title>회원 가입 폼</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/joinUser"
+	<form action="${pageContext.request.contextPath}/joinUser" id="inputLoginData"
 		method="POST" enctype="multipart/form-data">
 		<div>
 			<label for="userId">ID</label> 
@@ -291,11 +317,15 @@
 		</div>
 
 		<div>
-			<label for="userContact">연락처</label> <select id="contact1"
-				name="contact1">
+			<label for="userContact">연락처</label> 
+			<select id="contact1"name="contact1">
 				<option value="010">010</option>
-			</select> <input type="text" id="contact2" name="contact2"> <input
-				type="text" id="contact3" name="contact3">
+				<option value="011">011</option>
+				<option value="017">017</option>
+				<option value="018">018</option>
+			</select> 
+			<input type="text" id="contact2" name="contact2"> 
+			<input type="text" id="contact3" name="contact3">
 
 		</div>
 
