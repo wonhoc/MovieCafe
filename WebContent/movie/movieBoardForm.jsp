@@ -42,8 +42,10 @@
   border: 0;
 }
 #img {
-   width : 20rem;
-   height: 25rem;
+
+	width : 20rem;
+	height: 25rem;
+
 }
 .form_inputSection {
   display: flex;
@@ -83,8 +85,10 @@
 $(document).ready(function () {
     $("#imgInput").on("change", handleImgFileSelect);
     $('#form').submit(function() {
-       let flag = true;
-       const title = $('#title').val();
+
+    	let flag = true;
+    	const title = $('#title').val();
+
         const director = $('#director').val();
         const actor = $('#actor').val();
         const genre = $('#genre').val();
@@ -94,12 +98,14 @@ $(document).ready(function () {
         const date = $('#date').val();
         const image =  $("#imgInput").val()
         if (title == "" || director == "" || actor == "" || genre == "" || 
-              runtime == "" || link == "" || age == 0 || date == "") {
+
+        		runtime == "" || link == "" || age == 0 || date == "") {
             alert("정보를 모두 입력해주세요");
             flag = false;
         } else if(image == "") {
-           alert("이미지 파일을 추가해주세요");
-           flag = false;
+        	alert("이미지 파일을 추가해주세요");
+        	flag = false;
+
         } 
         return flag;
     });
@@ -123,7 +129,9 @@ $(document).ready(function () {
 </head>
 <body>
 <h1 class="content_title">영화 정보 등록</h1>
-       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile" method="POST" enctype="multipart/form-data">
+
+       <form id="form" action="${pageContext.request.contextPath }/uploadMovieFile?type=insert" method="POST" enctype="multipart/form-data">
+
          <div class="movie_input">
            <div class="form_left">
              <img id="img">
