@@ -17,7 +17,6 @@ public class ListUserCommand implements Command {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		
 		int currentPage = 0;
 		try {
@@ -29,15 +28,13 @@ public class ListUserCommand implements Command {
 		
 		int startRow = (currentPage - 1) * POST_PER_PAGE;
 
-		
 		ArrayList<UserInfoVo> users = UserService.getInstance().retrieveUserList(startRow, POST_PER_PAGE);
 
 		
 		request.setAttribute("users", users);
-
+		
 		
 		int currentBlock = currentPage % PAGE_BLOCK == 0 ? currentPage / PAGE_BLOCK : currentPage / PAGE_BLOCK + 1;
-
 		
 		int startPage = 1 + (currentBlock - 1) * PAGE_BLOCK;
 		int endPage = startPage + (PAGE_BLOCK - 1);
@@ -51,7 +48,6 @@ public class ListUserCommand implements Command {
 		if (endPage > totalPage) {
 			endPage = totalPage;
 		}
-
 		
 		request.setAttribute("pageBlock", PAGE_BLOCK);
 		request.setAttribute("startPage", startPage);
@@ -59,8 +55,7 @@ public class ListUserCommand implements Command {
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("totalPostCount", totalUserCount);
 		request.setAttribute("postSize", POST_PER_PAGE);
-		return new ActionForward("/template.jsp?contentTemplate=member/listUser&currentPage=" + currentPage, false);
-		
+		return new ActionForward("/template.jsp?contentTemplate=member/listUser&currentPage=" + currentPage, false);		
 
 	}
 }

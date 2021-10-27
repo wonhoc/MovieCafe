@@ -75,6 +75,10 @@
 	
 }
 
+section{
+margin-left: auto;
+margin-right: auto;
+}
 
 
 .bottom {
@@ -133,6 +137,12 @@
 							</c:if>
 							<td>${fn:substring(pageScope.receiveMsg.msgWdate,0,10) }</td>																		<%-- 나중에 session으로 --%>
 							<td><input type="checkbox" name="removeCheckBox" value="${pageScope.receiveMsg.receiveMsgNo },${pageScope.receiveMsg.isRead},${requestScope.userId}"></td>			
+							<c:if test="${pageScope.receiveMsg.isRead == 0 }">
+							<td style="color: orange;">읽지않음 </td>
+							</c:if>
+							<c:if test="${pageScope.receiveMsg.isRead == 1 }">
+							<td>읽음</td>
+							</c:if>
 						</tr>					
 					</c:forEach>
 						

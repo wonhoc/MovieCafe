@@ -7,6 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Aside</title>
+<%--  jQuery Load --%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous">
+        </script>
+<script
+      src="https://kit.fontawesome.com/69749f5203.js"
+      crossorigin="anonymous"></script>
+
 <style>
 button {
   cursor : pointer;
@@ -123,12 +132,22 @@ button {
 .user_icon:hover {
   transform: scale(1.1);
 }
-
+i {
+  color : black;
+}
 
 </style>
-<script
-      src="https://kit.fontawesome.com/69749f5203.js"
-      crossorigin="anonymous"></script>
+
+</script>
+<script>
+	$(document).ready(function() {
+		
+	
+		$('#MsgHomeBtn').on('click', function(){
+			window.open('${pageContext.request.contextPath}/sendMsgList.do','_blank','height=600, width=700, resizable=no');
+		});
+	
+	});
 </script>
 </head>
 <body>
@@ -163,8 +182,6 @@ button {
             </c:if>
             
             <c:if test="${not empty userInfo.userId }">
-            
-
 	            <c:if test="${empty userInfo.photoSys }">
     	        	<img src="upload/user/profile.png" alt="profile" class="login_profile" />
     	        </c:if>
@@ -177,12 +194,17 @@ button {
               <p class="user_info_text">${userInfo.joindate }</p>
               
               <div>
-           	 	<i class="fas fa-user user_icon"></i>
+              	<c:url var="userInfoUrl" value="/listUser.do"></c:url>
+              	<a href="${userInfoUrl }" >
+              		<i class="fas fa-user user_icon"></i>
+              	</a>
            	 	
-           	 	<c:url var="msgUrl" value="/receiveMsgList.do"></c:url>
-           	 	<a href="${msgUrl }" >
-           	 		<i class="fas fa-envelope user_icon"></i>
-           	 	</a>         	 	
+           	 		<i class="fas fa-envelope user_icon" id="MsgHomeBtn"></i>  
+           	 		<c:url var="logoutUrl" value="/logout.do"></c:url>
+           	 		<a href="${logoutUrl }">
+           	 			<button class="logout_btn">로그아웃</button> 
+           	 		</a>
+           	 		    	        	 	
  			  </div>
             </c:if>
             

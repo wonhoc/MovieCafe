@@ -9,13 +9,47 @@
 <head>
 <meta charset='UTF-8'>
 <title>게시글 목록보기</title>
+<style>
+.list_table {
+  margin: auto;
+  width: 70%;
+  text-align: center;
+}
+.list_devide {
+  width: 30%;
+  height: 2px;
+  background-color: black;
+}
+.list_title_box {
+  margin: 3em 5em;
+}
+.list_title {
+  font-size: 36px;
+  font-weight: bolder;
+  margin: 0.3em 0;
+}
+.list_devide_dot {
+  margin-left: 10%;
+  border: 1px dotted black;
+  width: 80%;
+}
+#paging {
+    text-align: center;
+    margin: 5em;
+}
+   
+
+</style>
 </head>
 
 <body>
+	<div class="list_title_box">
+		<h1 class="list_title">사용자정보조회</h1>
+         <div class="list_devide"></div>
+         <h3 class="list_notice">회원 정보 목록을 조회합니다.</h3>
+	</div>
 
-	<h1>사용자정보조회</h1>
-
-	<table>
+	<table class="list_table">
 		<thead>
 			<tr>
 				<th>번호</th>

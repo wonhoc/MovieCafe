@@ -169,6 +169,7 @@ $(document).ready(function () {
     	$(this).addClass('fas');
     	
     	const obj = $(this);
+    	const userId = $(this).prevAll('.id').text();
     	
     	console.log(obj);
      	
@@ -177,7 +178,8 @@ $(document).ready(function () {
              method: 'GET',
              dataType: 'json',
              data: {
-                movieNo: ${param.movieNo} 
+                movieNo: '${param.movieNo}' ,
+                reviewId: userId
              },
              success:function(data){   
             	 obj.find('p').hide(); 
@@ -244,7 +246,7 @@ $(document).ready(function () {
             <h1 class="review_title">관람평</h1>
             <div class="review_lett">
             
-            <c:if test="${userInfo.rankType.equals('R') }" >
+            <c:if test="${userInfo.rankType.equals('R') || userInfo.rankType.equals('A') }" >
               <button class="review_btn">내가 쓴 글</button>
               
               <c:url var="reviewRegisterUrl" value="/registerGuanramForm.do">
@@ -262,7 +264,7 @@ $(document).ready(function () {
           </div>
           <c:forEach var="review" items="${movieDetail.guanramList }">
           <div class="review_line">
-            <img src="/party.png" alt="profile" class="review_profile" />
+            <img src="upload/user/${userInfo.photoSys }"  alt="profile" class="review_profile" />
             <p class="review_text id">${review.userId }</p>
             <p class="review_text content">${review.guanramReview }</p>
             <p class="review_text date">${review.guanramWdate }</p>
