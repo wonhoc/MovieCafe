@@ -63,7 +63,7 @@ public class TipBoardWriteServlet extends HttpServlet {
 			BoardService boardService = BoardService.getInstance();
 			boardService.registerBoardLocation(board);
 			
-			response.sendRedirect(request.getContextPath() + "/board/listBoard.do");
+			response.sendRedirect(request.getContextPath() + "/main.do");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

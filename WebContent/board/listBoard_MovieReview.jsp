@@ -162,10 +162,13 @@ h3 {
 		</c:if>
 	</div>
 	
-<c:url var="writeUrl" value="/board/writeBoardForm.do">
+<c:url var="writeUrl" value="/board/reviewWriteForm.do">
 				<c:param name="cateNo" value="${param.cateNo}"></c:param>
 			</c:url>
-			<a href="${writeUrl}">[글쓰기]</a>
+			<c:if test="${not empty userInfo.rankType }">
+	<a href="${writeUrl}">[글쓰기]</a>
+</c:if>
+			
 </form>
 
 </body>

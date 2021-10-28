@@ -388,15 +388,15 @@ h3 {
 <body>
 
 	<%-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!수정 , 삭제 추가하기 --%>
-	
+
 	<%-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!수정 , 삭제 추가하기 --%>
 
 	<c:if test="${requestScope.cateNo==1}">
-<c:url var="listUrl" value="/board/listBoard_NewMem.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-<a href="${listUrl }">목록</a>
-		<input type="button" >
+		<c:url var="listUrl" value="/board/listBoard_NewMem.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
+		<input type="button">
 		<h3>새싹 게시글 상세보기</h3>
 		<table>
 			<tr>
@@ -407,10 +407,10 @@ h3 {
 	</c:if>
 
 	<c:if test="${requestScope.cateNo==2}">
-	<c:url var="listUrl" value="/board/listBoard_MovieReview.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-					<a href="${listUrl }">목록</a>
+		<c:url var="listUrl" value="/board/listBoard_MovieReview.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
 		<h3>영화 리뷰 상세보기</h3>
 
 		<table>
@@ -424,10 +424,10 @@ h3 {
 	</c:if>
 
 	<c:if test="${requestScope.cateNo==3}">
-	<c:url var="listUrl" value="/board/listBoard_sisa.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-					<a href="${listUrl }">목록</a>
+		<c:url var="listUrl" value="/board/listBoard_sisa.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
 		<h3>시사회 정보글 상세보기</h3>
 		<table>
 			<tr>
@@ -437,12 +437,12 @@ h3 {
 		</table>
 	</c:if>
 
-<%----- 영화관람 팁은 따로 jsp!(이코드는 삭제예정) -----------------------------%>
+	<%----- 영화관람 팁은 따로 jsp!(이코드는 삭제예정) -----------------------------%>
 	<c:if test="${requestScope.cateNo==4}">
-	<c:url var="listUrl" value="/board/listBoard_Tip.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-					<a href="${listUrl }">목록</a>
+		<c:url var="listUrl" value="/board/listBoard_Tip.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
 		<h3>영화 관람 팁 상세보기</h3>
 		<table>
 			<tr>
@@ -451,12 +451,12 @@ h3 {
 			</tr>
 		</table>
 	</c:if>
-<%----------------------------- --%>
+	<%----------------------------- --%>
 	<c:if test="${requestScope.cateNo==5}">
-	<c:url var="listUrl" value="/board/listBoard_Ticket.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-					<a href="${listUrl }">목록</a>
+		<c:url var="listUrl" value="/board/listBoard_Ticket.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
 		<h3>티켓마켓 글 상세보기</h3>
 		<table>
 			<tr>
@@ -468,10 +468,10 @@ h3 {
 
 
 	<c:if test="${requestScope.cateNo==6}">
-	<c:url var="listUrl" value="/board/listBoard_Event.do">
-						<c:param name= "cateNo" value="${requestScope.cateNo }"/>
-					</c:url>
-					<a href="${listUrl }">목록</a>
+		<c:url var="listUrl" value="/board/listBoard_Event.do">
+			<c:param name="cateNo" value="${requestScope.cateNo }" />
+		</c:url>
+		<a href="${listUrl }">목록</a>
 		<h3>이벤트 상세보기</h3>
 		<table>
 			<tr>
@@ -504,18 +504,22 @@ h3 {
 	신고
 	<img id="reportBtn" src="../images/reportBtn.jpg">
 
-	<c:url var="modifyUrl" value="/board/modifyBoardForm.do">
-		<c:param name="boardNo" value="${requestScope.board.boardNo}"/>
-		<c:param name="cateNo" value="${requestScope.cateNo}"/>
-	</c:url>
-	<a href="${modifyUrl}">수정</a>&nbsp;&nbsp;
-	
+	<c:if test="${userInfo.rankType.equals('A') }">
+		<c:url var="modifyUrl" value="/board/modifyBoardForm.do">
+			<c:param name="boardNo" value="${requestScope.board.boardNo}" />
+			<c:param name="cateNo" value="${requestScope.cateNo}" />
+		</c:url>
+		<a href="${modifyUrl}">수정</a>&nbsp;&nbsp;
+
 	<c:url var="removeUrl" value="/removeBoard.do">
-		<c:param name="boardNo" value="${requestScope.board.boardNo}"/>
-		
-	</c:url>
-	<a href="${removeUrl}">삭제</a>&nbsp;&nbsp;
-	
+			<c:param name="boardNo" value="${requestScope.board.boardNo}" />
+
+		</c:url>
+		<a href="${removeUrl}">삭제</a>&nbsp;&nbsp;     	
+          	</c:if>
+
+
+
 
 	<c:if test="${not empty requestScope.board.boardfileList}">
 		<table>
@@ -600,10 +604,14 @@ h3 {
 			<textarea id="modifyComContent" rows="5" cols="50"
 				placeholder="댓글을 입력해주세오 ."></textarea>
 		</div>
-		<div>
-			<button id="cancel">취소</button>
-			<button id="modifyBtn">수정하기</button>
-		</div>
+
+		<c:if test="${userInfo.rankType.equals('A') }">
+			<div>
+				<button id="cancel">취소</button>
+				<button id="modifyBtn">수정하기</button>
+			</div>
+		</c:if>
+
 	</div>
 
 

@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%
-	session.setAttribute("userId","test_user01");
+	session.setAttribute("userId", "test_user01");
 %>
 <!DOCTYPE html>
 <html>
@@ -53,26 +53,25 @@ h3 {
 </head>
 <body>
 
-<h3>새싹 게시판</h3>
-	<form action="${pageContext.request.contextPath}/board/searchBoard.do" method="GET">
-	
-	<input type="hidden" name= "cateNo" value="${requestScope.cateNo }">
-	<div id="search">
-		<select name= "keyfield" id="keyfield" >
-			<option value="all">전체</option>
-			<option value="user_id">작성자</option>
-			<option value="board_title">제목</option>
-			<option value="board_content">내용</option>
-		</select>
-	
-		
-			<input type="search" placeholder="검색어를 입력하세요" size="30" name= "keyword" id="keyword">
-		
+	<h3>새싹 게시판</h3>
+	<form action="${pageContext.request.contextPath}/board/searchBoard.do"
+		method="GET">
+
+		<input type="hidden" name="cateNo" value="${requestScope.cateNo }">
+		<div id="search">
+			<select name="keyfield" id="keyfield">
+				<option value="all">전체</option>
+				<option value="user_id">작성자</option>
+				<option value="board_title">제목</option>
+				<option value="board_content">내용</option>
+			</select> <input type="search" placeholder="검색어를 입력하세요" size="30"
+				name="keyword" id="keyword">
+
 			<button type="submit" id="searchBtn" style="height: 30px;">검색</button>
-		
-	</div>
+
+		</div>
 	</form>
-	
+
 	<table>
 		<thead>
 			<tr>
@@ -98,17 +97,18 @@ h3 {
 					varStatus="loop">
 					<c:url var="url" value="/board/detailBoard.do">
 						<c:param name="boardNo" value="${pageScope.board.boardNo}"></c:param>
-						
+
 						<c:param name="cateNo" value="${param.cateNo}"></c:param>
 					</c:url>
 					<tr>
 						<td>${requestScope.totalPostCount - (param.currentPage -1) * requestScope.postSize - loop.index }</td>
 						<td>${pageScope.board.userId }</td>
 						<c:if test="${pageScope.board.boardNotice==1 }">
-						<td style="background-color:yellow;"><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
+							<td style="background-color: yellow;"><a
+								href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
 						</c:if>
 						<c:if test="${pageScope.board.boardNotice==0 }">
-						<td><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
+							<td><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
 						</c:if>
 						<td>${pageScope.board.boardWdate }</td>
 						<td>${pageScope.board.boardCount }</td>
@@ -123,7 +123,7 @@ h3 {
 	<%-- 페이징 처리 --%>
 
 	<div id="paging">
-	<c:set var="cateNo" value="${param.cateNo }" scope="page" />
+		<c:set var="cateNo" value="${param.cateNo }" scope="page" />
 		<c:set var="pageBlock" value="${requestScope.pageBlock}" scope="page" />
 		<c:set var="startPage" value="${requestScope.startPage}" scope="page" />
 		<c:set var="endPage" value="${requestScope.endPage}" scope="page" />
@@ -143,7 +143,7 @@ h3 {
 			</c:if>
 			<c:if test="${i != currentPage}">
 				<c:url var="url" value="/board/listBoard_NewMem.do">
-				<c:param name="cateNo" value="${param.cateNo }"></c:param>
+					<c:param name="cateNo" value="${param.cateNo }"></c:param>
 					<c:param name="currentPage" value="${i}" />
 				</c:url>
 				<a href="${url}">&nbsp;${i} &nbsp;</a>
@@ -151,19 +151,21 @@ h3 {
 		</c:forEach>
 		<c:if test="${endPage < totalPage}">
 			<c:url var="nextUrl" value="/board/listBoard_NewMem.do">
-			
+
 				<c:param name="cateNo" value="${param.cateNo }"></c:param>
 				<c:param name="currentPage" value="${endPage + 1 }"></c:param>
 			</c:url>
 			<a href="${nextUrl}">[Next]</a>
 		</c:if>
 	</div>
-	
-<c:url var="writeUrl" value="/board/writeBoardForm.do">
-				<c:param name="cateNo" value="${param.cateNo}"></c:param>
-			</c:url>
-			<a href="${writeUrl}">[글쓰기]</a>
 
+	<c:url var="writeUrl" value="/board/rankupWriteBoardForm.do">
+		<c:param name="cateNo" value="${param.cateNo}"></c:param>
+	</c:url>
+	
+	<c:if test="${not empty userInfo.rankType }">
+	<a href="${writeUrl}">[글쓰기]</a>
+</c:if>
 
 </body>
 </html>

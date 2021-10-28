@@ -57,6 +57,9 @@ public class MovieListCommand implements Command {
 			request.setAttribute("totalPostCount", totalPostCount);
 			request.setAttribute("postSize", POST_PER_PAGE);
 			
+			
+			
+			
 			return new ActionForward("/template.jsp?contentTemplate=main&currentPage=" + currentPage, false);	
 		}
 		

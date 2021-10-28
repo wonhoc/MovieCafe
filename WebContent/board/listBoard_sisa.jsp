@@ -45,6 +45,9 @@ h3 {
 .highlight {
 	background-color: yellow;
 }
+.write{
+text-align: center;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -157,10 +160,16 @@ h3 {
 		</c:if>
 	</div>
 	
-<c:url var="writeUrl" value="/board/WriteBoardForm.do">
+<c:url var="writeUrl" value="/board/previewWriteForm.do">
 				<c:param name="cateNo" value="${param.cateNo}"></c:param>
 			</c:url>
+			
+			<c:if test="${not empty userInfo.rankType }">
+	<div class="write">
 			<a href="${writeUrl}">[글쓰기]</a>
+			</div>
+</c:if>
+			
 </form>
 
 </body>

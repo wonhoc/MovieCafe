@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-   <%@ page import="java.util.*, domain.board.BoardVo" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="java.util.*, domain.board.BoardVo"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-    
-    
-    
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,13 +34,16 @@ h3 {
 #paging {
 	margin: 10px auto;
 }
-
-        </style>
+section {
+text-align: center;
+}
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-	<script>
+<script>
+
 	$(document).ready(function() {
 
         const getAjax = function(url, comContent,boardNo) {
@@ -130,11 +133,15 @@ h3 {
 			 		htmlStr.push('<tr>');	
 			 		htmlStr.push('<td colspan="2" class="comContent">' + comList[i].comContent + '</td>');
 			 		htmlStr.push('</tr>');
-			 		htmlStr.push('<tr>');	
-			 		htmlStr.push('<td colspan="2">');
-			 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
-			 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
-			 		htmlStr.push('</td>');					
+			 		htmlStr.push('<tr>');
+			 		
+			 			htmlStr.push('<td colspan="2">');
+				 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
+				 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
+				 		htmlStr.push('</td>');	
+			 	
+			 						
+			 		
 			 		htmlStr.push('</tr>');
 			 		htmlStr.push('</tbody>');
 			 		htmlStr.push('</table>');				 		
@@ -204,11 +211,13 @@ h3 {
 			 		htmlStr.push('<tr>');	
 			 		htmlStr.push('<td colspan="2" class="comContent">' + comList[i].comContent + '</td>');
 			 		htmlStr.push('</tr>');
-			 		htmlStr.push('<tr>');	
+			 		htmlStr.push('<tr>');
+			 		
 			 		htmlStr.push('<td colspan="2">');
 			 		htmlStr.push('<button class="modifyFormBtn" type="button">수정</button>&nbsp;');		
 			 		htmlStr.push('<button class="removeBtn" type="button">삭제</button>');			
-			 		htmlStr.push('</td>');					
+			 		htmlStr.push('</td>');	
+			 		
 			 		htmlStr.push('</tr>');
 			 		htmlStr.push('</tbody>');
 			 		htmlStr.push('</table>');				 		
@@ -375,38 +384,43 @@ h3 {
 	
 	</script>
 
+	
+
 
 </head>
-<body>
 
-<div id = "div">
-	<c:url var="modifyUrl" value="/tipModifyBoardForm.do">
-		<c:param name="boardNo" value="${requestScope.board.boardNo}"/>
+<body>
+	<c:if test="${userInfo.rankType.equals('A') }">
+		<div id="div">
+			<c:url var="modifyUrl" value="/tipModifyBoardForm.do">
+				<c:param name="boardNo" value="${requestScope.board.boardNo}" />
+			</c:url>
+			<a href="${modifyUrl}">수정</a>&nbsp;&nbsp;
+
+			<c:url var="removeUrl" value="/main.do">
+				<c:param name="boardNo" value="${requestScope.board.boardNo}" />
+			</c:url>
+			<a href="${removeUrl}">삭제</a>&nbsp;&nbsp;
+
+
+		</div>
+	</c:if>
+	<c:url var="listUrl" value="/main.do">
+		<c:param name="boardNo" value="${requestScope.board.boardNo}" />
 	</c:url>
-	<a href="${modifyUrl}">수정</a>&nbsp;&nbsp;
-	
-	<c:url var="removeUrl" value="/removeBoard.do">
-		<c:param name="boardNo" value="${requestScope.board.boardNo}"/>
-	</c:url>
-	<a href="${removeUrl}">삭제</a>&nbsp;&nbsp;
-	
-	<c:url var="listUrl" value="/board/listBoard.do">
-		<c:param name="boardNo" value="${requestScope.board.boardNo}"/>
-	</c:url>
-	<a href="${listUrl}">목록보기</a>&nbsp;&nbsp;
-</div>
-<input type="hidden" id ="apiX" value="${requestScope.board.apiX}">
-<input type="hidden" id ="apiY" value="${requestScope.board.apiY}">
-<table>
+	<a href="${listUrl}">메인페이지</a>&nbsp;&nbsp;
+	<input type="hidden" id="apiX" value="${requestScope.board.apiX}">
+	<input type="hidden" id="apiY" value="${requestScope.board.apiY}">
+	<table>
 		<tr>
-			<td>장르</td>		
-			<td id =>${requestScope.board.horse}</td>		
-			<td>제목</td>		
-			<td>${requestScope.board.boardTitle}</td>		
+			<td>장르</td>
+			<td id=>${requestScope.board.horse}</td>
+			<td>제목</td>
+			<td>${requestScope.board.boardTitle}</td>
 		</tr>
-</table>
-<table>
-		
+	</table>
+	<table>
+
 		<tr>
 			<td>닉네임</td>
 			<td>${requestScope.board.userNick}</td>
@@ -415,19 +429,20 @@ h3 {
 			<td>조회수</td>
 			<td>${requestScope.board.boardCount}</td>
 		</tr>
-	
-</table>
-<table>
-		<tr>
-			<td style="height : 100px;">${requestScope.board.boardContent}</td>		
-		</tr>
-</table>
 
- <c:if test="${not empty requestScope.board.apiX}">
- 
- <div id="map" style="width:300px;height:300px;"></div>
- 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806"></script>
- 	<script>
+	</table>
+	<table>
+		<tr>
+			<td style="height: 100px;">${requestScope.board.boardContent}</td>
+		</tr>
+	</table>
+
+	<c:if test="${not empty requestScope.board.apiX}">
+
+		<div id="map" style="width: 300px; height: 300px;"></div>
+		<script
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a78a37acbaa267bade844724b94c806"></script>
+		<script>
 	
  	var mapX = document.getElementById('apiX').value;
  	var mapY = document.getElementById('apiY').value;
@@ -450,12 +465,12 @@ var marker = new kakao.maps.Marker({
 
 
 	</script>
- </c:if>
+	</c:if>
 
 
 
-<%-- 추천기능, 신고기능 --%>
-추천!
+	<%-- 추천기능, 신고기능 --%>
+	추천!
 	<button type="button" id="recomBtn">
 		<img src="../images/recomBtn.png">
 	</button>
@@ -486,27 +501,27 @@ var marker = new kakao.maps.Marker({
 
 
 
-<%-- 파일리스트 --%>
-<c:if test = "${not empty requestScope.board.boardfileList}">
-	<table id ="tbl">
-		<tr>
-			<th>파일명</th>
-			<th>파일크기</th>
-		</tr>
-	<c:forEach var="file" items="${requestScope.board.boardfileList}">
-			<c:url var = "downloadUrl" value="/fileDownload">
-				<c:param name="boardfileOrigin" value="${file.boardfileOrigin}"/>
-				<c:param name="boardfileSys" value="${file.boardfileSys}"/>
-			</c:url>
-		<tr>
-			<td><a href="${downloadUrl}">${file.boardfileOrigin}</a></td>
-			<td>${file.boardfileSize}</td>
-		</tr>	
-	</c:forEach>	
-	</table>
-</c:if>
+	<%-- 파일리스트 --%>
+	<c:if test="${not empty requestScope.board.boardfileList}">
+		<table id="tbl">
+			<tr>
+				<th>파일명</th>
+				<th>파일크기</th>
+			</tr>
+			<c:forEach var="file" items="${requestScope.board.boardfileList}">
+				<c:url var="downloadUrl" value="/fileDownload">
+					<c:param name="boardfileOrigin" value="${file.boardfileOrigin}" />
+					<c:param name="boardfileSys" value="${file.boardfileSys}" />
+				</c:url>
+				<tr>
+					<td><a href="${downloadUrl}">${file.boardfileOrigin}</a></td>
+					<td>${file.boardfileSize}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 
-<div id="ListComment">
+	<div id="ListComment">
 		<c:forEach var="comment" items="${requestScope.commentList }">
 
 			<table id="${comment.comNo}">
@@ -546,18 +561,22 @@ var marker = new kakao.maps.Marker({
 		</div>
 	</div>
 
-	<%-- 댓글 수정--%>
-	<div id="modifyComment" style="display: none;">
-		<div>
-			<input type="hidden" id="comNo" />
-			<textarea id="modifyComContent" rows="5" cols="50"
-				placeholder="댓글을 입력해주세오 ."></textarea>
+
+	<c:if test="${userInfo.rankType.equals('A') }">
+		<%-- 댓글 수정--%>
+		<div id="modifyComment" style="display: none;">
+			<div>
+				<input type="hidden" id="comNo" />
+				<textarea id="modifyComContent" rows="5" cols="50"
+					placeholder="댓글을 입력해주세오 ."></textarea>
+			</div>
+			<div>
+				<button id="cancel">취소</button>
+				<button id="modifyBtn">수정하기</button>
+			</div>
 		</div>
-		<div>
-			<button id="cancel">취소</button>
-			<button id="modifyBtn">수정하기</button>
-		</div>
-	</div>
+	</c:if>
+
 
 
 </body>

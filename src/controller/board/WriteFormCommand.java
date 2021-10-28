@@ -11,9 +11,7 @@ public class WriteFormCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		ActionForward forward = new ActionForward();
-		forward.setPath("/board/writeBoardForm.jsp");
-		return forward;
+		return new ActionForward("/board/tipWriteForm.jsp", false);	
 	}
 
 	

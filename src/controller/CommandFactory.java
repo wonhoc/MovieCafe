@@ -1,5 +1,4 @@
 
-
 package controller;
 
 import java.lang.reflect.Constructor;
@@ -12,8 +11,8 @@ public class CommandFactory {
 	private Map<String, String> map = new HashMap<String, String>();
 
 	private CommandFactory() {
-    
-    map.put("/board/listBoard.do", "controller.board.listBoardCommand");
+
+		map.put("/board/listBoard.do", "controller.board.listBoardCommand");
 
 		// 게시판리스트
 		// 영화리뷰 게시판 게시글 목록 보기 조회 요청
@@ -52,7 +51,7 @@ public class CommandFactory {
 		// 게시글 신고 요청
 		map.put("/board/reportBoard.do", "controller.board.ReportBoardCommand");
 
-		//게시판 상세보기
+		// 게시판 상세보기
 		// 게시판 상세보기
 		map.put("/board/detailBoard.do", "controller.board.detailBoardCommand");
 		// 나의 게시물 보기 요청
@@ -60,18 +59,17 @@ public class CommandFactory {
 		// 게시글 상세조회ㅐ 요청
 		map.put("/board/detailBoard.do", "controller.board.DetailBoardCommand");
 
-		
 		// 영화관람 팁 상세보기
 		map.put("/board/tipDetailBoard.do", "controller.board.TipDetailBoardCommand");
 
 		// 게시판 작성
-		map.put("/board/writeBoardForm.do", "controller.board.WriteFormCommand");
+		map.put("/board/tipWrite.do", "controller.board.WriteFormCommand");
 
 		// 리뷰게시판
 		map.put("/board/reviewWriteForm.do", "controller.board.ReviewWriteFormCommand");
 
 		// 시사회정보게시판
-		map.put("/board/previewWriteForm.do", "controller.board.PreviewWriteFormCommand");
+		map.put("/board/previewWriteForm.do", "controller.board.PreviewWriteCommand");
 
 		// 등업게시판
 		map.put("/board/rankupWriteForm.do", "controller.board.RankupWriteFormCommand");
@@ -82,7 +80,7 @@ public class CommandFactory {
 		// 이벤트게시판
 		map.put("/board/eventWriteBoardForm.do", "controller.board.EventWriteFormCommand");
 
-		// �۾��� ��û
+		// ۾ û
 		map.put("/board/writeBoard.do", "controller.board.WriteBoardCommand");
 
 		// 게시판 수정
@@ -97,7 +95,7 @@ public class CommandFactory {
 		// 파일삭제
 		map.put("/removeFile.do", "controller.board.RemoveFileCommand");
 
-		// �����Խ���
+		//
 		map.put("/board/tipBoardForm.do", "controller.board.TipBoardFormCommand");
 		// 회원 상세조회요청
 		map.put("/modifyUserForm.do", "controller.member.DetailUserCommand");
@@ -216,4 +214,3 @@ public class CommandFactory {
 
 	}
 }
-

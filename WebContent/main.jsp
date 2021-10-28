@@ -80,6 +80,42 @@ section {
 .add_btn:hover {
   background-color: #e2e2e2;
 }
+
+<style>
+table {
+	width: 700px;
+	border-collapse: collapse;
+	margin: 50px auto;
+	font-size: 12px;
+}
+
+table, tr, th, td {
+	border: 1px solid pink;
+	text-align: center;
+}
+
+th, td {
+	height: 35px;
+}
+
+h3 {
+	text-align: center;
+}
+
+#paging {
+	width: 200px;
+	margin: 10px auto;
+}
+
+#search {
+	margin: 10px auto;
+	width: 500px;
+}
+
+.highlight {
+	background-color: yellow;
+}
+</style>
 </style>
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
@@ -180,6 +216,12 @@ $(document).ready(function () {
 		</c:if>	
 	</c:forEach>
 	</div>
+	<c:url var="recomeUrl" value="/board/recomReview.do"></c:url>
+	<a href="${recomeUrl }">
+	<button>메인 추천 리뷰 / 공지사항</button>
+	</a>
+	
+	
 </section>
 </body>
 </html>
