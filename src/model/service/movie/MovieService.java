@@ -1,9 +1,11 @@
 package model.service.movie;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import domain.movie.MovieGuanramVo;
 import domain.movie.MovieInfoVo;
+import model.dao.member.DBConn;
 import model.dao.movie.GuanramDao;
 import model.dao.movie.MovieInfoDao;
 
@@ -20,36 +22,65 @@ public class MovieService {
 		return movieService;
 	}
 	
-	// ¿µÈ­ Á¤º¸ µî·Ï 
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 	public void registerMovie(MovieInfoVo movie) throws Exception {
 		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
 		movieInfoDao.insertMovie(movie);		
 	}
 	
-	// ¿µÈ­ Á¦¸ñ ºñ±³
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public int compaerMovie(String movieTitle) throws Exception {
 		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
 		int exists = movieInfoDao.compareMovie(movieTitle);
 		return exists;
 	}
 	
-	// ¿µÈ­ ¸ñ·Ï Á¶È¸
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public ArrayList<MovieInfoVo> retrieveMovieList(int startRow, int postSize) throws Exception {
 		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
 		return movieInfoDao.selectMovieList(startRow, postSize);
 	}
 	
-	// ¿µÈ­ °Ô½Ã±Û ¼ö¸¦ ±¸ÇÑ´Ù.
+	// ï¿½ï¿½È­ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	public int retrieveTotalMovieCount() throws Exception {
 		return MovieInfoDao.getInstance().selectTotlaMovieCount();
 	}
 	
-	// ¿µÈ­ Á¤º¸ »èÁ¦
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void removeMovie(int movieNo) throws Exception {
-		MovieInfoDao.getInstance().deleteMovie(movieNo);
+		Connection conn = null;
+		boolean isSuccess = false;
+		
+		try {
+			conn = DBConn.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			GuanramDao.getInstance().deleteMovieGuanram(movieNo, conn);
+			
+			MovieInfoDao.getInstance().deleteMovie(movieNo, conn);
+			
+			isSuccess = true;
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(conn != null) {
+					if(isSuccess) conn.commit();
+					else conn.rollback();
+					conn.close();
+				}
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+		
+		
+		
 	}
 	
-	// ¿µÈ­ Á¤º¸ »ó¼¼ Á¶È¸
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸
 	public MovieInfoVo retrieveMovieDetail(String userId, int movieNo) throws Exception {
 		MovieInfoVo movieDetail = new MovieInfoVo();
 		movieDetail = MovieInfoDao.getInstance().selectMovie(userId, movieNo);
@@ -57,22 +88,22 @@ public class MovieService {
 		return movieDetail;	
 	}
 	
-	// ¿µÈ­ Á¤º¸ ¼öÁ¤
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void modifyMovie(MovieInfoVo movie) throws Exception {
 		MovieInfoDao.getInstance().updateMovie(movie);
 	}
 	
-	// °ü¶÷Æò µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	public void registerGuanram(MovieGuanramVo guanram) throws Exception {
 		GuanramDao.getInstance().insertGuanram(guanram);
 	}
 	
-	// °ü¶÷Æò »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void removeGuanram(int movieNo, String userId) throws Exception {
 		GuanramDao.getInstance().deleteGuanram(movieNo, userId);
 	}
 	
-	// °ü¶÷Æò ÃßÃµ Áõ°¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½
 	public int upLikeGuanram(int movieNo, String userId) throws Exception {
 		GuanramDao guanramDao = GuanramDao.getInstance();
 		guanramDao.upLikecount(movieNo, userId);

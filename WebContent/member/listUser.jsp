@@ -11,46 +11,70 @@
 <title>게시글 목록보기</title>
 <style>
 .list_table {
-  margin: auto;
-  width: 70%;
-  text-align: center;
+	margin: auto;
+	width: 70%;
+	text-align: center;
 }
-.list_devide {
-  width: 30%;
-  height: 2px;
-  background-color: black;
-}
-.list_title_box {
-  margin: 3em 5em;
-}
-.list_title {
-  font-size: 36px;
-  font-weight: bolder;
-  margin: 0.3em 0;
-}
-.list_devide_dot {
-  margin-left: 10%;
-  border: 1px dotted black;
-  width: 80%;
-}
-#paging {
-    text-align: center;
-    margin: 5em;
-}
-   
 
+.list_devide {
+	width: 20%;
+	height: 4px;
+	background-color: black;
+}
+
+.list_title_box {
+	margin: 3em 5em;
+}
+
+.list_title {
+	font-size: 36px;
+	font-weight: bolder;
+	margin: 0.3em 0;
+	padding-left: 0.2em;
+}
+.list_notice{
+padding-left: 0.3em;
+}
+
+.list_devide_dot {
+	margin-left: 10%;
+	border: 1px dotted black;
+	width: 80%;
+}
+
+#paging {
+	text-align: center;
+	margin: 5em;
+}
+
+.table_head {
+	font-size: 24px;
+}
+
+.table_body {
+	font-size: 20px;
+}
+
+th {
+	border-bottom: 1px dotted;
+	padding: 0.5em 0;
+}
+
+td {
+	padding: 0.5em 0;
+}
 </style>
 </head>
 
 <body>
 	<div class="list_title_box">
 		<h1 class="list_title">사용자정보조회</h1>
-         <div class="list_devide"></div>
-         <h3 class="list_notice">회원 정보 목록을 조회합니다.</h3>
+		<div class="list_devide"></div>
+		<h3 class="list_notice">회원 정보 목록을 조회합니다.</h3>
 	</div>
 
 	<table class="list_table">
-		<thead>
+		<thead class="table_head">
 			<tr>
 				<th>번호</th>
 				<th>이름</th>
@@ -60,7 +84,7 @@
 				<th>탈퇴유형</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="table_body">
 			<c:forEach var="user" items="${requestScope.users}" varStatus="loop">
 				<tr>
 					<td>${requestScope.totalPostCount - (param.currentPage - 1) * requestScope.postSize - loop.index }</td>

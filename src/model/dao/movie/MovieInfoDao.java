@@ -21,7 +21,7 @@ public class MovieInfoDao {
 		return movieInfoDao;
 	}
 	
-	// ¿µÈ­ Á¤º¸ µî·Ï 
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 	public void insertMovie(MovieInfoVo movie) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -61,7 +61,7 @@ public class MovieInfoDao {
 		
 	}
 	
-	// ¿µÈ­ Á¦¸ñ ºñ±³
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public int compareMovie(String movieTitle) throws Exception {
 		int exists = 0;
 		
@@ -99,7 +99,7 @@ public class MovieInfoDao {
 		return exists;
 	}
 	
-	// ¿µÈ­ ¸ñ·Ï Á¶È¸
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public ArrayList<MovieInfoVo> selectMovieList(int startRow, int postSize) throws Exception {
 			
 		ArrayList<MovieInfoVo> movieList = new ArrayList<MovieInfoVo>();
@@ -145,7 +145,7 @@ public class MovieInfoDao {
 		return movieList;
 	}
 		
-	// ¿µÈ­ °Ô½Ã±Û ÃÑ ¼ö¸¦ ±¸ÇÑ´Ù.
+	// ï¿½ï¿½È­ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	public int selectTotlaMovieCount() throws Exception {
 		int count = 0;
 		
@@ -180,9 +180,8 @@ public class MovieInfoDao {
 		return count;
 	}
 		
-	// ¿µÈ­ Á¤º¸ »èÁ¦
-	public void deleteMovie(int movieNo) throws Exception {
-		Connection conn = null;
+	// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	public void deleteMovie(int movieNo, Connection conn) throws Exception {
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBConn.getConnection();
@@ -200,14 +199,13 @@ public class MovieInfoDao {
 		} finally {
 			try {
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
 			} catch (Exception e2) {
 				throw e2;
 			}
 		}
 	}
 		
-	// ¿µÈ­ »ó¼¼ Á¤º¸ Á¶È¸
+	// ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	 public MovieInfoVo selectMovie(String userId, int movieNo) throws Exception {
 		 Connection conn = null; 
 		 PreparedStatement pstmt = null; 
@@ -261,7 +259,7 @@ public class MovieInfoDao {
 		 return movieInfo;
 	 }
 	 
-	 // ¿µÈ­ Á¤º¸ ¼öÁ¤
+	 // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 public void updateMovie(MovieInfoVo movie) throws Exception {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;

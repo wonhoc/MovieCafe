@@ -23,7 +23,7 @@ public class GuanramDao {
 		return guanramDao;
 	}
 	
-	// °ü¶÷Æò ¸®½ºÆ® Á¶È¸
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¸
 	public ArrayList<GuanramListVo> selectGuanramList(int movieNo) throws Exception {
 		
 		ArrayList<GuanramListVo> guanramList = new ArrayList<GuanramListVo>();
@@ -75,7 +75,7 @@ public class GuanramDao {
 		return guanramList;
 	}
 	
-	// °ü¶÷Æò ÀÛ¼º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 	public void insertGuanram(MovieGuanramVo guanram) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -113,7 +113,7 @@ public class GuanramDao {
 		
 	}
 		
-	// »ç¿ëÀÚ ¾ÆÀÌµð ºñ±³
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½
 	public int compareUserId(String userId) throws Exception {
 		int exists = 0;
 				
@@ -151,7 +151,7 @@ public class GuanramDao {
 		return exists;
 	}
 	
-	// °ü¶÷Æò »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void deleteGuanram(int movieNo, String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -179,7 +179,32 @@ public class GuanramDao {
 		}
 	}
 	
-	// ÃßÃµ ¼ö Áõ°¡
+	public void deleteMovieGuanram(int movieNo, Connection conn) throws Exception {
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConn.getConnection();
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE FROM movie_guanram  WHERE movie_no = ? ");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, movieNo);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				throw e2;
+			}
+		}
+	}
+	
+	// ï¿½ï¿½Ãµ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void upLikecount(int movieNo, String userId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -210,7 +235,7 @@ public class GuanramDao {
 		}
 	}
 	
-	// ÃßÃµ ¼ö Á¶È¸
+	// ï¿½ï¿½Ãµ ï¿½ï¿½ ï¿½ï¿½È¸
 	public int selectGuanramLike(int movieNo, String userId) throws Exception {
 		int no = 0;
 		

@@ -12,7 +12,8 @@ section {
   width : 90%;
 }
 .content_title {
-  padding: 2em 0 0 2em;
+  padding: 0.5em 0 0 2em;
+  font-size: 34px;
 }
 .movieList {
   display: flex;
@@ -59,6 +60,10 @@ section {
 	width : 10rem;
 	height : 15rem;
 	border-radius : 0.25em;
+	transition: transform 200ms linear;
+}
+.movieImg:hover {
+	transform: scale(1.05);
 }
 .main_top {
   display: flex;
@@ -81,7 +86,6 @@ section {
   background-color: #e2e2e2;
 }
 
-<style>
 table {
 	width: 700px;
 	border-collapse: collapse;
@@ -115,7 +119,6 @@ h3 {
 .highlight {
 	background-color: yellow;
 }
-</style>
 </style>
 <script
       src="https://kit.fontawesome.com/69749f5203.js"
