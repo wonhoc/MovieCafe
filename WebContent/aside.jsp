@@ -20,7 +20,16 @@
 
 <style>
 button {
+  font-size: 16px;
+  color: #888787;
+  background-color: #fdfdfd;
+  border: 2px solid #888787;
+  border-radius: 0.25em;
+  transition: all 150ms ease-in;
   cursor : pointer;
+}
+button:hover {
+  background-color: #e2e2e2;
 }
 .aside_login {
   padding: 1em;
@@ -137,7 +146,12 @@ button {
 i {
   color : black;
 }
-
+.btn_box {
+	display: flex;
+	flex-direction: column;
+	height: 6rem;
+    justify-content: space-around; 
+}
 </style>
 
 </script>
@@ -191,22 +205,36 @@ i {
             		<img src="upload/user/${userInfo.photoSys }" alt="profile" class="login_profile" />
            	 	</c:if>
         
-              <p class="user_info_text">${userInfo.userId }</p>
-              <p class="user_info_text">${userInfo.userNick }</p>
-              <p class="user_info_text">${userInfo.joindate }</p>
+              <p class="user_info_text">아이디 : ${userInfo.userId }</p>
+              <p class="user_info_text">닉네임 : ${userInfo.userNick }</p>
+              <p class="user_info_text">가입일자 : ${userInfo.joindate }</p>
               
-              <div>
-              	<c:url var="userInfoUrl" value="/listUser.do"></c:url>
-              	<a href="${userInfoUrl }" >
-              		<i class="fas fa-user user_icon"></i>
-              	</a>
-           	 	
-           	 		<i class="fas fa-envelope user_icon" id="MsgHomeBtn"></i>  
+              <div class="btn_box">
+                <c:if test="${not userInfo.rankType.equals('A') }" >
+                	<div>
+	                	<button class="userInfo_btn">마이페이지</button>
+            		</div>
+                    <div>
+ 	          	 		<button id="MsgHomeBtn">쪽지 보관함</button>  
+            		</div>
            	 		<c:url var="logoutUrl" value="/logout.do"></c:url>
            	 		<a href="${logoutUrl }">
            	 			<button class="logout_btn">로그아웃</button> 
-           	 		</a>
-           	 		    	        	 	
+           	 		</a> 
+          		</c:if>
+          		<c:if test="${userInfo.rankType.equals('A') }" >
+          			<c:url var="userInfoUrl" value="/listUser.do"></c:url>
+              		<a href="${userInfoUrl }" >
+              			<button class="userInfo_btn">사용자 정보 조회</button>
+              		</a> 
+                   <div>
+ 	          	 		<button id="MsgHomeBtn">쪽지 보관함</button>  
+            		</div>
+           	 		<c:url var="logoutUrl" value="/logout.do"></c:url>
+           	 		<a href="${logoutUrl }">
+           	 			<button class="logout_btn">로그아웃</button> 
+           	 		</a> 	
+          		</c:if>
  			  </div>
             </c:if>
             
