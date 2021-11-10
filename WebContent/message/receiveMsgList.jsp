@@ -121,7 +121,7 @@ margin-right: auto;
 						<c:url var="detailReceiveMsgUrl" value="/detailReceiveMsg.do">
 							<c:param name="receiveMsgNo" value="${receiveMsg.receiveMsgNo }"/><%-- 받은 메세지 번호 --%>
 							<c:param name="isRead" value="${receiveMsg.isRead }"/><%-- 읽음확인 정보 --%>
-							<c:param name="receiveId" value="${requestScope.userId }"/><%-- 주소록에 수정할 읽은 사람 추후 session으로 바꿔주기 --%>
+							<c:param name="receiveId" value="${sessionScope.userInfo.userId }"/><%-- 주소록에 수정할 읽은 사람 추후 session으로 바꿔주기 --%>
 						</c:url>					
 						<tr>				
 							<td>
