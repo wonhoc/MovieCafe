@@ -78,7 +78,6 @@
 	<div id="content">
 		<form id="sendMsgForm"
 			action="${pageContext.request.contextPath }/sendMsg.do" method="POST">
-			<input type="hidden" name="userid" id="userid" value="test_user01">
 			<table border="1" id="sendMsgListTb">
 				<tr>
 					<td id="recieveId">받는사람 : <input type="text" name="reciveId"
