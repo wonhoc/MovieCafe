@@ -7,16 +7,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.ActionForward;
 import controller.Command;
+import domain.board.BoardVo;
 import domain.movie.MovieInfoVo;
+import model.dao.board.BoardDao;
+import model.dao.board.CommentDao;
+import model.dao.board.RecomDao;
 import model.dao.movie.MovieInfoDao;
 import model.service.movie.MovieService;
 
-public class MovieListCommand implements Command {
+public class MainCommand implements Command {
 
 	private static final int POST_PER_PAGE = 3;
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 메인 상단
 		MovieInfoDao movieInfoDao = MovieInfoDao.getInstance();
 
 		int currentPage = 0;
@@ -57,9 +62,38 @@ public class MovieListCommand implements Command {
 			request.setAttribute("totalPostCount", totalPostCount);
 			request.setAttribute("postSize", POST_PER_PAGE);
 			
+		// 메인 하단
+			BoardDao boardDao = BoardDao.getInstance();		
+			ArrayList<BoardVo> boards = boardDao.selectRecomRevList();
+			ArrayList<BoardVo> noticeBoards = boardDao.selectNoticeList();
 			
+			RecomDao recomDao = RecomDao.getInstance();
 			
+			for(BoardVo board : boards) {
+				int cnt = recomDao.selectRecomCnt(board.getBoardNo());
+				board.setRecomCount(cnt);
+			}
 			
+			for(BoardVo board : noticeBoards) {
+				int cnt = recomDao.selectRecomCnt(board.getBoardNo());
+				board.setRecomCount(cnt);
+			}
+			
+			//��� ���� ���ϴ�.
+			CommentDao commDao = CommentDao.getInstance();
+			
+			for (BoardVo board : boards) {
+				int cnt = commDao.selectCommCnt(board.getBoardNo());
+				board.setCommentCount(cnt);
+			}
+				
+			for (BoardVo board : noticeBoards) {
+				int cnt = commDao.selectCommCnt(board.getBoardNo());
+				board.setCommentCount(cnt);
+			}
+			request.setAttribute("boards", boards);
+			request.setAttribute("noticeBoards", noticeBoards);
+
 			return new ActionForward("/template.jsp?contentTemplate=main&currentPage=" + currentPage, false);	
 		}
 		

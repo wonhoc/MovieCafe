@@ -113,7 +113,7 @@ public class CommandFactory {
 		map.put("/upLikeGuanram.do", "controller.movie.ModifyGuanramLikeCommand");
 
 		// 영화 목록 조회 요청
-		map.put("/main.do", "controller.movie.MovieListCommand");
+		map.put("/main.do", "controller.movie.MainCommand");
 
 		// 영화 삭제 요청
 		map.put("/removeMovie.do", "controller.movie.RemoveMovieCommand");
