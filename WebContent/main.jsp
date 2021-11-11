@@ -21,7 +21,7 @@
 		.main_divide {
 			width: 90%;
 			margin-left: 5%;
-			margin-top: 2.5em;
+			margin-top: 2em;
 			border-bottom: 1px dotted #8c8c8c;
 		}
 
@@ -38,7 +38,7 @@
 			padding: 0 4em;
 		}
 
-		.movie_title {
+		.main_title {
 			padding: 0.5em 0 0 0.2em;
 			font-size: 28px;
 		}
@@ -133,6 +133,7 @@
 
 		table {
 			text-align: center;
+			margin-bottom: 3em;
 		}
 
 		th,
@@ -149,20 +150,23 @@
 		}
 
 		tbody>tr {
-			background-color: lightyellow;
+			background-color: #ffffe08f;
 			font-size: 18px;
-			border-bottom: 3px solid white;
+			border-bottom: 5px solid white;
 		}
 
 		.list_title {
 			font-weight: 600;
-
 		}
 
 		a {
 			color: black;
 			text-decoration: none
 		}
+		a:hover {
+			color: gray;
+		}
+		
 
 		.list_notice {
 			color: red;
@@ -213,7 +217,7 @@
 	<section>
 		<div class="main_top">
 			<div class="top_title">
-				<h1 class="movie_title">이 달의 영화</h1>
+				<h1 class="main_title">이 달의 영화</h1>
 
 				<c:if test="${userInfo.rankType.equals('A') }">
 					<c:url var="addMovieUrl"

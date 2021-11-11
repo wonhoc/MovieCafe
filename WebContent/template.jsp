@@ -22,7 +22,6 @@ main {
 }
 aside {
   width: 20%;
-  height: 100%;
   background-color: #eab48a;
 }
 section {
