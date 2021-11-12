@@ -158,14 +158,6 @@
 		.list_title {
 			font-weight: 600;
 		}
-
-		a {
-			color: black;
-			text-decoration: none
-		}
-		a:hover {
-			color: gray;
-		}
 		
 
 		.list_notice {
@@ -305,7 +297,7 @@
 						<th>댓글</th>
 					</thead>
 					<c:forEach var="board" items="${requestScope.boards}" varStatus="loop">
-						<c:url var="url" value="/board/detailBoard.do">
+						<c:url var="url" value="/detailBoard.do">
 							<c:param name="boardNo" value="${pageScope.board.boardNo}"></c:param>
 							<c:param name="cateNo" value="${pageScope.board.cateNo}"></c:param>
 						</c:url>
@@ -333,7 +325,7 @@
 						<th>추천수</th>
 					</thead>
 					<c:forEach var="noticeBoard" items="${requestScope.noticeBoards}" varStatus="loop">
-						<c:url var="url" value="/board/detailBoard.do">
+						<c:url var="url" value="/detailBoard.do">
 							<c:param name="boardNo" value="${pageScope.noticeBoard.boardNo}"></c:param>
 							<c:param name="cateNo" value="${pageScope.noticeBoard.cateNo}"></c:param>
 						</c:url>

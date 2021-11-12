@@ -13,7 +13,7 @@ public class RankupWriteFormCommand implements Command{
 
 		ActionForward forward = new ActionForward();
 		
-		return new ActionForward("/indexControl.jsp?contentTemplate=/board/rankUpWriteForm", false);
+		return new ActionForward("/template.jsp?contentTemplate=board/rankUpWriteForm", false);
 	}
 
 }

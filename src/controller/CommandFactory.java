@@ -12,21 +12,21 @@ public class CommandFactory {
 
 	private CommandFactory() {
 
-		map.put("/board/listBoard.do", "controller.board.listBoardCommand");
+		map.put("/listBoard.do", "controller.board.listBoardCommand");
 
 		// 게시판리스트
 		// 영화리뷰 게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_MovieReview.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardMovieReview.do", "controller.board.ListBoardCommand");
 		// 시사회정보 게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_sisa.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardsisa.do", "controller.board.ListBoardCommand");
 		// 영화관람팁 게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_Tip.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardTip.do", "controller.board.ListBoardCommand");
 		// 티켓마켓 게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_Ticket.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardTicket.do", "controller.board.ListBoardCommand");
 		// 이벤트 게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_Event.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardEvent.do", "controller.board.ListBoardCommand");
 		// 새싹게시판 게시글 목록 보기 조회 요청
-		map.put("/board/listBoard_NewMem.do", "controller.board.ListBoardCommand");
+		map.put("/listBoardNewMem.do", "controller.board.ListBoardCommand");
 
 		// 검색
 		// 게시글 검색 요청
@@ -57,7 +57,7 @@ public class CommandFactory {
 		// 나의 게시물 보기 요청
 		map.put("/board/myBoard.do", "controller.board.MyBoardCommand");
 		// 게시글 상세조회ㅐ 요청
-		map.put("/board/detailBoard.do", "controller.board.DetailBoardCommand");
+		map.put("/detailBoard.do", "controller.board.DetailBoardCommand");
 
 		// 영화관람 팁 상세보기
 		map.put("/board/tipDetailBoard.do", "controller.board.TipDetailBoardCommand");
@@ -72,7 +72,7 @@ public class CommandFactory {
 		map.put("/board/previewWriteForm.do", "controller.board.PreviewWriteCommand");
 
 		// 등업게시판
-		map.put("/board/rankupWriteForm.do", "controller.board.RankupWriteFormCommand");
+		map.put("/rankupWriteBoardForm.do", "controller.board.RankupWriteFormCommand");
 
 		// 티켓게시판
 		map.put("/board/ticketWriteForm.do", "controller.board.TicketWriteFormCommand");

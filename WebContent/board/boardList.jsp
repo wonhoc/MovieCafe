@@ -88,7 +88,7 @@
 		<c:set var = "currentPage" value = "${requestScope.currentPage}" scope="page"/>
 
 		<c:if test="${startPage > pageBlock}">
-			<c:url var="preUrl" value = "/board/listBoard.do">
+			<c:url var="preUrl" value = "/listBoard.do">
 				<c:param name = "currentPage" value = "${startPage - pageBlock}"/>
 			</c:url>
 			<a href = "${preUrl}">[Prev]</a>
@@ -98,14 +98,14 @@
 				&nbsp;${i}&nbsp;
 		</c:if>
 		<c:if test="${i != currentPage}">
-			<c:url var="url" value = "/board/listBoard.do">
+			<c:url var="url" value = "/listBoard.do">
 				<c:param name="currentPage" value ="${i}"/>
 			</c:url>
 			<a href ="${url}">&nbsp;${i}&nbsp;</a>
 		</c:if>
 		</c:forEach>
 		<c:if test="${endPage < totalPage}">
-			<c:url var="nextUrl" value ="/board/listBoard.do">
+			<c:url var="nextUrl" value ="/listBoard.do">
 					<c:param name="currentPage" value ="${endpage +1}"/>
 			</c:url>
 			<a herf="${nextUrl}">[Next]</a>

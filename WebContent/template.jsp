@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -12,49 +12,58 @@
 <title>Insert title here</title>
 <style>
 header {
-  padding-top: 1em;
+	padding-top: 1em;
 }
+
 main {
-
-	display : flex;
-	width : 100%;
-
+	display: flex;
+	width: 100%;
 }
+
 aside {
-  width: 20%;
-  background-color: #eab48a;
+	width: 20%;
+	background-color: #eab48a;
 }
+
 section {
-
-	width : 100%;
-
+	width: 100%;
 }
+
 footer {
-  display: flex;
-  background-color: #f3f2f2;
-  justify-content: center;
-  padding: 1em;
-  align-items: center;
-  color: #b1b1b1;
+	display: flex;
+	background-color: #f3f2f2;
+	justify-content: center;
+	padding: 1em;
+	align-items: center;
+	color: #b1b1b1;
+}
+
+a {
+	color: black;
+	text-decoration: none
+}
+
+a:hover {
+	color: gray;
 }
 </style>
 </head>
 <body>
-<header>
+	<header>
 
-	<jsp:include page="/header.jsp" flush="false"></jsp:include>
-</header>
-<main>
-	<aside>
-		<jsp:include page="/aside.jsp" flush="false"></jsp:include>
-	</aside>
-	<section>
-		<jsp:include page="${contentTemplate }" ></jsp:include>
-	</section>
-</main>
-<footer>
-	<jsp:include page="/footer.jsp" flush="false"></jsp:include>
+		<jsp:include page="/header.jsp" flush="false"></jsp:include>
+	</header>
+	<main>
+		<aside>
+			<jsp:include page="/aside.jsp" flush="false"></jsp:include>
+		</aside>
+		<section>
+			<jsp:include page="${contentTemplate }"></jsp:include>
+		</section>
+	</main>
+	<footer>
+		<jsp:include page="/footer.jsp" flush="false"></jsp:include>
 
-</footer>
+	</footer>
 </body>
 </html>
