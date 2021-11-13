@@ -25,8 +25,6 @@ public class RecomDao {
 	}
 	
 	
-	//게시글을 추천하다
-	
 		public void insertRecommend(RecomVo recom) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -44,7 +42,6 @@ public class RecomDao {
 				
 				pstmt.executeUpdate();
 
-				System.out.println("추천 insert완료" + recom.getRecommender());
 			} catch (SQLException e) {
 				throw e;
 			} finally {
@@ -62,7 +59,6 @@ public class RecomDao {
 
 		}
 		
-		//게시글 추천을 취소하다,
 		
 		public void deleteRecommend(RecomVo recom) throws Exception {
 			Connection conn = null;
@@ -81,7 +77,6 @@ public class RecomDao {
 				
 				pstmt.executeUpdate();
 
-				System.out.println("추천취소완료" + recom.getRecommender());
 			} catch (SQLException e) {
 				throw e;
 			} finally {
@@ -98,7 +93,6 @@ public class RecomDao {
 			}
 
 		}
-		//게시글의 추천수를 구하다,.selectRecomCnt
 		public int selectRecomCnt(int boardNo) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -122,7 +116,6 @@ public class RecomDao {
 				while(rs.next()) {
 				cnt = rs.getInt(1);
 				}
-				System.out.println(boardNo+"추천수 조회 완료" + cnt);
 			} catch (SQLException e) {
 				throw e;
 			} finally {
@@ -141,7 +134,6 @@ public class RecomDao {
 			return cnt;
 		}
 		
-		//추천 중복을 위해 추천 테이블 아이디를 조회한다.,
 		public ArrayList<String> selectRecommender(int boardNo) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;

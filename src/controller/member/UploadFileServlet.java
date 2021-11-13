@@ -63,7 +63,6 @@ public class UploadFileServlet extends HttpServlet {
 
 			}			
 		
-			System.out.println(user);
 
 			UserService service = UserService.getInstance();
 			service.modifyUser(user);

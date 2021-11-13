@@ -11,7 +11,7 @@ public class WriteFormCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		return new ActionForward("/board/tipWriteForm.jsp", false);	
+		return new ActionForward("/template.jsp?contentTemplate=board/tipWriteForm", false);
 	}
 
 	

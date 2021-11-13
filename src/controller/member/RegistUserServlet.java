@@ -36,14 +36,6 @@ public class RegistUserServlet extends HttpServlet {
 			String userName = request.getParameter("userName");
 			String gender = request.getParameter("pickGender");
 
-			System.out.println("userId" + userId);
-			System.out.println("userPwd" + userPwd);
-			System.out.println("userEmail" + userEmail);
-			System.out.println("userBirth" + userBirth);
-			System.out.println("userContact" + userContact);
-			System.out.println("userNick" + userNick);
-			System.out.println("userName" + userName);
-			System.out.println("gender" + gender);
 
 			// 프로필 사진 업로드
 

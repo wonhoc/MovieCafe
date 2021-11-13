@@ -32,7 +32,6 @@ public class MainCommand implements Command {
 		}
 
 		int startRow = (currentPage - 1) * POST_PER_PAGE;
-		System.out.println(startRow + ": startRow");
 
 		ArrayList<MovieInfoVo> movieList = movieInfoDao.selectMovieList(startRow, POST_PER_PAGE);
 
@@ -79,7 +78,6 @@ public class MainCommand implements Command {
 				board.setRecomCount(cnt);
 			}
 			
-			//��� ���� ���ϴ�.
 			CommentDao commDao = CommentDao.getInstance();
 			
 			for (BoardVo board : boards) {

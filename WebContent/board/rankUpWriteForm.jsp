@@ -35,7 +35,7 @@
 	<form name="form" id="form" role="form" method="post" action="/movieCafeWepApp/fileUpload" enctype="multipart/form-data">
 	
 	 <%-- 세션에 있는 아이디  --%>
-	 <input type="hidden" name = "userId" value="test_user01">
+	 <input type="hidden" name = "userId" value="${userInfo.userId}"> 
 	 
 	 
 	 <%-- 말머리(나중에 수정) --%>

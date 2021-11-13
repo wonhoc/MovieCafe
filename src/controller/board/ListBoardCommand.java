@@ -24,8 +24,6 @@ public class ListBoardCommand implements Command {
 		
 		int cateNo = Integer.parseInt(request.getParameter("cateNo"));
 		
-		System.out.println(cateNo);
-		
 		// int cateNo = 2;
 		int currentPage = 0;
 		try {
@@ -60,7 +58,6 @@ public class ListBoardCommand implements Command {
 		int endPage = startPage + (PAGE_BLOCK - 1);
 
 		int totalPostCount = BoardService.getInstance().retrieveTotalPostCount(cateNo);
-		System.out.println(totalPostCount);
 		int totalPage = totalPostCount % POST_PER_PAGE == 0 ? totalPostCount / POST_PER_PAGE
 				: totalPostCount / POST_PER_PAGE + 1;
 

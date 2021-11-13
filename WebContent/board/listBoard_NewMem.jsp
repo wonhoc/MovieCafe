@@ -71,22 +71,37 @@ tbody>tr {
 	font-weight: 600;
 	color: red;
 }
-
+.bottom{
+	display: flex;
+	padding-right: 10em;
+	align-items: center;
+}
 #paging {
 	width: 200px;
 	margin: 10px auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #search {
 	width: 30em;
 }
+.page_num{
+	font-size: 20px;
+	margin: 0 0.3em;
+	font-weight: 600;
+}
+.now_page{
+	color: gray;
+}
+
 
 .highlight {
 	background-color: yellow;
 }
-.bottom{
-	display: flex;
-	padding-right: 10em;
+.write_btn{
+	height: 3em;
 }
 </style>
 <script src="https://kit.fontawesome.com/69749f5203.js" crossorigin="anonymous"></script>
@@ -98,8 +113,8 @@ tbody>tr {
 <body>
 	<div class="list_top">
 		<h3 class="list_title">새싹 게시판</h3>
-			<form action="${pageContext.request.contextPath}/board/searchBoard.do"
-			method="GET" >
+		
+			<form action="${pageContext.request.contextPath}/searchBoard.do" method="GET" >
 			<input type="hidden" name="cateNo" value="${requestScope.cateNo }">
 			<div id="search">
 				<select name="keyfield" id="keyfield">
@@ -186,14 +201,14 @@ tbody>tr {
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<c:if test="${i == currentPage}">
-				&nbsp;${i} &nbsp;
+				<p class="page_num now_page">${i}</p> 
 				</c:if>
 				<c:if test="${i != currentPage}">
 					<c:url var="url" value="/listBoardNewMem.do">
 						<c:param name="cateNo" value="${param.cateNo }"></c:param>
 						<c:param name="currentPage" value="${i}" />
 					</c:url>
-					<a href="${url}">&nbsp;${i} &nbsp;</a>
+					<a href="${url}" class="page_num">${i} </a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage < totalPage}">

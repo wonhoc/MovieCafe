@@ -11,14 +11,8 @@ public class TicketWriteFormCommand implements Command{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
-		ActionForward forward = new ActionForward();
-		return new ActionForward("/board/ticketWriteForm.jsp", false);
-		
-		
+		return new ActionForward("/template.jsp?contentTemplate=board/ticketWriteForm", false);
 		
 	}
 
-	
-	
 }

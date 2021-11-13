@@ -22,8 +22,6 @@ public class ReportDao {
 	}
 	
 	
-	//게시글을 신고하다
-	
 		public void insertReportBoard(ReportVo report) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -41,7 +39,6 @@ public class ReportDao {
 				
 				pstmt.executeUpdate();
 
-				System.out.println("신고 insert완료" + report.getReportedId());
 			} catch (SQLException e) {
 				throw e;
 			} finally {

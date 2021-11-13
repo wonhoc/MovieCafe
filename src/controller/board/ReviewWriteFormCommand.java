@@ -12,14 +12,8 @@ public class ReviewWriteFormCommand implements Command{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("/board/reviewWriteForm.jsp");
-		return forward;
-		
-		
+		return new ActionForward("/template.jsp?contentTemplate=board/reviewWriteForm", false);
 		
 	}
 
-	
-	
-	
 }

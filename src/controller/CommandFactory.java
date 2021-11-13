@@ -30,7 +30,7 @@ public class CommandFactory {
 
 		// 검색
 		// 게시글 검색 요청
-		map.put("/board/searchBoard.do", "controller.board.SearchBoardCommand");
+		map.put("/searchBoard.do", "controller.board.SearchBoardCommand");
 		// 게시글 상세조회ㅐ 요청
 		map.put("/detailBoard.do", "controller.board.DetailBoardCommand");
 
@@ -60,25 +60,25 @@ public class CommandFactory {
 		map.put("/detailBoard.do", "controller.board.DetailBoardCommand");
 
 		// 영화관람 팁 상세보기
-		map.put("/board/tipDetailBoard.do", "controller.board.TipDetailBoardCommand");
+		map.put("/tipDetailBoard.do", "controller.board.TipDetailBoardCommand");
 
 		// 게시판 작성
-		map.put("/board/tipWrite.do", "controller.board.WriteFormCommand");
+		map.put("/tipWrite.do", "controller.board.WriteFormCommand");
 
 		// 리뷰게시판
-		map.put("/board/reviewWriteForm.do", "controller.board.ReviewWriteFormCommand");
+		map.put("/reviewWriteForm.do", "controller.board.ReviewWriteFormCommand");
 
 		// 시사회정보게시판
-		map.put("/board/previewWriteForm.do", "controller.board.PreviewWriteCommand");
+		map.put("/previewWriteForm.do", "controller.board.PreviewWriteCommand");
 
 		// 등업게시판
 		map.put("/rankupWriteBoardForm.do", "controller.board.RankupWriteFormCommand");
 
 		// 티켓게시판
-		map.put("/board/ticketWriteForm.do", "controller.board.TicketWriteFormCommand");
+		map.put("/ticketWriteForm.do", "controller.board.TicketWriteFormCommand");
 
 		// 이벤트게시판
-		map.put("/board/eventWriteBoardForm.do", "controller.board.EventWriteFormCommand");
+		map.put("/eventWriteBoardForm.do", "controller.board.EventWriteFormCommand");
 
 		// ۾ û
 		map.put("/board/writeBoard.do", "controller.board.WriteBoardCommand");

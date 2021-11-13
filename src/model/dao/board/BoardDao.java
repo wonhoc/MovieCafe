@@ -70,7 +70,6 @@ public class BoardDao {
 					String boardWdate = rs.getString(5);
 					int boardCnt = rs.getInt(6);
 					boards.add(new BoardVo(boardNo, boardTitle, boardCnt, boardWdate, boardNotice, userId));
-					System.out.println(boardTitle + userId);
 				}
 			} catch (Exception e) {
 				throw e;
@@ -322,7 +321,6 @@ public class BoardDao {
 
 				boards.add(board);
 
-				System.out.println(board.getBoardTitle());
 			}
 
 		} catch (Exception e) {
@@ -662,7 +660,6 @@ public class BoardDao {
 					board.setBoardCount(rs.getInt(6));
 					boardList.add(board);
 
-					System.out.println(board.getBoardTitle());
 				}
 				return boardList;
 
@@ -729,7 +726,6 @@ public class BoardDao {
 					board.setBoardCount(rs.getInt(6));
 					boardList.add(board);
 
-					System.out.println(board.getBoardTitle());
 				}
 				return boardList;
 
@@ -792,7 +788,6 @@ public class BoardDao {
 					board.setBoardCount(rs.getInt(6));
 					boardList.add(board);
 
-					System.out.println(board.getBoardTitle());
 				}
 				return boardList;
 

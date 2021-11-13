@@ -12,14 +12,42 @@
 <meta charset="UTF-8">
 <title>영화관람 팀 게시글 목록</title>
 <style>
+.list_top{
+	display: flex;
+	align-items: center;
+    padding: 0 8em;
+	margin-top: 3em;
+}
+.list_title{
+	flex: 1;
+	font-size: 34px;
+}
+.list_search{
+	display: contents;
+}
+#keyfield{
+	height: 3em;
+}
+#keyword{
+	height: 3em;
+}
+#searchBtn{
+	height: 2.5em;
+	width: 3em;
+	padding: 0;
+}
+
+.table{
+	height: 60%;
+}
 table {
-	width: 700px;
+	width: 85%;
 	border-collapse: collapse;
 	margin: 50px auto;
 	font-size: 12px;
 }
 
-table, tr, th, td {
+tr, th, td {
 	border: 2px solid black;
 	text-align: center;
 }
@@ -27,23 +55,52 @@ table, tr, th, td {
 th, td {
 	height: 35px;
 }
-
-h3 {
-	text-align: center;
+thead>tr {
+	font-size: 1.8rem;
 }
-
+tbody>tr {
+	font-size: 1.2rem;
+}
+.thead_num, .thead_writer, .thead_count, .thead_like, .thead_comm{
+	width: 6rem;
+}
+.thead_title{
+	width: 60rem;
+}
+.thead_date{
+	width: 20rem;
+}
+.notice{
+	font-weight: 600;
+	color: red;
+}
+.bottom{
+	display: flex;
+	padding-right: 10em;
+	align-items: center;
+}
 #paging {
 	width: 200px;
 	margin: 10px auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #search {
-	margin: 10px auto;
-	width: 500px;
+	width: 30em;
+}
+.page_num{
+	font-size: 20px;
+	margin: 0 0.3em;
+	font-weight: 600;
+}
+.now_page{
+	color: gray;
 }
 
-.highlight {
-	background-color: yellow;
+.write_btn{
+	height: 3em;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -52,12 +109,12 @@ h3 {
 
 </head>
 <body>
- 
-	<h3>영화관람 팁 게시판</h3>
-	<form action="${pageContext.request.contextPath}/board/searchBoard.do" method="GET">
+ <div class="list_top">
+	<h3 class="list_title">영화관람 팁 게시판</h3>
+	<form action="${pageContext.request.contextPath}/searchBoard.do" method="GET">
 	<input type="hidden" name= "cateNo" value="${requestScope.cateNo }">
 	<div id="search">
-		<select name= "keyfield" id="keyfield" style="height: 30px;">
+		<select name= "keyfield" id="keyfield">
 			<option value="all">전체</option>
 			<option value="user_id">작성자</option>
 			<option value="board_title">제목</option>
@@ -66,109 +123,112 @@ h3 {
 		</select>
 	
 		
-			<input type="search" placeholder="검색어를 입력하세요" size="10" name= "keyword" id="keyword"	>
+			<input type="search" placeholder="검색어를 입력하세요" size="30" name= "keyword" id="keyword"	>
 		
 			<button type="submit" id="searchBtn" >검색</button>
 		</div>
 	</div>
 	</form>
-	
-	<table>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>작성일자</th>
-				<th>조회</th>
-				<th>추천</th>
-				<th>댓글</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<c:if test="${empty requestScope.boards}">
+ </div>
+	<div class="table">
+		<table>
+			<thead>
 				<tr>
-					<td colspan="7">등록된 게시글이 없습니다.</td>
+					<th class="thead_num">번호</th>
+					<th class="thead_writer">작성자</th>
+					<th class="thead_title">제목</th>
+					<th class="thead_date">작성일자</th>
+					<th class="thead_count">조회</th>
+					<th class="thead_like">추천</th>
+					<th class="thead_comm">댓글</th>
 				</tr>
-			</c:if>
-
-			<c:if test="${not empty requestScope.boards}">
-				<c:forEach var="board" items="${requestScope.boards}"
-					varStatus="loop">
-					<c:url var="url" value="/board/tipDetailBoard.do">
-						<c:param name="boardNo" value="${pageScope.board.boardNo}"></c:param>
-						
-						<c:param name="cateNo" value="${param.cateNo}"></c:param>
-					</c:url>
+			</thead>
+			<tbody>
+	
+				<c:if test="${empty requestScope.boards}">
 					<tr>
-						<td>${requestScope.totalPostCount - (param.currentPage -1) * requestScope.postSize - loop.index }</td>
-						<td>${pageScope.board.userId }</td>
-						<c:if test="${pageScope.board.boardNotice==1 }">
-						<td style="background-color:yellow;"><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
-						</c:if>
-						<c:if test="${pageScope.board.boardNotice==0 }">
-						<td><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
-						</c:if>
-						<td>${pageScope.board.boardWdate }</td>
-						<td>${pageScope.board.boardCount }</td>
-						<td>${pageScope.board.recomCount}</td>
-						<td>${pageScope.board.commentCount}</td>
+						<td colspan="7">등록된 게시글이 없습니다.</td>
 					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
-
-	<%-- 페이징 처리 --%>
-
-	<div id="paging">
-	<c:set var="cateNo" value="${param.cateNo }" scope="page" />
-		<c:set var="pageBlock" value="${requestScope.pageBlock}" scope="page" />
-		<c:set var="startPage" value="${requestScope.startPage}" scope="page" />
-		<c:set var="endPage" value="${requestScope.endPage}" scope="page" />
-		<c:set var="totalPage" value="${requestScope.totalPage}" scope="page" />
-		<c:set var="currentPage" value="${param.currentPage }" scope="page" />
-
-		<c:if test="${startPage > pageBlock }">
-			<c:url var="prevUrl" value="/board/listBoard_Tip.do">
-				<c:param name="cateNo" value="${param.cateNo }"></c:param>
-				<c:param name="currentPage" value="${startPage - pageBlock }"></c:param>
-			</c:url>
-			<a href="${prevUrl}">[Prev]</a>
-		</c:if>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<c:if test="${i == currentPage}">
-			&nbsp;${i} &nbsp;
-			</c:if>
-			<c:if test="${i != currentPage}">
-				<c:url var="url" value="/board/listBoard_Tip.do">
-				<c:param name="cateNo" value="${param.cateNo }"></c:param>
-					<c:param name="currentPage" value="${i}" />
-				</c:url>
-				<a href="${url}">&nbsp;${i} &nbsp;</a>
-			</c:if>
-		</c:forEach>
-		<c:if test="${endPage < totalPage}">
-			<c:url var="nextUrl" value="/board/listBoard_Tip.do">
-			
-				<c:param name="cateNo" value="${param.cateNo }"></c:param>
-				<c:param name="currentPage" value="${endPage + 1 }"></c:param>
-			</c:url>
-			<a href="${nextUrl}">[Next]</a>
-		</c:if>
+				</c:if>
+	
+				<c:if test="${not empty requestScope.boards}">
+					<c:forEach var="board" items="${requestScope.boards}"
+						varStatus="loop">
+						<c:url var="url" value="/tipDetailBoard.do">
+							<c:param name="boardNo" value="${pageScope.board.boardNo}"></c:param>
+							
+							<c:param name="cateNo" value="${param.cateNo}"></c:param>
+						</c:url>
+						<tr>
+							<td>${requestScope.totalPostCount - (param.currentPage -1) * requestScope.postSize - loop.index }</td>
+							<td>${pageScope.board.userId }</td>
+							<c:if test="${pageScope.board.boardNotice==1 }">
+							<td><a href="${pageScope.url}" class="notice">${pageScope.board.boardTitle }</a></td>
+							</c:if>
+							<c:if test="${pageScope.board.boardNotice==0 }">
+							<td><a href="${pageScope.url}">${pageScope.board.boardTitle }</a></td>
+							</c:if>
+							<td>${pageScope.board.boardWdate }</td>
+							<td>${pageScope.board.boardCount }</td>
+							<td>${pageScope.board.recomCount}</td>
+							<td>${pageScope.board.commentCount}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</tbody>
+		</table>
 	</div>
+
+	<div class="bottom">
+		<%-- 페이징 처리 --%>
+
+		<div id="paging">
+		<c:set var="cateNo" value="${param.cateNo }" scope="page" />
+			<c:set var="pageBlock" value="${requestScope.pageBlock}" scope="page" />
+			<c:set var="startPage" value="${requestScope.startPage}" scope="page" />
+			<c:set var="endPage" value="${requestScope.endPage}" scope="page" />
+			<c:set var="totalPage" value="${requestScope.totalPage}" scope="page" />
+			<c:set var="currentPage" value="${param.currentPage }" scope="page" />
 	
-			<c:url var="writeUrl" value="/board/tipWrite.do">
-				<c:param name="cateNo" value="${param.cateNo}"></c:param>
-			</c:url>
-	
-			
-			<div class="write">
-					<a href="${writeUrl}">[글쓰기]</a>
-			</div>
-			
-</form>
+			<c:if test="${startPage > pageBlock }">
+				<c:url var="prevUrl" value="/listBoardTip.do">
+					<c:param name="cateNo" value="${param.cateNo }"></c:param>
+					<c:param name="currentPage" value="${startPage - pageBlock }"></c:param>
+				</c:url>
+				<a href="${prevUrl}">[Prev]</a>
+			</c:if>
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<c:if test="${i == currentPage}">
+					<p class="page_num now_page">${i}</p>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<c:url var="url" value="/listBoardTip.do">
+					<c:param name="cateNo" value="${param.cateNo }"></c:param>
+						<c:param name="currentPage" value="${i}" />
+					</c:url>
+					<a href="${url}" class="page_num">${i} </a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${endPage < totalPage}">
+				<c:url var="nextUrl" value="/listBoardTip.do">
+				
+					<c:param name="cateNo" value="${param.cateNo }"></c:param>
+					<c:param name="currentPage" value="${endPage + 1 }"></c:param>
+				</c:url>
+				<a href="${nextUrl}">[Next]</a>
+			</c:if>
+		</div>
+		
+				<c:url var="writeUrl" value="/tipWrite.do">
+					<c:param name="cateNo" value="${param.cateNo}"></c:param>
+				</c:url>
+		
+				<button class="write_btn">
+					<a href="${writeUrl}">글쓰기</a>
+				</button>
+				
+	</form>
+	</div>
 
 </body>
 </html>

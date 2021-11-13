@@ -21,7 +21,6 @@ public class MovieInfoDao {
 		return movieInfoDao;
 	}
 	
-	// ��ȭ ���� ��� 
 	public void insertMovie(MovieInfoVo movie) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -61,7 +60,6 @@ public class MovieInfoDao {
 		
 	}
 	
-	// ��ȭ ���� ��
 	public int compareMovie(String movieTitle) throws Exception {
 		int exists = 0;
 		
@@ -95,11 +93,9 @@ public class MovieInfoDao {
 				throw e2;
 			}
 		}
-		System.out.println(exists);
 		return exists;
 	}
 	
-	// ��ȭ ��� ��ȸ
 	public ArrayList<MovieInfoVo> selectMovieList(int startRow, int postSize) throws Exception {
 			
 		ArrayList<MovieInfoVo> movieList = new ArrayList<MovieInfoVo>();
@@ -145,7 +141,6 @@ public class MovieInfoDao {
 		return movieList;
 	}
 		
-	// ��ȭ �Խñ� �� ���� ���Ѵ�.
 	public int selectTotlaMovieCount() throws Exception {
 		int count = 0;
 		
@@ -180,7 +175,6 @@ public class MovieInfoDao {
 		return count;
 	}
 		
-	// ��ȭ ���� ����
 	public void deleteMovie(int movieNo, Connection conn) throws Exception {
 		PreparedStatement pstmt = null;
 		try {
@@ -205,7 +199,6 @@ public class MovieInfoDao {
 		}
 	}
 		
-	// ��ȭ �� ���� ��ȸ
 	 public MovieInfoVo selectMovie(String userId, int movieNo) throws Exception {
 		 Connection conn = null; 
 		 PreparedStatement pstmt = null; 
@@ -259,7 +252,6 @@ public class MovieInfoDao {
 		 return movieInfo;
 	 }
 	 
-	 // ��ȭ ���� ����
 	 public void updateMovie(MovieInfoVo movie) throws Exception {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;

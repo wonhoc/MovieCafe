@@ -26,7 +26,6 @@ public class LoginCommand implements Command {
 				UserInfoVo userInfoVo = new UserInfoVo(userId, userPwd);
 			
 				int isMember = service.loginUser(userInfoVo);
-				System.out.println(isMember);
 				
 				if(isMember == 1) {
 					
@@ -34,13 +33,10 @@ public class LoginCommand implements Command {
 					UserInfoVo user = service.retrieveIdRankNick(userId);				
 					
 					session.setAttribute("userInfo", user);
-					System.out.println(user);
 					session.setMaxInactiveInterval(30 * 60);
-					System.out.println("성공");
 					return new ActionForward("/main.do", true);					
 					
 				} else {
-					System.out.println("실패");
 					response.setContentType("text/html; charset=UTF-8");
 					
 					PrintWriter out = response.getWriter();

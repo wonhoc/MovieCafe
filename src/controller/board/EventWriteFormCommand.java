@@ -11,9 +11,6 @@ public class EventWriteFormCommand implements Command {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ActionForward forward = new ActionForward();
-
-		return new ActionForward("/indexControl.jsp?contentTemplate=/board/eventWrtieBoardForm", false);
-
+		return new ActionForward("/template.jsp?contentTemplate=board/eventWrtieBoardForm", false);
 	}
 }
