@@ -16,6 +16,19 @@ content {
 	width: 100%;
 }
 
+.join_box {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.join_right{
+	width: 30em;
+}
+.join_left{
+	width: 45em;
+}
+
 .join_title {
 	font-size: 36px;
 	font-weight: bolder;
@@ -43,19 +56,39 @@ content {
 
 .input_title {
 	margin-right: 1em;
+	width: 10em;
 }
 
 .input_box {
 	height: 1.5rem;
 	outline: auto;
 	border-radius: 0.25em;
+	width: 15em;
 }
 
-.join_box {
+.input_select{
 	display: flex;
-	width: 100%;
-	justify-content: space-around;
 }
+.input_profile{
+	display: flex;
+	align-items: center;
+	margin-bottom: 3em;
+}
+.input_radio{
+	font-size: 1.3rem;
+}
+#pickMale, #pickfeMale{
+	width: 1.3rem;
+	height: 1.3rem;
+}
+
+#contact1{
+	width: 5em;
+}
+#contact2, #contact3, #birthYear, #birthMonth, #birthDate{
+	width: 6em;
+}
+
 
 button {
 	cursor: pointer;
@@ -108,11 +141,16 @@ button:hover {
 	width: 8rem;
 	height: 8rem;
 	border: 1px solid;
+	margin-right: 5em;
 }
 
 .btn_box {
-	margin-top: 3em;
-	text-align: center;
+	display: flex;
+    flex-direction: unset;
+    justify-content: flex-end;
+    align-items: end;
+    margin-top: 3em;
+    text-align: center;
 }
 
 .submitBtn {
@@ -353,8 +391,7 @@ $(document).ready(function() {
 		<div class="join_notice">
 			<h1 class="join_title">회원 가입</h1>
 			<div class="join_devide"></div>
-			<p class="join_text">철수와 영화에 오신 것을 환영합니다.</p>
-			<p class="join_text">회원 가입을 위해서 아래 내용을 작성해주세요</p>
+			<p class="join_text">철수와 영화에 오신 것을 환영합니다.<br>회원 가입을 위해서 아래 내용을 작성해주세요</p>
 		</div>
 
 		<form action="${pageContext.request.contextPath}/joinUser"
@@ -391,16 +428,22 @@ $(document).ready(function() {
 					</div>
 					<div class="input_section">
 						<h3 class="input_title">생년월일</h3>
-						<select id="birthYear" name="birthYear"></select> <select
-							id="birthMonth" name="birthMonth"></select> <select
-							id="birthDate" name="birthDate"></select>
+						<div class="input_box input_select">
+							<select id="birthYear" name="birthYear"></select> 
+							<select id="birthMonth" name="birthMonth"></select> 
+							<select id="birthDate" name="birthDate"></select>
+						</div>
 					</div>
 					<div class="input_section">
 						<h3 class="input_title">연락처</h3>
-						<select id="contact1" name="contact1">
-							<option value="010">010</option>
-						</select> <input type="text" id="contact2" name="contact2"> <input
-							type="text" id="contact3" name="contact3">
+						<div class="input_box input_select">
+							<select id="contact1" name="contact1">
+								<option value="010">010</option>
+							</select> 
+							<input type="text" id="contact2" name="contact2"> 
+							<input type="text" id="contact3" name="contact3">
+						</div>
+				
 					</div>
 					<div class="input_section">
 						<h3 class="input_title">닉네임 설정</h3>
@@ -410,11 +453,12 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="join_right">
-
-					<img id="img">
-					<div class="form_imgBtn">
-						<label for="imgInput">이미지 등록</label> <input type="file"
-							class="form_imgInput" id="imgInput" name="imgInput" />
+					<div class="input_profile">
+						<img id="img">
+						<div class="form_imgBtn">
+							<label for="imgInput">이미지 등록</label> <input type="file"
+								class="form_imgInput" id="imgInput" name="imgInput" />
+						</div>
 					</div>
 
 					<div class="input_section">
@@ -423,16 +467,18 @@ $(document).ready(function() {
 					</div>
 					<div class="input_section">
 						<h3 class="input_title">성별</h3>
-						<label for="pickGender">남</label> <input type="radio"
-							name="pickGender" id="pickMale" value="M" checked> <label
-							for="pickFemale">여</label> <input type="radio" name="pickGender"
-							id="pickfeMale" value="F">
+						<div class="input_radio">
+							<label for="pickGender">남</label> 
+							<input type="radio" name="pickGender" id="pickMale" value="M" checked> 
+							<label for="pickFemale">여</label> 
+							<input type="radio" name="pickGender" id="pickfeMale" value="F">
+						</div>
+					</div>
+					<div class="btn_box">
+						<button class="submitBtn" type="button">취소</button>
+						<button class="submitBtn" id="isSubmitBtn" type="button">확인</button>
 					</div>
 				</div>
-			</div>
-			<div class="btn_box">
-				<button class="submitBtn" type="button">취소</button>
-				<button class="submitBtn" id="isSubmitBtn" type="button">확인</button>
 			</div>
 
 		</form>
