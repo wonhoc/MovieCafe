@@ -179,7 +179,7 @@ public class CommandFactory {
 		map.put("/listUser.do", "controller.member.ListUserCommand");
 
 		// ID/PWD 찾기에서 아이디 반환 요청
-		map.put("/returnId.do", "controller.member.returnIdCommand");
+		map.put("/returnId.do", "controller.member.ReturnIdCommand");
 
 		// ID/PWD 찾기에서 비밀번호 반환 요청
 		map.put("/returnPw.do", "controller.member.ReturnPwdCommand");
