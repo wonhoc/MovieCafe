@@ -5,4 +5,4 @@ MovieCafe
 
 
 개발환경
-![image](https://user-images.githubusercontent.com/92851140/150705340-601b05d3-5d95-43b1-9976-c18b5be6998d.png)
+<img src="https://user-images.githubusercontent.com/92851140/150705340-601b05d3-5d95-43b1-9976-c18b5be6998d.png">
